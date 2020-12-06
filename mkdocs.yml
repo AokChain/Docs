@@ -1,0 +1,14 @@
+site_name: AOK Docs
+pages:
+  - 'index.md'
+  - 'daemon.md'
+  - 'desktop.md'
+  - 'mobile.md'
+  - 'staking.md'
+  - 'atomic.md'
+theme:
+  name: material
+  palette:
+    scheme: default
+markdown_extensions:
+  - admonition
