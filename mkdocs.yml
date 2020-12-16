@@ -6,6 +6,7 @@ pages:
   - 'mobile.md'
   - 'staking.md'
   - 'atomic.md'
+  - 'rpc.md'
 theme:
   name: material
   palette:
