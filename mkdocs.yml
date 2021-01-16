@@ -1,4 +1,4 @@
-site_name: AOK Docs
+site_name: AOK Documents V1.0
 pages:
   - 'index.md'
   - 'daemon.md'
@@ -11,5 +11,11 @@ theme:
   name: material
   palette:
     scheme: default
+  favicon: assets/images/favicon.png
+  logo: assets/logo.png
+  generator: false
+extra_css:
+  - assets/stylesheets/extra.css
 markdown_extensions:
   - admonition
+copyright: © 2020 AOK Group Limited. All Rights Reserved.

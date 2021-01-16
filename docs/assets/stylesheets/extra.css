@@ -1,0 +1,38 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+
+:root {
+  --md-primary-fg-color:        #054848;
+  --md-primary-fg-color--light: #f2f5f5;
+  --md-primary-fg-color--dark:  #90030C;
+  --md-accent-fg-color:         #033030;
+}
+
+.md-header {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    background-color: #054848;
+}
+
+.md-sidebar {
+}
+
+h1 {
+    font-family: 'Lora', serif;
+    color: #054848;
+}
+
+h2, h3, h4, h5, h6 {
+    font-family: 'Lora-Roman', serif;
+    color: #054848;
+}
+
+p {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    color: #666666;
+}
+
+.md-footer {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    background-color: #f5f5f5;
+    color: #666666;
+}
