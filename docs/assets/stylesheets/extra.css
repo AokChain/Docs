@@ -9,6 +9,7 @@
 }
 
 .md-header {
+    height: 100%;
     font-family: 'Spoqa Han Sans Neo';
     background-color: #054848;
 }
@@ -21,9 +22,6 @@
     opacity: .75;
     font-size: .55rem;
     color: #ffffff;
-}
-
-.md-sidebar {
 }
 
 .md-typeset h1 {
