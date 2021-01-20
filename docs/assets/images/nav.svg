@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+    <defs>
+        <style>
+            .cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="Mo_Menu_Icon_36px" transform="translate(-319 -32)">
+        <g id="그룹_1236" transform="translate(324 32)">
+            <path id="사각형_7398" d="M0 0H26V2H0z" class="cls-2" transform="translate(0 10)"/>
+            <path id="사각형_7399" d="M0 0H18V2H0z" class="cls-2" transform="translate(8 17)"/>
+            <path id="사각형_7400" d="M0 0H26V2H0z" class="cls-2" transform="translate(0 24)"/>
+        </g>
+    </g>
+</svg>
