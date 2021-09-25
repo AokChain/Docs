@@ -1,10 +1,11 @@
-site_name: AOK Documents V1.0
+site_name: AOK Documentation
 pages:
   - 'index.md'
   - 'daemon.md'
   - 'desktop.md'
   - 'mobile.md'
   - 'staking.md'
+  - 'metadata.md'
   - 'atomic.md'
   - 'rpc.md'
 theme:
@@ -19,4 +20,4 @@ extra_css:
   - assets/stylesheets/extra.css
 markdown_extensions:
   - admonition
-copyright: © 2020 AOK Group Limited. All Rights Reserved.
+copyright: © 2021 AOK Group Limited. All Rights Reserved.
