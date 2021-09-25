@@ -14,7 +14,7 @@
     
     
       
-        <title>Desktop wallet - AOK Documentation</title>
+        <title>Metadata specification - AOK Documentation</title>
       
     
     
@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#desktop-wallet" class="md-skip">
+        <a href="#metadata-specification" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
 
-              Desktop wallet
+              Metadata specification
 
           </span>
         </div>
@@ -205,20 +205,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../desktop/" class="md-nav__link">
       Desktop wallet
     </a>
-    
   </li>
 
     
@@ -250,11 +241,20 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../metadata/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Metadata specification
     </a>
+    
   </li>
 
     
@@ -310,22 +310,58 @@
               
                 
                 
-                <h1 id="desktop-wallet">Desktop wallet</h1>
-<p>You can get latest desktop wallet from <a href="github.com/AokChain/AokChain/releases/latest">here</a> or build it on your own using code from <a href="https://github.com/AokChain/AokChain/tree/master">master</a> branch. AOK QT wallet runs on all operating systems: Linux, Mac OS and Windows.</p>
-<p>First thing you will see after opening wallet is splash screen:</p>
-<p><img alt="Splash" src="../assets/desktop/splash.png" /></p>
-<p>During first run wallet must synchronize AOK blockchain, it may take 5-10 minutes:</p>
-<p><img alt="Sync" src="../assets/desktop/sync.png" /></p>
-<p>Once synchronization is done, you will be presented with overview screen where your AOK, tokens and history will be displayed:</p>
-<p><img alt="Overview" src="../assets/desktop/overview.png" /></p>
-<p>You can send your AOK coins via send screen:</p>
-<p><img alt="Send" src="../assets/desktop/send.png" /></p>
-<p>New address can be created at receive screen:</p>
-<p><img alt="Receive" src="../assets/desktop/receive.png" /></p>
-<p>At transactions screen you can check your history of transfers:</p>
-<p><img alt="History" src="../assets/desktop/history.png" /></p>
-<p>Tokens can be transfered at token transfer screen:</p>
-<p><img alt="Transfer" src="../assets/desktop/transfer.png" /></p>
+                <h1 id="metadata-specification">Metadata specification</h1>
+<p>This document contains JSON schema specification for AOK token metadata which can be stored inside IPFS. It's and loosely based on "ERC-1155 Metadata URI JSON Schema".</p>
+<p>Schema:</p>
+<pre><code class="language-JSON">{
+    &quot;title&quot;: &quot;Token Metadata&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+        &quot;name&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Identifies the name of given token.&quot;
+        },
+        &quot;description&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Describes the token and its purpose.&quot;
+        },
+        &quot;image&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;A URI pointing to a resource with mime type image/* representing the asset to which this token represents. Consider making any images at a width between 320 and 1080 pixels and aspect ratio between 1.91:1 and 4:5 inclusive.&quot;
+        },
+        &quot;properties&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;description&quot;: &quot;Arbitrary properties. Values may be strings, numbers, object or arrays.&quot;
+        }
+    }
+}
+</code></pre>
+<p>Example data:</p>
+<pre><code class="language-JSON">{
+    &quot;name&quot;: &quot;Mjölnir&quot;,
+    &quot;description&quot;: &quot;Mjölnir is the hammer of the thunder god Thor in Norse mythology, used both as a devastating weapon and as a divine instrument to provide blessings.&quot;,
+    &quot;image&quot;: &quot;ipfs://QmeJPx9UpmyZ4536oSp4cNb9C1aSX4PzT8n9mrYppQ2KrN&quot;,
+    &quot;properties&quot;: {
+        &quot;simple_property&quot;: &quot;example value&quot;,
+        &quot;rich_property&quot;: {
+            &quot;name&quot;: &quot;Name&quot;,
+            &quot;value&quot;: &quot;123&quot;,
+            &quot;display_value&quot;: &quot;123 Example Value&quot;,
+            &quot;class&quot;: &quot;emphasis&quot;,
+            &quot;css&quot;: {
+                &quot;color&quot;: &quot;#ffffff&quot;,
+                &quot;font-weight&quot;: &quot;bold&quot;,
+                &quot;text-decoration&quot;: &quot;underline&quot;
+            }
+        },
+        &quot;array_property&quot;: {
+            &quot;name&quot;: &quot;Name&quot;,
+            &quot;value&quot;: [1,2,3,4],
+            &quot;class&quot;: &quot;emphasis&quot;
+        }
+    }
+}
+</code></pre>
                 
               
               
