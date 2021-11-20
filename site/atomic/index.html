@@ -98,7 +98,7 @@
 
         <div class="md-header-nav__ellipsis">
           <span class="md-header-nav__topic md-ellipsis">
-            Documentation V1.1
+            Documentation V1.2
           </span>
           <span class="md-header-nav__topic md-ellipsis">
 
@@ -195,7 +195,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../daemon/" class="md-nav__link">
+    <a href="../node/" class="md-nav__link">
       Full node
     </a>
   </li>
@@ -232,7 +232,7 @@
 
   <li class="md-nav__item">
     <a href="../staking/" class="md-nav__link">
-      Staking guide
+      Staking
     </a>
   </li>
 
@@ -244,7 +244,7 @@
 
   <li class="md-nav__item">
     <a href="../metadata/" class="md-nav__link">
-      Metadata specification
+      Token metadata
     </a>
   </li>
 
@@ -341,7 +341,7 @@
 
   <li class="md-nav__item">
     <a href="../rpc/" class="md-nav__link">
-      Json RPC
+      RPC
     </a>
   </li>
 
@@ -432,11 +432,11 @@
 <p>We'll need to find 3 UTXOs to use as inputs.  Andy's apples, Barb's bananas and some AOK to pay the network fee (Andy will pay).</p>
 <p>Andy uses <code>listunspent</code> to find a suitable <code>txid</code> and <code>vout</code>:</p>
 <pre><code>﻿{
-  &quot;txid&quot;: &quot;631cf1566165803f0b89fbfb169d8f0c89129ec3f8536a48e4c4f0f3c4081cff&quot;,
-  &quot;vout&quot;: 0,
-  &quot;address&quot;: &quot;mh8mmbCPqnxCNqJq547NG99pauTHqvvYjA&quot;,
+  &quot;txid&quot;: &quot;73cff8d5595d9134841e252aa95a01a408cc1473cc8ef590cdd81e819e62fccc&quot;,
+  &quot;vout&quot;: 1,
+  &quot;address&quot;: &quot;Kj6iUJQvVZrd4wxeijebcivC6a4Y53qVgR&quot;,
   &quot;scriptPubKey&quot;: &quot;21027e1fde02d2cbfac3629aeaf669abd156d0c4dfbf52f6a5e4dd6664e81a621045ac&quot;,
-  &quot;amount&quot;: 4.88281250,
+  &quot;amount&quot;: 1,
   &quot;confirmations&quot;: 3088,
   &quot;spendable&quot;: true,
   &quot;solvable&quot;: true,
@@ -445,7 +445,7 @@
 </code></pre>
 <p>Then each party uses <code>listmyassets</code> with <code>verbose=true</code> to find asset UTXOs:</p>
 <p>Andy:
-<code>listmyassets APPLES true</code>:</p>
+<code>listmytokens APPLES true</code>:</p>
 <pre><code>{
   &quot;APPLES&quot;: {
     &quot;balance&quot;: 1000,
@@ -460,7 +460,7 @@
 }
 </code></pre>
 <p>Barb:
-<code>listmyassets BANANAS true</code>:</p>
+<code>listmytokens BANANAS true</code>:</p>
 <pre><code>{
   &quot;BANANAS&quot;: {
     &quot;balance&quot;: 1000,
@@ -475,7 +475,7 @@
 }
 </code></pre>
 <p>Extracting the txids and vouts gives us our raw inputs:
-<code>'[{"txid":"631cf1566165803f0b89fbfb169d8f0c89129ec3f8536a48e4c4f0f3c4081cff","vout":0}, \
+<code>'[{"txid":"73cff8d5595d9134841e252aa95a01a408cc1473cc8ef590cdd81e819e62fccc","vout":1}, \
    {"txid":"744c61abe6d237939c3567bc44b912ff4c375984229908c964be44f36dec79e3","vout":3}, \
    {"txid":"8468ef5193b1f5d6a7bd501f5f8ef5aec7c3d86fa87cec5a0b6f6d86fba78a4f","vout":3}]'</code></p>
 <h2 id="the-outputs">The Outputs</h2>

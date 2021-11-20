@@ -98,7 +98,7 @@
 
         <div class="md-header-nav__ellipsis">
           <span class="md-header-nav__topic md-ellipsis">
-            Documentation V1.1
+            Documentation V1.2
           </span>
           <span class="md-header-nav__topic md-ellipsis">
 
@@ -233,6 +233,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-node" class="md-nav__link">
     Running node
   </a>
@@ -284,7 +291,7 @@
 
   <li class="md-nav__item">
     <a href="../staking/" class="md-nav__link">
-      Staking guide
+      Staking
     </a>
   </li>
 
@@ -296,7 +303,7 @@
 
   <li class="md-nav__item">
     <a href="../metadata/" class="md-nav__link">
-      Metadata specification
+      Token metadata
     </a>
   </li>
 
@@ -320,7 +327,7 @@
 
   <li class="md-nav__item">
     <a href="../rpc/" class="md-nav__link">
-      Json RPC
+      RPC
     </a>
   </li>
 
@@ -356,6 +363,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-node" class="md-nav__link">
     Running node
   </a>
@@ -383,20 +397,23 @@
                 
                 
                 <h1 id="full-node">Full node</h1>
-<p>The purpose of this document is to describe the process of setting up AOK full node and command line wallet.</p>
+<p>In order to sync AOK blockchain you must setup full node. This guide describes setup process and some concepts like intraction with your node via command line interface.</p>
 <h2 id="getting-started">Getting started</h2>
-<p>AOK software runs on all operating systems: Linux, Mac OS and Windows. You can get latest binaries from <a href="github.com/AokChain/AokChain/releases/latest">here</a> or build it on your own using code from <a href="https://github.com/AokChain/AokChain/tree/master">master</a> branch.</p>
-<p>Once you downloaded and extracted latest binaries at your machine, you will see two binaries:</p>
+<p>AOK software runs on all operating systems: Linux, macOS and Windows. You can get latest binaries from <a href="github.com/AokChain/AokChain/releases/latest">GitHub</a> or build it on your own using code from <a href="https://github.com/AokChain/AokChain/tree/master">master</a> branch.</p>
+<p>Once you downloaded (or compiled) binaries at your machine, you will have this two binaries:</p>
 <ul>
 <li><code>aokchaind</code> - headless AOK daemon responsible for syncing blockchain and providing wallet service</li>
 <li><code>aokchain-cli</code> - command line client which allows interact with AOK node and wallet</li>
 </ul>
+<h2 id="configuration">Configuration</h2>
+<p>You can specify node params in <code>aokchain.conf</code> file at <code>.aokchain</code> folder (or <code>C:\Users\Username\AppData\Roaming\AokChain</code> on Windows).</p>
+<p>Example config file looks like this:</p>
+<pre><code>rpcuser=nodeuser
+rpcpassword=supersecurepassword
+daemon=1
+</code></pre>
 <h2 id="running-node">Running node</h2>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>You can secure your full node by specifying <code>rpcuser</code> and <code>rpcpassword</code> in <code>~/.aokchain/aokchain.conf</code> file.</p>
-</div>
-<p>Running AOK node pretty straightforward, you can use <code>-printtoconsole</code> flag to see the output or use <code>-daemon</code> to run it in headless daemon mode. Those flags can be specified in conf file as well.</p>
+<p>Running AOK node pretty straightforward, you can use <code>-printtoconsole</code> flag to see the output or use <code>-daemon</code> to run it in headless daemon mode. This flags can also be specified in config file instead.</p>
 <pre><code>./aokchaind -daemon
 </code></pre>
 <h2 id="stopping-node">Stopping node</h2>

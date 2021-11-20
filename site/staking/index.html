@@ -14,7 +14,7 @@
     
     
       
-        <title>Staking guide - AOK Documentation</title>
+        <title>Staking - AOK Documentation</title>
       
     
     
@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#staking-guide" class="md-skip">
+        <a href="#staking" class="md-skip">
           Skip to content
         </a>
       
@@ -98,11 +98,11 @@
 
         <div class="md-header-nav__ellipsis">
           <span class="md-header-nav__topic md-ellipsis">
-            Documentation V1.1
+            Documentation V1.2
           </span>
           <span class="md-header-nav__topic md-ellipsis">
 
-              Staking guide
+              Staking
 
           </span>
         </div>
@@ -195,7 +195,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../daemon/" class="md-nav__link">
+    <a href="../node/" class="md-nav__link">
       Full node
     </a>
   </li>
@@ -239,9 +239,45 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Staking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" class="md-nav__link md-nav__link--active">
-      Staking guide
+      Staking
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#full-node" class="md-nav__link">
+    Full node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktop-wallet" class="md-nav__link">
+    Desktop wallet
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -253,7 +289,7 @@
 
   <li class="md-nav__item">
     <a href="../metadata/" class="md-nav__link">
-      Metadata specification
+      Token metadata
     </a>
   </li>
 
@@ -277,7 +313,7 @@
 
   <li class="md-nav__item">
     <a href="../rpc/" class="md-nav__link">
-      Json RPC
+      RPC
     </a>
   </li>
 
@@ -299,6 +335,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#full-node" class="md-nav__link">
+    Full node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktop-wallet" class="md-nav__link">
+    Desktop wallet
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -310,8 +368,18 @@
               
                 
                 
-                <h1 id="staking-guide">Staking guide</h1>
-<p>Soon TM</p>
+                <h1 id="staking">Staking</h1>
+<p>AOK utilises Proof-of-Stake consensus model which allows user to validate new blocks by holding coins in their full node.</p>
+<h2 id="full-node">Full node</h2>
+<p>You can check <a href="/node">full node</a> guide for setup instructions and <a href="/rpc">RPC</a> for available commands to interact with your node.</p>
+<p>For staking with full node you must add <code>staking=1</code> param to your config file (or launch node with <code>-staking</code> flag). Once your node fully synced and running, you can get new address using <code>getnewaddress</code> command and send AOK to it. After that your node will start validation process and you will be receiving rewards after each validated block.</p>
+<h2 id="desktop-wallet">Desktop wallet</h2>
+<p>For staking in desktop wallet first you should go to <code>Receive</code> tab and generate deposit address.</p>
+<p><img alt="Receive" src="../assets/staking/1.png" /></p>
+<p>After clicking <code>Request payment</code> button wallet will generate and display your address.</p>
+<p><img alt="New address" src="../assets/staking/2.png" /></p>
+<p>Once you received coins to your wallet, you can go to <code>Overview</code> page and click <code>Start staking</code>. Once coins you sent to wallet reach their maturity (60 blocks) wallet will start validation process and you will be receiving rewards after each validated block.</p>
+<p><img alt="New address" src="../assets/staking/3.png" /></p>
                 
               
               
