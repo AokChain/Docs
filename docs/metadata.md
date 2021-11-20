@@ -1,4 +1,4 @@
-# Metadata specification
+# Token metadata
 
 This document contains JSON schema specification for AOK token metadata which can be stored inside IPFS. It's and loosely based on "ERC-1155 Metadata URI JSON Schema".
 

@@ -1,7 +1,7 @@
 site_name: AOK Documentation
 pages:
   - 'index.md'
-  - 'daemon.md'
+  - 'node.md'
   - 'desktop.md'
   - 'mobile.md'
   - 'staking.md'

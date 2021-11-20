@@ -1,6 +1,25 @@
-# Json RPC
+# RPC
 
-This document outlines important rpc methods which can be used for AOK integration into exchanges or other services.
+You can interact with AOK node using remote procedure call (RPC). Node will reply with data in JSON format.
+
+## Making request
+
+You can make request to your node via `aokchain-cli` or by sending POST request with payload to port `33440`.
+
+Example `aokchain-cli` request:
+
+```
+./aokchain-cli getblock 37eb3f4b73df32d22c4a1c58e91f6e7f0bf58e34e448a8e59d6b2576eeb9c238
+```
+
+Example POST request:
+
+```
+curl --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"getblock","params":["37eb3f4b73df32d22c4a1c58e91f6e7f0bf58e34e448a8e59d6b2576eeb9c238"]}' -H 'content-type:text/plain;' http://nodeuser:supersecurepassword@127.0.0.1:33440
+```
+
+!!! hint
+    In order to make RPC request via POST request you must configure `rpcuser` and `rpcpassword` for your node.
 
 ## Network
 

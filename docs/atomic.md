@@ -15,11 +15,11 @@ Andy uses `listunspent` to find a suitable `txid` and `vout`:
 
 ```
 ﻿{
-  "txid": "631cf1566165803f0b89fbfb169d8f0c89129ec3f8536a48e4c4f0f3c4081cff",
-  "vout": 0,
-  "address": "mh8mmbCPqnxCNqJq547NG99pauTHqvvYjA",
+  "txid": "73cff8d5595d9134841e252aa95a01a408cc1473cc8ef590cdd81e819e62fccc",
+  "vout": 1,
+  "address": "Kj6iUJQvVZrd4wxeijebcivC6a4Y53qVgR",
   "scriptPubKey": "21027e1fde02d2cbfac3629aeaf669abd156d0c4dfbf52f6a5e4dd6664e81a621045ac",
-  "amount": 4.88281250,
+  "amount": 1,
   "confirmations": 3088,
   "spendable": true,
   "solvable": true,
@@ -30,7 +30,7 @@ Andy uses `listunspent` to find a suitable `txid` and `vout`:
 Then each party uses `listmyassets` with `verbose=true` to find asset UTXOs:
 
 Andy:
-`listmyassets APPLES true`:
+`listmytokens APPLES true`:
 
 ```
 {
@@ -48,7 +48,7 @@ Andy:
 ```
 
 Barb:
-`listmyassets BANANAS true`:
+`listmytokens BANANAS true`:
 
 ```
 {
@@ -66,7 +66,7 @@ Barb:
 ```
 
 Extracting the txids and vouts gives us our raw inputs:
-`'[{"txid":"631cf1566165803f0b89fbfb169d8f0c89129ec3f8536a48e4c4f0f3c4081cff","vout":0}, \
+`'[{"txid":"73cff8d5595d9134841e252aa95a01a408cc1473cc8ef590cdd81e819e62fccc","vout":1}, \
    {"txid":"744c61abe6d237939c3567bc44b912ff4c375984229908c964be44f36dec79e3","vout":3}, \
    {"txid":"8468ef5193b1f5d6a7bd501f5f8ef5aec7c3d86fa87cec5a0b6f6d86fba78a4f","vout":3}]'`
 
