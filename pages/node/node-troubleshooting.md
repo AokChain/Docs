@@ -74,7 +74,7 @@ Lines such as `InvalidChainFound` or `bad-cs-proofhash` about a block on a short
 | Reason | Meaning |
 |---|---|
 | `time-too-new` | The transaction time is more than 10 minutes ahead of the node's clock. |
-| `bad-txns-address-frozen` | An input belongs to an address that governance has frozen ([[address-freezing]]). |
+| `bad-txns-address-frozen` | An input pays a script that governance has frozen, the script of a frozen address ([[address-freezing]]). |
 | `absurdly-high-fee` | The fee is above the limit: `-maxtxfee` (10 AOK) or the fee rate given to `sendrawtransaction`. |
 | `non-final` | The transaction has a lock time in the future. |
 | `txn-mempool-conflict`, `missing-inputs` | An input is already spent, or not known to this node. |

@@ -41,7 +41,7 @@ A transaction that is not found may not have reached the network. Check that the
 
 ## Read a block
 
-A block page shows its **Time**, **Confirmations**, **Consensus** (proof of stake for every block after block 1,440), the **Staker** address, the **Staked amount** and the **Reward**, split into subsidy and fees. Its first transaction is an empty **Coinbase**; the second, the **Coinstake**, is the stake that made the block.
+A block page shows its **Time**, **Confirmations**, **Consensus** (proof of stake for every block from 83 on; 79 of the first 82 blocks were mined with proof of work), the **Staker** address, the **Staked amount** and the **Reward**, split into subsidy and fees. Its first transaction is an empty **Coinbase**; the second, the **Coinstake**, is the stake that made the block.
 
 ## Read an address
 

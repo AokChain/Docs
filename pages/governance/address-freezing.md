@@ -4,11 +4,11 @@ description: What it means when governance freezes an address, how a freeze is l
 order: 10
 ---
 
-Governance can freeze an address. A frozen address cannot send: neither its AOK nor its tokens can be spent until governance unfreezes it. This page explains what a freeze does and how to check for one.
+Governance can freeze an address. The coins of a frozen address cannot be spent until governance unfreezes it. This page explains what a freeze covers and how to check for one.
 
 ## What a freeze does
 
-- Every node refuses a transaction that spends a coin or a token of a frozen address, in the memory pool and in blocks.
+- A freeze command carries one output script, the script of the address it freezes: pay to public key hash for an address that starts with `K`, pay to script hash for `k`. Every node refuses a transaction that spends an output with exactly that script, in the memory pool and in blocks (`bad-txns-address-frozen`).
 - Payments from the address that wait in the memory pool when the freeze takes effect are dropped.
 - The address can still receive. Whatever is sent to it stays there until the freeze is lifted.
 - A freeze takes effect when the block with the command is added to the chain, and it lasts until an unfreeze command lifts it.
@@ -18,7 +18,7 @@ Freeze and unfreeze commands are governance commands: transactions of the networ
 ## Check an address
 
 - **Block explorer:** look the address up on [v3.aokscan.com](https://v3.aokscan.com). A frozen address carries a **Frozen** mark and the line "This address is frozen by governance." The **Network** page lists all frozen addresses.
-- **Node:** `checkfreeze` answers `true` or `false`:
+- **Node:** `checkfreeze` answers `true` or `false` for the script of the address:
 
   ```bash
   aokchain-cli checkfreeze "<address>"

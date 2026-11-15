@@ -8,7 +8,7 @@ AokChain is a public blockchain. Its coin is AOK. The main network started in Ma
 
 ## What the chain does
 
-- **Proof of stake.** Blocks are made by holders of AOK whose wallets stake. The first 1,440 blocks were mined with proof of work; every block after them is a proof-of-stake block. The target time between two blocks is 64 seconds. See [[how-staking-works]].
+- **Proof of stake.** Blocks are made by holders of AOK whose wallets stake. The first blocks were mined with proof of work: blocks 1 to 72, and 7 of the 10 after them. Every block from 83 on is a proof-of-stake block. The target time between two blocks is 64 seconds. See [[how-staking-works]].
 - **Offline staking.** You can keep your coins in your own wallet and let another node stake them for you. See [[offline-staking]].
 - **Tokens.** Tokens are created and moved on the chain itself: main tokens, sub tokens, unique tokens and usernames. See [[token-basics]].
 - **Governance.** Signed governance commands set the cost of creating tokens and can freeze an address. See [[how-network-rules-change]].

@@ -12,7 +12,7 @@ Governance commands are transactions of the network's master address, which is w
 
 | Command | What it changes |
 | --- | --- |
-| Freeze | An address can no longer send. See [[address-freezing]]. |
+| Freeze | The outputs with the script of an address can no longer be spent. See [[address-freezing]]. |
 | Unfreeze | Lifts a freeze. |
 | Cost | The cost of creating a main token, a sub token, a unique token, a username, or of a reissue. See [[token-names-and-costs]]. |
 | Cost address | The address that receives these costs. |

@@ -44,7 +44,7 @@ The amount of AOK a transaction pays to the staker of its block. It depends on t
 
 ### Frozen address
 
-An address that governance has frozen. Its coins and tokens cannot be spent until it is unfrozen. See [[address-freezing]].
+An address that governance has frozen. Outputs with its script cannot be spent until it is unfrozen. See [[address-freezing]].
 
 ### Governance
 

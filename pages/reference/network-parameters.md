@@ -55,13 +55,13 @@ There are no bech32 addresses. An address with a valid checksum for one network 
 |---|---|---|---|
 | Target block interval | 64 s | 64 s | 60 s |
 | Difficulty | Adjusted after every block toward the interval, over a 16-minute window | Not adjusted | Not adjusted |
-| Last proof-of-work block | 1,440 | 1,440,000 | 1,440,000 |
+| Last height open to proof of work | 1,440 (the last mined block is 82) | 1,440,000 | 1,440,000 |
 | Stake search | In 16-second steps of the block time | same | same |
 | Block time ahead of the node's clock, at most | 10 minutes | 10 minutes | 10 minutes |
 | Deepest reorganization accepted (`maxreorg`) | 500 blocks | 500 blocks | 60 blocks |
-| Largest block | 8,000,000 bytes (weight 8,000,000) | same | same |
+| Largest block | 2,000,000 bytes (weight 8,000,000) | same | weight 8,000,000; 2,000,000 bytes without witness data |
 
-After block 1,440 every mainnet block is a proof-of-stake block. The difficulty rule moves the target after each block by `((N - 1) * T + 2 * actual) / ((N + 1) * T)`, where `T` is the interval, `N` is 15 (16 minutes over 64 seconds) and `actual` is the time between the two previous blocks of the same kind, at most `10 * T`.
+On mainnet, blocks 1 to 72 were mined with proof of work. Block 73 is the first proof-of-stake block and block 82 the last mined one, 79 proof-of-work blocks in all; every block from 83 on is a proof-of-stake block. A block is refused when its size without witness data, times four, is above the weight limit, so without SegWit a block has at most 2,000,000 bytes. The difficulty rule moves the target after each block by `((N - 1) * T + 2 * actual) / ((N + 1) * T)`, where `T` is the interval, `N` is 15 (16 minutes over 64 seconds) and `actual` is the time between the two previous blocks of the same kind, at most `10 * T`.
 
 ## Maturity
 

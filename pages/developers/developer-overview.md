@@ -35,7 +35,7 @@ The paths are `/rest/tx/`, `/rest/block/`, `/rest/block/notxdetails/`, `/rest/he
 
 | Area | AokChain | Consequence for your code |
 |---|---|---|
-| Consensus | Proof-of-work blocks ended at block 1,440; every later block is proof of stake, with a target of 64 seconds between blocks. | No mining. `getblocktemplate` serves only proof-of-work templates, so on mainnet it returns an error. See [[how-staking-works]]. |
+| Consensus | Proof of stake: every block from 83 on, with a target of 64 seconds between blocks. 79 of the first 82 blocks were mined with proof of work; 1,440 is the last height open to proof of work. | No mining. `getblocktemplate` serves only proof-of-work templates, so on mainnet it returns an error. See [[how-staking-works]]. |
 | Transaction format | A 4-byte time after the version; version 2 adds a message string at the end. | Bitcoin parsers and test vectors fail. See [[raw-transactions]]. |
 | Block hash | BLAKE2b-256 of the 80-byte header. Every block ends with a signature field after the transactions, empty in proof-of-work blocks. | Do not compute block hashes with SHA-256; parse the signature field. |
 | SegWit | Not active on mainnet and testnet. | Only legacy and P2SH scripts; no bech32 addresses. |
