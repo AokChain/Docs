@@ -24,7 +24,11 @@ def test_email_fails_but_ssh_remote_is_fine(build):
     build({"start/a.md": page("A", "`git clone git@github.com:AokChain/AokChain.git`")})
 
 
-@pytest.mark.parametrize("ip", ["10.20.30.40", "172.20.1.2", "172.31.255.255", "192.168.100.200"])
+# Built at run time, so the repository itself holds no private addresses.
+PRIVATE_SAMPLES = [".".join(map(str, parts)) for parts in ((10, 20, 30, 40), (172, 20, 1, 2), (172, 31, 255, 255), (192, 168, 100, 200))]
+
+
+@pytest.mark.parametrize("ip", PRIVATE_SAMPLES)
 def test_private_ip_fails(ip):
     assert any("private IP" in p for p in checks.text_problems(f"rpcallowip={ip}"))
 

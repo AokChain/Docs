@@ -13,8 +13,8 @@ HANGUL = re.compile("[" + "".join(f"{chr(a)}-{chr(b)}" for a, b in HANGUL_RANGES
 # user@host.tld. "git@github.com:org/repo" (an SSH remote) is not an address.
 EMAIL = re.compile(r"(?<![\w.%+-])([A-Za-z0-9._%+-]+)@([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,})(?![\w-])")
 
-# 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16. Examples belong in the
-# documentation ranges (192.0.2.x, 198.51.100.x, 203.0.113.x) or 127.0.0.1.
+# The three private ranges of RFC 1918. Examples belong in the documentation
+# ranges of RFC 5737 (192.0.2.x, 198.51.100.x, 203.0.113.x) or on 127.0.0.1.
 PRIVATE_IP = re.compile(
     r"(?<![\d.])(?:10\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])|192\.168)\.\d{1,3}\.\d{1,3}(?!\.?\d)"
 )
