@@ -1,7 +1,7 @@
 ---
 title: Configuration options
 description: Every option of aokchaind, the GUI wallet and the command-line tools, from the programs' own help, grouped as -help prints them.
-order: 40
+order: 11
 generated_by: tools/options_reference.py
 ---
 

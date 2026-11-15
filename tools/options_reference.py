@@ -156,7 +156,7 @@ def build(daemon, qt, cli, label, tx=None, wallet_tool=None):
 
     out = ["---", "title: Configuration options",
            "description: Every option of aokchaind, the GUI wallet and the command-line tools, from the programs' own help, grouped as -help prints them.",
-           "order: 40", "generated_by: " + GENERATED_BY, "---", ""]
+           "order: 11", "generated_by: " + GENERATED_BY, "---", ""]
     out.append("The options of %s, as `aokchaind -help` prints them. Give an option on the command line as "
                "`-name=value`, or write it as a line `name=value` in `aokchain.conf` (where the file lives is on "
                "[[configure-a-node]]). A setting on the command line wins over the same setting in the file. "

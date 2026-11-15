@@ -1,7 +1,7 @@
 ---
 title: Network parameters
 description: Ports, message start bytes, address and key prefixes, block timing, maturity, reward schedule and activation heights of mainnet, testnet and regtest.
-order: 50
+order: 12
 ---
 
 The constants of the three AokChain networks, as AokChain Core 4.0 defines them (`src/chainparams.cpp`, `src/chainparamsbase.cpp`, `src/consensus/consensus.h`, `src/amount.h`, `src/validation.cpp`). Use them when you write software that speaks to the network or parses its data.
