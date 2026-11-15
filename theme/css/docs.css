@@ -416,7 +416,8 @@ main:focus { outline: none; }
 /* Pages: sidebar, content, contents */
 .layout { display: grid; grid-template-columns: minmax(0, 1fr); max-width: var(--frame); margin-inline: auto; }
 .main { min-width: 0; padding: var(--space-6) var(--gutter) var(--space-20); }
-.doc { min-width: 0; max-width: 46rem; margin-inline: auto; }
+/* The text column: 70 characters of the 17px body text */
+.doc { min-width: 0; max-width: 70ch; margin-inline: auto; font-size: 17px; }
 .doc--wide { max-width: 56rem; }
 @media (min-width: 1024px) {
   .layout { grid-template-columns: var(--sidebar-w) minmax(0, 1fr); }
