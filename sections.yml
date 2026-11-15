@@ -1,0 +1,32 @@
+# Sections of the AokChain wiki, in the order the sidebar and the home page
+# show them. A page belongs to the section of its folder:
+#   pages/<section id>/<slug>.md  ->  <base url>/<slug>/
+# Slugs are unique across the whole wiki, so [[slug]] links never need a
+# section.
+- id: start
+  title: Start here
+  summary: What AokChain is, the words it uses and the first questions people ask.
+- id: wallets
+  title: Wallets
+  summary: Set up the desktop wallet, keep it safe, send and receive.
+- id: staking
+  title: Staking
+  summary: Earn block rewards with coins you hold, on your own node or offline.
+- id: tokens
+  title: Tokens
+  summary: Create, send and trade tokens and unique tokens.
+- id: governance
+  title: Governance
+  summary: Frozen addresses and how the rules of the network change.
+- id: node
+  title: Run a node
+  summary: Install, configure, sync and upgrade an AokChain node.
+- id: developers
+  title: Developers
+  summary: JSON-RPC, raw transactions, multisig, payment links and the explorer API.
+- id: reference
+  title: Reference
+  summary: Every RPC command, every option and the network parameters.
+- id: releases
+  title: Releases
+  summary: What changed in each AokChain version.
