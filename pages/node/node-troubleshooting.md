@@ -43,7 +43,7 @@ Lines such as `InvalidChainFound` or `bad-cs-proofhash` about a block on a short
 | `Snapshot: not used, there is no address or folder to take it from.` | No `bootstrapdir` or `http://` `bootstrapurl` was given. |
 | `Snapshot: the server has a snapshot for height ..., this program accepts the one at height ...` | The files belong to another program version. |
 | `Bootstrap: notneeded: the node is at height ..., the archives end at ...` | The node is less than 20,000 blocks behind the archives. |
-| `Bootstrap: notneeded: the chain of this node is recent` | Its last block is less than three days old. |
+| `Bootstrap: notneeded: the chain of this node is recent` | Its last block is less than three days old, so it does not ask the server. |
 
 `getbootstrapinfo` and `getsnapshotinfo` show the state at any time.
 
@@ -56,14 +56,14 @@ Lines such as `InvalidChainFound` or `bad-cs-proofhash` about a block on a short
 | `Could not locate RPC credentials. No authentication cookie could be found, and RPC password is not set.` | The CLI looks in another data directory than the node's (give the same `-datadir`), the node has not written its cookie file yet (just started; see `-daemonwait` on [[start-and-stop]]), or it does not run. |
 | `incorrect rpcuser or rpcpassword (authorization failed)` | The password in `aokchain.conf` and the one the CLI uses differ. With `rpcpassword` set, no cookie file is written. |
 | `server returned HTTP error 403` | `rpcwhitelist` does not allow this user that command. With any `rpcwhitelist` line, users without one, the cookie user of `aokchain-cli` included, may call nothing unless `rpcwhitelistdefault=0`. See [[json-rpc#limit-a-user-to-some-commands]]. |
-| `Wallet file not specified (must request wallet RPC through /wallet/<filename> uri-path).` | Several wallets are loaded. Add `-rpcwallet=<name>`; the first wallet is `-rpcwallet=` with an empty name. |
+| `Wallet file not specified (must request wallet RPC through /wallet/<filename> uri-path).` | Several wallets are loaded. Add `-rpcwallet=<name>`; the wallet of the data directory itself has the empty name, `-rpcwallet=`. |
 
 ## Wallet calls fail
 
 | Message | Cause and fix |
 |---|---|
 | `Error: Please enter the wallet passphrase with walletpassphrase first.` | The wallet is encrypted and locked. `walletpassphrase "<passphrase>" 60` opens it for 60 seconds. |
-| `Error: Wallet unlocked for staking only, unable to create transaction.` | The wallet is unlocked for staking only. Unlock it with a timeout for the payment; it returns to staking only afterwards. |
+| `Error: Wallet is unlocked for staking only.` | The wallet is unlocked for staking only. Unlock it with a timeout for the payment; it returns to staking only afterwards. |
 | `Insufficient funds` | Not enough spendable coins. Coins that are immature, time locked or held at an offline staking address do not count; `getbalances` shows each kind. |
 | `Requested wallet does not exist or is not loaded` | A wallet made with `createwallet` is not loaded again at the next start. Load it with `loadwallet <name>`, or add `wallet=<name>` to `aokchain.conf`. |
 

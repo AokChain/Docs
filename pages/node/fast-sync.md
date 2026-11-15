@@ -52,7 +52,7 @@ The desktop wallet does all of this by itself on the main network. On a first st
    aokchain-cli getsnapshotinfo
    ```
 
-   `accepted_height` is 3031432 when the snapshot was used. `past_blocks` says whether the blocks before it are `missing`, `downloading` or `present`.
+   `snapshot_height` is 3031432 when this node started from the snapshot, and -1 otherwise; `accepted_height` is the snapshot that the program accepts. `past_blocks` says whether the blocks before the snapshot are `missing`, `downloading` or `present`.
 
 The folder is only read; the node never changes or deletes it. You can also set `bootstrapdir=<folder>` in `aokchain.conf`, and remove it after the first sync. An HTTP mirror of the same files works as `bootstrapurl=http://…/`; several `bootstrapurl` lines are tried in order.
 
@@ -63,14 +63,14 @@ The folder is only read; the node never changes or deletes it. You can also set 
 
 The program accepts exactly one snapshot: the one at block 3,031,432 (`58a07d1f4dbe68b7fa66d864272ca6351a60de13a409c132b034c9da03af909a`). Its hashes are compiled in. A snapshot with other content, a damaged download or any error while loading is removed, and the node synchronizes from the blocks as it would without it.
 
-What you trust is the program: that its builders computed these values from a fully validated chain. That is the same kind of trust as the `assumevalid` block, with a larger effect, since the snapshot skips all checks below its height. To check the values yourself, sync a node with `-snapshot=0` and compare `aokchain-cli getstatehashes` at that height with the values built into the program.
+What you trust is the program: that its builders computed these values from a fully validated chain. That is the same kind of trust as the `assumevalid` block, with a larger effect, since the snapshot skips all checks below its height. To check the values yourself, start a node in a new data directory with `-snapshot=0 -connect=0 -bootstrapdir=<folder with the block archives>`. Without peers it validates every block and every script up to 3,031,432, where the archives end, and stays at that height; then `aokchain-cli getstatehashes`, which reads the state at the tip, prints the values to compare with the ones built into the program. It takes longer than a normal sync.
 
 A node starts from the snapshot only when all of these hold:
 
 - the data directory is new (no chain yet);
 - `snapshot` and `bootstrap` are not turned off;
 - there is a source: `bootstrapdir`, an `http://` `bootstrapurl`, or the built-in address of the desktop wallet;
-- no `-reindex`, no `prune`, and the indexes are the defaults (`txindex=1`, no `addressindex`, `spentindex` or `timestampindex`).
+- no `-reindex` or `-reindex-chainstate`, no `prune`, and the indexes are the defaults (`txindex=1` and `tokenindex=1`, no `addressindex`, `spentindex` or `timestampindex`).
 
 ### The past blocks
 
@@ -84,7 +84,7 @@ Fetch them in the background with `aokchain-cli fetchblocks`, or start with `fet
 
 ## The block archives
 
-The node imports an archive only when it is at least 20,000 blocks behind it (`bootstrapminblocks`; a folder given with `bootstrapdir` is used whenever it has blocks that the node lacks). A node whose last block is less than three days old does not look at the archives at all. While it imports, the node gets only headers from its peers; afterwards it gets the remaining blocks from them.
+The node imports an archive only when it is at least 20,000 blocks behind it (`bootstrapminblocks`; a folder given with `bootstrapdir` is used whenever it has blocks that the node lacks). With an address (`bootstrapurl` or the built-in one), a node whose last block is less than three days old does not ask the server at all. While it imports, the node gets only headers from its peers; afterwards it gets the remaining blocks from them.
 
 `getbootstrapinfo` shows the state, the archive count and the progress; `skipbootstrap` gives the archives up and switches to the peers.
 
