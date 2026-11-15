@@ -96,13 +96,13 @@ The Sign page of the desktop wallet passes keys, wallets and signing requests be
 | Prefix | Contents |
 |---|---|
 | `aokms-key1:` | A compressed public key, 66 hex characters. |
-| `aokms-wallet1:` | Base64 of the JSON `{"v":1,"name","m","keys":[{"name","pubkey"}],"address","redeemScript"}`. No private keys. |
-| `aokms-req1:` | Base64 of the JSON `{"v":1,"wallet","address","redeemScript","memo","to","amount","tx","prevouts":[{"txid","vout","scriptPubKey","amount"}],"created"}`. `tx` is the partly signed transaction in hex. |
+| `aokms-wallet1:` | Base64 of the JSON `{"v":1,"name","m","keys":[{"name","pubkey"}],"address","redeemScript"}`; `m` is a number. No private keys. |
+| `aokms-req1:` | Base64 of the JSON `{"v":1,"wallet","address","redeemScript","memo","to","amount","tx","prevouts":[{"txid","vout","scriptPubKey","amount"}],"created"}`. `tx` is the partly signed transaction in hex. Both `amount` fields are strings in AOK (`"20.00000000"`) and `created` is a Unix time as a string; a number there is read as 0. |
 
 The wallet does not trust `to`, `amount` or `memo` of a request; it decodes `tx` and reads the inputs from its own node. A program should do the same.
 
 ## Limits
 
-- P2SH multisig with compressed keys only; no SegWit multisig and no PSBT.
+- P2SH multisig only; no SegWit multisig and no PSBT. The multisig pages of the desktop wallet take compressed keys only; `createmultisig` also accepts uncompressed ones.
 - The desktop wallet's multisig pages send AOK only.
 - Changing the keys or the number of signatures means a new address: create it and move the coins.

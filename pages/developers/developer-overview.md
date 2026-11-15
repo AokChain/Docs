@@ -29,7 +29,7 @@ curl -s http://127.0.0.1:33440/rest/tx/<txid>.json
 curl -s http://127.0.0.1:33440/rest/block/<hash>.json
 ```
 
-The paths are `/rest/tx/`, `/rest/block/`, `/rest/block/notxdetails/`, `/rest/headers/<count>/<hash>`, `/rest/chaininfo`, `/rest/mempool/info`, `/rest/mempool/contents` and `/rest/getutxos`, each with `.json`, `.hex` or `.bin`.
+The paths are `/rest/tx/`, `/rest/block/`, `/rest/block/notxdetails/`, `/rest/headers/<count>/<hash>` and `/rest/getutxos`, each with `.json`, `.hex` or `.bin`, and `/rest/chaininfo`, `/rest/mempool/info` and `/rest/mempool/contents`, with `.json` only.
 
 ## What differs from Bitcoin
 
@@ -37,7 +37,7 @@ The paths are `/rest/tx/`, `/rest/block/`, `/rest/block/notxdetails/`, `/rest/he
 |---|---|---|
 | Consensus | Proof-of-work blocks ended at block 1,440; every later block is proof of stake, with a target of 64 seconds between blocks. | No mining. `getblocktemplate` serves only proof-of-work templates, so on mainnet it returns an error. See [[how-staking-works]]. |
 | Transaction format | A 4-byte time after the version; version 2 adds a message string at the end. | Bitcoin parsers and test vectors fail. See [[raw-transactions]]. |
-| Block hash | BLAKE2b-256 of the 80-byte header; proof-of-stake blocks carry a signature after the transactions. | Do not compute block hashes with SHA-256. |
+| Block hash | BLAKE2b-256 of the 80-byte header. Every block ends with a signature field after the transactions, empty in proof-of-work blocks. | Do not compute block hashes with SHA-256; parse the signature field. |
 | SegWit | Not active on mainnet and testnet. | Only legacy and P2SH scripts; no bech32 addresses. |
 | Addresses | `K` (P2PKH), `k` (P2SH), `2` (offline staking, 62 characters) on mainnet; WIF keys start with `e`. | Use the version bytes of [[network-parameters]]. |
 | Tokens | Token data rides in the script of an output with 0 AOK. | Wallet lists mix AOK and token entries; check `token_name`. See [[exchange-integration]]. |

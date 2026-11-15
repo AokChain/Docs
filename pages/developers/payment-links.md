@@ -31,8 +31,8 @@ aokchain:KacWDE2Fyqywwr6YDKt1FYthycv3Ee7dqv?amount=12.5&label=Order%201042&messa
 
 ## How the wallet uses it
 
-- **Opening a link.** The Windows installer script, the macOS application bundle and the Linux desktop file of the source declare the `aokchain:` scheme, so a wallet installed through one of them opens such links with the send form filled in. A wallet that was only unpacked from an archive registers nothing; use File, Open URI then. The payer checks and confirms the payment; a link never sends anything by itself.
-- **File, Open URI** in the wallet takes a pasted link, and a link dropped onto the window works the same way.
+- **Opening a link.** The Windows installer script, the macOS application bundle and the Linux desktop file of the source declare the `aokchain:` scheme, so a wallet installed through one of them opens such links with the send form filled in. A wallet that was only unpacked from an archive registers nothing; use Open URI then. The payer checks and confirms the payment; a link never sends anything by itself.
+- **Open URI** takes a pasted link: on the settings page on Windows and Linux, in the File menu on macOS. A link dropped onto the window works the same way.
 - **Receiving.** The Receive page makes such a link and its QR code from the address, amount, label and message you enter, and copies either. The QR code holds the link text; a link longer than 255 characters gets no QR code.
 - An address that is not valid for the network the wallet runs on gives `Invalid payment address`; a malformed link gives `URI cannot be parsed!`.
 
