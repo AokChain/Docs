@@ -58,7 +58,7 @@ The Qt wallet was reorganized from the layout up ([[desktop-wallet]]):
 - a Sign page to prove an address, check a signature, and create and use multisig wallets with signing requests ([[sign-and-verify]], [[multisig-wallets]]);
 - a built-in explorer for blocks, transactions and addresses on your own node;
 - back and forward buttons, and a status light on every page (from 4.0.3);
-- Korean and English, chosen at the top of the settings page;
+- the language at the top of the settings page, with the more than 80 translations the program ships;
 - the fast sync, with its addresses and a folder choice under Network settings.
 
 ## Commands and options for operators and developers
