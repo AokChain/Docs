@@ -142,7 +142,10 @@ Deposits are ordinary transactions and are spendable as soon as they are confirm
    aokchain-cli -named sendtoaddress address=Krp9Fwe7rEZm6Y6YxnngFc9to7y1Q4QX9W amount=12.5
    ```
 
-   Over JSON-RPC, pass `params` as an object: `{"address": "...", "amount": 12.5}`.
+   Over JSON-RPC, pass `params` as an object: `{"address": "...", "amount": 12.5}`. `subtractfeefromamount=true` takes the fee out of the amount, and `comment_to` is a note that stays in your wallet.
+
+   - The `message` argument is written into the transaction (as a version 2 transaction) and is public on the chain, although the help text says it stays in the wallet. Put no customer data there.
+   - Leave out `conf_target` and `estimate_mode`: with either of them `sendtoaddress` fails with `JSON value is not an integer as expected`.
 
    > [!IMPORTANT]
    > The third positional argument of `sendtoaddress` is `lock_time`, not the `comment` of Bitcoin Core. Code written for Bitcoin Core that passes positional arguments must be changed: a value above 255 there locks the coins of the recipient until that height or time.

@@ -17,7 +17,7 @@ An AokChain transaction is a Bitcoin transaction with a time after the version:
 | inputs | count, then each input | As in Bitcoin: previous txid, output index, script, sequence. |
 | outputs | count, then each output | As in Bitcoin: value in satoshis (8 bytes), script. |
 | `locktime` | 4 bytes, little endian | As in Bitcoin. |
-| `message` | string | Only when `version` is 2 or higher. |
+| `message` | string | Only when `version` is 2 or higher. Public on the chain; `decoderawtransaction` shows it as `message`. |
 
 There is no SegWit on mainnet and testnet. Transaction test vectors and parsers made for Bitcoin do not work unchanged because of the time field. The block format differs too (see [[network-parameters]]).
 
