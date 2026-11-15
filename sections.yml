@@ -23,7 +23,7 @@
   summary: Install, configure, sync and upgrade an AokChain node.
 - id: developers
   title: Developers
-  summary: JSON-RPC, raw transactions, multisig, payment links and the explorer API.
+  summary: JSON-RPC, exchange integration, raw transactions, multisig, payment links and the explorer API.
 - id: reference
   title: Reference
   summary: Every RPC command, every option and the network parameters.
