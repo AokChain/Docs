@@ -18,7 +18,7 @@ Coins sent to the offline staking address can be staked with the staking key, an
 - The reward belongs to you. The staking node earns nothing on the chain; any fee for the operator has to be agreed outside the chain.
 - You can spend the coins at any time, staked or not.
 - An offline staking address on the main network starts with `2` and has 62 characters.
-- Tokens cannot be sent to an offline staking address.
+- Tokens cannot be sent to an offline staking address: its script cannot carry tokens. The wallet and the token commands refuse it (`Tokens cannot be sent to an offline staking address`).
 
 ## Set it up
 

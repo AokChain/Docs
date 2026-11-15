@@ -41,7 +41,7 @@ The paths are `/rest/tx/`, `/rest/block/`, `/rest/block/notxdetails/`, `/rest/he
 | SegWit | Not active on mainnet and testnet. | Only legacy and P2SH scripts; no bech32 addresses. |
 | Addresses | `K` (P2PKH), `k` (P2SH), `2` (offline staking, 62 characters) on mainnet; WIF keys start with `e`. | Use the version bytes of [[network-parameters]]. |
 | Tokens | Token data rides in the script of an output with 0 AOK. | Wallet lists mix AOK and token entries; check `token_name`. See [[exchange-integration]]. |
-| Time-locked outputs | `sendtoaddress` takes a lock time that makes a `CHECKLOCKTIMEVERIFY` output; `transfer` takes one that locks the token output. | The third positional argument of `sendtoaddress` is `lock_time`. |
+| Time-locked outputs | `sendtoaddress` takes a lock time that makes a `CHECKLOCKTIMEVERIFY` output; `transfer` takes one that locks the token output. | The third positional argument of `sendtoaddress` is `lock_time`. Values from 1 to 255 and negative values are refused (error `-8`); before 4.0.6 they made an output without a lock. |
 | Governance | A master key can freeze addresses and set the costs of token issuance. | Check `checkfreeze` before paying out. See [[address-freezing]]. |
 | Offline staking | An output that one key spends and another key stakes. | `scantxoutset` with `staking(<address>)` finds delegated coins. See [[offline-staking]]. |
 | RPC values | Some yes-or-no fields are `1` and `0`. | Accept both forms. See [[json-rpc]]. |

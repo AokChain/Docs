@@ -36,14 +36,14 @@ Both can also be set in `aokchain.conf` (`daemon=1`). Give `-datadir=<dir>` to e
 aokchain-cli -rpcwait getblockchaininfo
 ```
 
-While the node loads its databases, RPC calls answer with error `-28` and a message such as `Loading block index...`; `-rpcwait` waits until it can answer. It cannot wait for the cookie file, though: in the first moment after `aokchaind -daemon` the file may not exist yet, and the call fails with `Could not locate RPC credentials`. Scripts that start a node and call it right away should start it with `-daemonwait`. Then:
+While the node loads its databases, RPC calls answer with error `-28` and a message such as `Loading block index...`; `-rpcwait` waits until it can answer, also while a node that has just started has not written its cookie file yet. (Versions before 4.0.6 fail at that moment with `Could not locate RPC credentials`; with them, start the node with `-daemonwait` when a script calls it right away.) Then:
 
 | Command | What to look at |
 |---|---|
 | `aokchain-cli getblockcount` | The height. It rises until it reaches the height of the other nodes. |
 | `aokchain-cli getblockchaininfo` | `blocks`, `headers` and `verificationprogress` show how far the sync is. |
 | `aokchain-cli getconnectioncount` | The number of peers. 0 for minutes means the node finds no peers; see [[ports-and-peers]]. |
-| `aokchain-cli getnetworkinfo` | `subversion` is the version, for example `/AokChain:4.0.5/`. |
+| `aokchain-cli getnetworkinfo` | `subversion` is the version, for example `/AokChain:4.0.6/`. |
 | `tail -f ~/.aokchain/debug.log` | What the node is doing. |
 
 ## Stop

@@ -18,13 +18,13 @@ Open **Create Tokens** (see [[create-a-token#turn-on-the-advanced-view|Turn on t
 
 1. Under **Token Type**, choose **Unique Token**. The amount in brackets is the cost.
 2. Pick the parent token in the list next to it.
-3. Enter the tag after the `#` and click **Check Availabilty**. Tags keep their small and capital letters.
+3. Enter the tag after the `#` and click **Check Availability**. Tags keep their small and capital letters.
 4. To link a description file or an image, tick **Add JSON Meta Data Hash** and paste its IPFS hash. See [[token-metadata]].
 5. Click **Create Token**, enter your passphrase, check the confirmation and click **Yes**.
 
 ## With a node
 
-`issueunique` makes several unique tokens under a main token in one transaction:
+`issueunique` makes several unique tokens under a main token or a sub token in one transaction:
 
 ```bash
 aokchain-cli issueunique "ORCHARD" '["tree-17","tree-18"]'
@@ -36,7 +36,13 @@ With an IPFS hash for each, in the same order as the tags:
 aokchain-cli issueunique "ORCHARD" '["tree-17","tree-18"]' '["<ipfs hash 1>","<ipfs hash 2>"]'
 ```
 
-The cost is paid once for each token. For a unique token under a sub token, use `issue` with the whole name:
+The cost is paid once for each token. Under a sub token, give its name; the wallet needs the sub token's owner token, here `ORCHARD/GREEN!`:
+
+```bash
+aokchain-cli issueunique "ORCHARD/GREEN" '["tree-17"]'
+```
+
+Versions before 4.0.6 refuse a sub token in `issueunique`. In every version, `issue` with the whole name makes one unique token:
 
 ```bash
 aokchain-cli issue "ORCHARD/GREEN#tree-17"

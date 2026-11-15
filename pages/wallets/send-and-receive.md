@@ -55,6 +55,12 @@ A locked payment arrives at once, but the recipient cannot spend it before a tim
 
 The recipient's desktop wallet shows the coins under **Pending** until the lock ends, and as available after that. A lock cannot be lifted early, not even by you.
 
+On a node, the third argument of `sendtoaddress` is the lock: a block height, or from 500,000,000 on a time in seconds since 1970. `0` sends without a lock. Values from 1 to 255 and negative values are refused with error `-8` (`Invalid lock_time`), because they would make no lock; versions before 4.0.6 sent such a payment without a lock.
+
+```bash
+aokchain-cli sendtoaddress "<address>" 5 3100000     # 5 AOK, locked until block 3,100,000
+```
+
 ## See your payments
 
 The **Transactions** page lists every payment. The tabs **All**, **Received**, **Sent** and **Staking** and the search box narrow the list; double-click a row for its details. The right mouse button offers **Copy transaction ID** and **Show in the explorer**. **Export to CSV** saves the list as a file.

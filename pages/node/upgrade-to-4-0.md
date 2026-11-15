@@ -31,7 +31,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
    ```bash
    sudo mv /usr/local/bin/aokchaind    /usr/local/bin/aokchaind-3.0
    sudo mv /usr/local/bin/aokchain-cli /usr/local/bin/aokchain-cli-3.0
-   sudo install -m 0755 aokchain-4.0.5-linux-x86_64/aokchain* /usr/local/bin/
+   sudo install -m 0755 aokchain-4.0.6-linux-x86_64/aokchain* /usr/local/bin/
    ```
 
    Get and check the 4.0 package as [[install-a-node]] describes.
@@ -41,7 +41,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
 4. **Check it**, a minute later:
 
    ```bash
-   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.5/"
+   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.6/"
    aokchain-cli getblockcount                          # rises to the height of the other nodes
    aokchain-cli getwalletinfo | grep -E '"balance"|immature|txcount'
    ```
@@ -76,12 +76,13 @@ aokchaind -daemon
 
 - Stop deposits and withdrawals for the minutes of the upgrade, back up the wallet first and compare the balance afterwards.
 - The calls an exchange uses (`getnewaddress`, `sendtoaddress`, `sendmany`, `listtransactions`, `listsinceblock`, `gettransaction`, `getrawtransaction`, `signrawtransaction`, `sendrawtransaction`, the token calls) answer as before.
+- Since 4.0.6, `sendtoaddress` and `sendfrom` refuse a `lock_time` from 1 to 255 or below 0 (error `-8`), which made an output without a lock before; `conf_target` and `estimate_mode` of `sendtoaddress` and `sendmany` work; the token calls refuse an offline staking address with error `-5`. See [[version-history]].
 - New and useful: `testmempoolaccept` checks a withdrawal before it is sent, `sendrawtransaction` takes a fee rate limit, `rpcwhitelist` limits an RPC user to a list of commands, `scantxoutset` reads the unspent outputs of an address without a wallet (time-locked ones excepted), and `getbalances` separates locked and immature coins. See [[exchange-integration]].
 
 ## Explorers and indexers
 
 - A node with `addressindex`, `spentindex` and `txindex` starts on its existing data.
-- **Rebuild the address index once.** If the node kept an address index under 3.0.x or under 4.0 before 4.0.5, start 4.0.5 once with `-reindex`, so that the index again has every unspent output. Rebuilding takes about as long as a full sync; you can rebuild a copy of the data directory on another machine and swap it in.
+- **Rebuild the address index once.** If the node kept an address index under 3.0.x or under 4.0 before 4.0.5, start 4.0.5 or later once with `-reindex`, so that the index again has every unspent output. Rebuilding takes about as long as a full sync; you can rebuild a copy of the data directory on another machine and swap it in.
 - 4.0.4 changed two answers: the address index calls take `{"addresses": [...]}` as their help says, and `getaddressutxos` can page with `limit` and `after`; `mediantime` of `getblock` and `getblockheader` is now the median time past instead of the block time. See [[version-history]].
 - A cron line that restarts the node within a minute of every stop gets in the way of an upgrade; use a systemd unit instead ([[start-and-stop]]).
 

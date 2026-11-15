@@ -31,7 +31,7 @@ Starting the program with `-advancedui` has the same effect.
 
 1. Open **Create Tokens**.
 2. Under **Token Type**, keep **Main Token**. The amount in brackets is what creating it costs.
-3. Enter the **Name** and click **Check Availabilty**. The wallet turns the letters into capitals; **Valid Token** means the name is free.
+3. Enter the **Name** and click **Check Availability**. The wallet turns the letters into capitals; **Valid Token** means the name is free.
 4. Enter the **Quantity** and the **Units** (the number of decimals; the example next to the field shows what one unit looks like).
 5. Leave **Reissuable** ticked if you may want to issue more later.
 6. To link a description file, tick **Add JSON Meta Data Hash** and paste its IPFS hash. See [[token-metadata]].
@@ -40,7 +40,7 @@ Starting the program with `-advancedui` has the same effect.
 
 The wallet shows the transaction ID. You can send the new token once a block includes the transaction.
 
-The desktop wallet takes whole quantities up to 21,000,000,000. For more, or for a quantity with decimals, use the `issue` command below.
+The desktop wallet takes whole quantities up to 25,000,000,000, the most a token can have (versions before 4.0.6 stop at 21,000,000,000). For a quantity with decimals, use the `issue` command below.
 
 ## Create a sub token
 
@@ -48,7 +48,7 @@ You need the owner token of the parent, for example `ORCHARD!` to create `ORCHAR
 
 1. Open **Create Tokens** and choose **Sub Token** under **Token Type**.
 2. Pick the parent token in the list next to it.
-3. Enter the part of the name after the `/`, click **Check Availabilty**, and go on as for a main token.
+3. Enter the part of the name after the `/`, click **Check Availability**, and go on as for a main token.
 
 The wallet sends the parent's owner token back to one of your own addresses in the same transaction.
 
@@ -72,6 +72,8 @@ aokchain-cli issue "ORCHARD" 1000000 "" "" 0 true
 | `reissuable` | `true` | Whether more can be issued later |
 | `has_ipfs` | `false` | Whether an IPFS hash follows |
 | `ipfs_hash` | | The IPFS hash, `Qm...` |
+
+Tokens cannot be held at an offline staking address: `issue` refuses one as `to_address` with error `-5`, `Tokens cannot be sent to an offline staking address`.
 
 The command returns the transaction ID in a list. When a block includes it, check the token:
 

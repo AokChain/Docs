@@ -37,6 +37,8 @@ aokchain-cli transfer "ORCHARD" 250 "<address>"
 
 The message is written into the transaction, where everyone can read it.
 
+Tokens cannot be sent to an offline staking address (on the main network one that starts with `2`): its script cannot carry tokens. The **Send** page says so under the address field, and `transfer` and the other token commands refuse it with error `-5`, `Tokens cannot be sent to an offline staking address`. Versions before 4.0.6 refused a transfer there with `Transaction amount too small`.
+
 Other commands:
 
 | Command | What it does |

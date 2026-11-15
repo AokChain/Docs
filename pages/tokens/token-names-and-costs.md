@@ -11,7 +11,7 @@ order: 70
 | Main token | `ORCHARD` | 3 to 30 characters: `A-Z`, `0-9`, dot and underscore |
 | Sub token | `ORCHARD/GREEN` | Each part follows the same rules; the whole name has at most 30 characters. A sub token can have sub tokens of its own: `ORCHARD/GREEN/SMALL`. |
 | Unique token | `ORCHARD#tree-17` | The tag may use `A-Z`, `a-z`, `0-9` and `@ $ % & * ( ) [ ] { } _ . ? : -`; the whole name has at most 31 characters |
-| Username | `@ALICE` | 4 to 30 characters after `@`: `A-Z`, `0-9`, dot and underscore |
+| Username | `@ALICE` | 4 to 30 characters after `@`: `A-Z`, `0-9`, dot and underscore, in any order |
 | Owner token | `ORCHARD!` | Made automatically with a main token or a sub token |
 
 For main tokens and sub tokens:
@@ -20,13 +20,13 @@ For main tokens and sub tokens:
 - A dot or an underscore cannot be the first or the last character of a part, and two of them cannot follow each other: `MY.TOKEN` is valid, `.MYTOKEN`, `MYTOKEN_` and `MY..TOKEN` are not.
 - `AOK`, `AOKCHAIN`, `AOKCOIN`, `AOKHACOIN` and `AOKHACHAIN` are reserved.
 
-A name belongs to whoever creates it first. A name that is already taken, or waiting in the memory pool, is refused. **Check Availabilty** in the desktop wallet tells you before you pay.
+A name belongs to whoever creates it first. A name that is already taken, or waiting in the memory pool, is refused. **Check Availability** in the desktop wallet tells you before you pay.
 
 ## Quantity and units
 
 - **Units** are the number of decimals, from 0 to 8. With 2 units, the smallest amount is 0.01.
 - A quantity must fit the units: with 1 unit, `10.5` is valid and `10.55` is not.
-- A token can have at most 25,000,000,000 in total. The desktop wallet takes whole quantities up to 21,000,000,000; the `issue` command takes the full range.
+- A token can have at most 25,000,000,000 in total. The desktop wallet takes whole quantities up to that limit (versions before 4.0.6 up to 21,000,000,000); a quantity with decimals needs the `issue` command.
 - Unique tokens and usernames always have a quantity of 1 and 0 units, and are not reissuable. An owner token has a quantity of 1.
 
 ## Costs

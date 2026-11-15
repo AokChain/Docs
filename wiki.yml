@@ -21,7 +21,7 @@ branch: wiki
 noindex: true
 
 # Shown in place of "Edit this page" on pages that have generated_by.
-generated_from: AokChain Core 4.0.5
+generated_from: AokChain Core 4.0.6
 
 links:
   website: https://web.aok.network/

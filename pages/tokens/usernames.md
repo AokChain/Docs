@@ -8,7 +8,7 @@ A username such as `@ALICE` is a token that stands for the address that holds it
 
 ## Rules
 
-- `@` followed by 4 to 30 characters: capital letters `A-Z`, digits `0-9`, dot and underscore.
+- `@` followed by 4 to 30 characters: capital letters `A-Z`, digits `0-9`, dot and underscore. Dots and underscores can stand anywhere, also side by side: `@AB..CD` is a username.
 - A username exists once on the chain. Its quantity is 1 and it cannot be reissued.
 - Registering one costs the username cost set by governance, plus the fee. See [[token-names-and-costs]].
 
@@ -27,6 +27,8 @@ aokchain-cli registerusername "@ALICE" "<your address>"
 ```
 
 The command returns the transaction ID. The username works once a block includes the transaction.
+
+A name that breaks the rules is refused with `Invalid username: <name>` and the rule. The address cannot be an offline staking address, which cannot hold tokens.
 
 ## Pay a username
 

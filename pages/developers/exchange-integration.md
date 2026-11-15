@@ -99,7 +99,7 @@ aokchain-cli gettransaction 275adebb9099a31020ffc95c05f5269602ba8311a205d14cf6bf
 
 ## Locked deposits
 
-A payment can lock its output until a block height or a time (a `CHECKLOCKTIMEVERIFY` output; `sendtoaddress` makes one when its third argument, `lock_time`, is above 255). Tokens can be locked the same way. The wallet treats such deposits differently:
+A payment can lock its output until a block height or a time (a `CHECKLOCKTIMEVERIFY` output; `sendtoaddress` makes one when its third argument, `lock_time`, is 256 or more). Tokens can be locked the same way. The wallet treats such deposits differently:
 
 - A locked AOK output is not listed by `listtransactions` or `listsinceblock` and is not in `getbalance` until the lock has passed. `getbalances` counts it under `mine.locked`, and `listunspent` shows it with `"spendable": 0`. `getreceivedbyaddress` never counts such an output, also after the lock.
 - When the lock has passed, `listtransactions` lists the payment (with a `locktime` field) under its original block, and the coins are spendable. `listsinceblock` with a later block does not report it then.
@@ -144,11 +144,11 @@ Deposits are ordinary transactions and are spendable as soon as they are confirm
 
    Over JSON-RPC, pass `params` as an object: `{"address": "...", "amount": 12.5}`. `subtractfeefromamount=true` takes the fee out of the amount, and `comment_to` is a note that stays in your wallet.
 
-   - The `message` argument is written into the transaction (as a version 2 transaction) and is public on the chain, although the help text says it stays in the wallet. Put no customer data there.
-   - Leave out `conf_target` and `estimate_mode`: with either of them `sendtoaddress` fails (`JSON value is not an integer as expected` or `JSON value is not a string as expected`).
+   - The `message` argument is written into the transaction (as a version 2 transaction, at most 120 bytes) and is public on the chain; the help text of versions before 4.0.6 says it stays in the wallet. Put no customer data there.
+   - `conf_target` and `estimate_mode` work from 4.0.6 on. While `estimatesmartfee` has no data, the wallet pays the `fallbackfee` rate with or without them. Older versions fail with either of them (`JSON value is not an integer as expected` or `JSON value is not a string as expected`), so leave them out there.
 
    > [!IMPORTANT]
-   > The third positional argument of `sendtoaddress` is `lock_time`, not the `comment` of Bitcoin Core. Code written for Bitcoin Core that passes positional arguments must be changed: a value above 255 there locks the coins of the recipient until that height or time.
+   > The third positional argument of `sendtoaddress` is `lock_time`, not the `comment` of Bitcoin Core. Code written for Bitcoin Core that passes positional arguments must be changed: a value of 256 or more there locks the coins of the recipient until that height or time. 4.0.6 refuses 1 to 255 and negative values (error `-8`, `Invalid lock_time`); older versions sent such a payment without a lock.
 
 3. **Batch many withdrawals into one transaction** with a raw transaction funded by the wallet:
 
@@ -167,7 +167,7 @@ Deposits are ordinary transactions and are spendable as soon as they are confirm
    aokchain-cli transfer "DOCTOKEN" 10 "Krp9Fwe7rEZm6Y6YxnngFc9to7y1Q4QX9W"
    ```
 
-   It returns an array with the transaction id. The fee is paid in AOK, so the wallet needs some AOK besides the tokens. `transfermany` and `transfermanyoutputs` send to several recipients ([[rpc-tokens]]).
+   It returns an array with the transaction id. The fee is paid in AOK, so the wallet needs some AOK besides the tokens. Tokens cannot go to an offline staking address (`validateaddress` shows `isofflinestaking` for one): the call fails with error `-5`, `Tokens cannot be sent to an offline staking address` (before 4.0.6 with error `-25`, `Transaction amount too small`). `transfermany` and `transfermanyoutputs` send to several recipients ([[rpc-tokens]]).
 
 An encrypted wallet has to be unlocked for each payment: `walletpassphrase "<passphrase>" 30` opens it for 30 seconds (use `aokchain-cli -stdin` so that the passphrase does not land in the shell history).
 

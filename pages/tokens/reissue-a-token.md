@@ -18,8 +18,8 @@ Every reissue costs the reissue cost set by governance, plus the fee, even when 
 The page **Manage Tokens** appears in the advanced view: see [[create-a-token#turn-on-the-advanced-view|Turn on the advanced view]]. You can also click a token on the **Overview** page and choose **Reissue Token**.
 
 1. Open **Manage Tokens**.
-2. In **Select an token to reissue:**, pick the token. **Current Token Settings** shows its name, quantity, units, whether it can be reissued, and its IPFS hash.
-3. Enter the **Quantity** to add (0 to add none) and, if you want, a higher **Unit**.
+2. In **Select a token to reissue:**, pick the token. **Current Token Settings** shows its name, quantity, units, whether it can be reissued, and its IPFS hash.
+3. Enter the **Quantity** to add, a whole number (0 to add none), and, if you want, a higher **Unit**. The field stops where the total would pass 25,000,000,000.
 4. Untick **Reissuable** to fix the supply for good, or tick **Change IPFS Hash** and paste the new hash.
 5. Check **Updated Token Settings** and click **Reissue Token**.
 6. Enter your passphrase, check the confirmation and click **Yes**.
@@ -46,6 +46,6 @@ To fix the supply of `ORCHARD` without adding any:
 aokchain-cli reissue "ORCHARD" 0 "<address>" "" false
 ```
 
-A wallet without the owner token gets "Wallet doesn't have token: ORCHARD!". A token whose reissuable flag is off gets "Unable to reissue token: reissuable is set to false". Lower units get "unit must be larger than current unit selection".
+A wallet without the owner token gets "Wallet doesn't have token: ORCHARD!". A token whose reissuable flag is off gets "Unable to reissue token: reissuable is set to false". Lower units get "unit must be larger than current unit selection". An offline staking address as `to_address` or `change_address` gets "Tokens cannot be sent to an offline staking address": the change address receives the owner token back.
 
 The total supply of a token can never exceed 25,000,000,000.

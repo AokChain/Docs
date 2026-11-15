@@ -1,6 +1,6 @@
 ---
 title: Version history
-description: "The changes of every AokChain Core version from 4.0.0 to 4.0.5, and the 3.0.x line before them."
+description: "The changes of every AokChain Core version from 4.0.0 to 4.0.6, and the 3.0.x line before them."
 order: 20
 ---
 
@@ -8,6 +8,7 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 
 | Version | Date | For whom |
 |---|---|---|
+| 4.0.6 | 2026-11-16 | Everyone on 4.0: programs that call the wallet and token commands, operators who change indexes, desktop wallet users |
 | 4.0.5 | 2026-11-14 | Nodes with an address index (explorers, indexers) |
 | 4.0.4 | 2026-11-14 | Programs that use the address index calls |
 | 4.0.3 | 2026-11-14 | Desktop wallet users |
@@ -15,6 +16,20 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 | 4.0.1 | 2026-11-14 | Everyone on 4.0.0 |
 | 4.0.0 | 2026-11-13 | Everyone on 3.0.x |
 | 3.0.5 | 2022-09-24 | The last 3.0.x version |
+
+## 4.0.6
+
+Small fixes of the node, the commands and the desktop wallet; the rules and the chain state do not change.
+
+- `sendtoaddress` and `sendfrom` refuse a `lock_time` from 1 to 255 or below 0 with error `-8`. Such a value made an output without a lock; 0 is still no lock, and 256 or more locks as before.
+- `conf_target` and `estimate_mode` of `sendtoaddress` and `sendmany` work; they always failed. The help of `sendtoaddress` says that the message is written into the transaction.
+- Every token command and `createrawtransaction` refuse an offline staking address with error `-5`, `Tokens cannot be sent to an offline staking address`. A transfer there failed with `Transaction amount too small`, an issue or a reissue only when it was sent.
+- `registerusername` answers a name that is not a username with `Invalid username: <name>` and the rule.
+- `issueunique` takes a sub token as the parent: `issueunique "ORCHARD/GREEN" '["tree-17"]'`.
+- `aokchain-cli` without a running node says `couldn't connect to server`, and `-rpcwait` waits while a starting node has not written its cookie yet.
+- A start with `-reindex-chainstate` and a changed index stops with the `-reindex` message and no longer deletes the token database first ([[indexes]]).
+- `removeaddress` does not rescan on a pruned node, and its help is its own.
+- Desktop wallet: typos on the token pages, the quantity limits of **Create Tokens** and **Manage Tokens** follow the 25,000,000,000 of the rules, large quantities stay exact, the multisig backup help names **Wallet security**, and the token send page says when an address cannot hold tokens.
 
 ## 4.0.5
 

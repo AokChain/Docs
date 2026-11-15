@@ -16,8 +16,8 @@ tail -n 50 ~/.aokchain/debug.log
 |---|---|
 | `Cannot obtain a lock on data directory ... AokChain Core is probably already running.` | Another `aokchaind` or `aokchain-qt` uses this data directory, or one is still shutting down. Wait until its process has ended (see [[start-and-stop]]). |
 | `Incorrect or no genesis block found. Wrong datadir for network?` | The data directory belongs to another network, for example a testnet folder used for mainnet. |
-| `You need to rebuild the database using -reindex to change -txindex` (or `-tokenIndex`, `-addressindex`, `-spentindex`, `-timestampindex`) | An index option differs from the one the data directory was built with. Put the old value back, or rebuild once with `-reindex`; `-reindex-chainstate` does not change indexes. See [[indexes]]. |
-| `Corrupted block database detected` or `Error opening block database` | The databases were damaged, usually by a crash or a full disk. Start once with `-reindex`. |
+| `You need to rebuild the database using -reindex to change -txindex` (or `-tokenindex`, `-addressindex`, `-spentindex`, `-timestampindex`) | An index option differs from the one the data directory was built with. Put the old value back, or rebuild once with `-reindex`; `-reindex-chainstate` does not change indexes. See [[indexes]]. |
+| `Corrupted block database detected` or `Error opening block database` | The databases were damaged, usually by a crash or a full disk, or a version before 4.0.6 was started with `-reindex-chainstate` and a changed index ([[indexes]]). Start once with `-reindex`. |
 | `This node started from a chain state snapshot and does not have the blocks before it, so it cannot rebuild its databases from the blocks.` | `-reindex` on a node that started from the snapshot. Run `fetchblocks` first, or start again with an empty data directory. |
 | `Error loading ...: Wallet corrupted` | Stop the node, copy the wallet file, and run `aokchain-wallet -wallet=<copy> salvage` on the copy. |
 | `Error loading ...: Wallet requires newer version of AokChain Core` | The wallet was written by a newer program. Open it with that program, or with a newer one. |
@@ -53,7 +53,7 @@ Lines such as `InvalidChainFound` or `bad-cs-proofhash` about a block on a short
 |---|---|
 | `couldn't connect to server: ... (make sure server is running and you are connecting to the correct RPC port)` | The node is not running, still starting, or listens on another port. Use `-rpcwait` while it starts; give `-datadir` or `-rpcport` if they are not the defaults. |
 | `error code: -28` with `Loading block index...` or `Fast start: ...` | The node is starting. Wait, or use `-rpcwait`. |
-| `Could not locate RPC credentials. No authentication cookie could be found, and RPC password is not set.` | The CLI looks in another data directory than the node's (give the same `-datadir`), the node has not written its cookie file yet (just started; see `-daemonwait` on [[start-and-stop]]), or it does not run. |
+| `Could not locate RPC credentials. No authentication cookie could be found, and RPC password is not set.` | A node answers, but the CLI has neither its cookie file nor a password: it looks in another data directory than the node's (give the same `-datadir`), or the node uses `rpcpassword` (give it to the CLI). Versions before 4.0.6 also say this when no node runs or the node has not written its cookie yet (see [[start-and-stop]]). |
 | `incorrect rpcuser or rpcpassword (authorization failed)` | The password in `aokchain.conf` and the one the CLI uses differ. With `rpcpassword` set, no cookie file is written. |
 | `server returned HTTP error 403` | `rpcwhitelist` does not allow this user that command. With any `rpcwhitelist` line, users without one, the cookie user of `aokchain-cli` included, may call nothing unless `rpcwhitelistdefault=0`. See [[json-rpc#limit-a-user-to-some-commands]]. |
 | `Wallet file not specified (must request wallet RPC through /wallet/<filename> uri-path).` | Several wallets are loaded. Add `-rpcwallet=<name>`; the wallet of the data directory itself has the empty name, `-rpcwallet=`. |
@@ -65,6 +65,8 @@ Lines such as `InvalidChainFound` or `bad-cs-proofhash` about a block on a short
 | `Error: Please enter the wallet passphrase with walletpassphrase first.` | The wallet is encrypted and locked. `walletpassphrase "<passphrase>" 60` opens it for 60 seconds. |
 | `Error: Wallet is unlocked for staking only.` | The wallet is unlocked for staking only. Unlock it with a timeout for the payment; it returns to staking only afterwards. |
 | `Insufficient funds` | Not enough spendable coins. Coins that are immature, time locked or held at an offline staking address do not count; `getbalances` shows each kind. |
+| `Invalid lock_time N: use 0 for no lock, or a block height or a time of at least 256` | `sendtoaddress` or `sendfrom` got a lock time from 1 to 255 or below 0, which would make no lock. Use 0, a block height or a time. |
+| `Tokens cannot be sent to an offline staking address: <address>` | An offline staking address cannot hold tokens. Send the tokens to an ordinary address. Versions before 4.0.6 say `Transaction amount too small` for a transfer there. |
 | `Requested wallet does not exist or is not loaded` | A wallet made with `createwallet` is not loaded again at the next start. Load it with `loadwallet <name>`, or add `wallet=<name>` to `aokchain.conf`. |
 
 ## A transaction is refused

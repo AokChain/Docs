@@ -44,7 +44,10 @@ An index is built from the blocks, so a change needs a rebuild.
 
    The node reads all blocks from its own block files again and validates them; that takes about as long as a first sync from the block archives. Do not set `reindex=1` in the file, or it rebuilds at every start.
 
-If you change an index and start without `-reindex`, the node stops with a message such as `You need to rebuild the database using -reindex to change -txindex`. For `addressindex`, `spentindex` and `timestampindex` the message names `-reindex-chainstate`, but that keeps the old index settings and gives the same message again: use `-reindex`.
+If you change an index and start without `-reindex`, the node stops with a message such as `You need to rebuild the database using -reindex to change -txindex` and "Please restart with -reindex to recover." `-reindex-chainstate` does not help: it keeps the old index settings and gives the same message again. Nothing is changed by such a start; put the old setting back, or rebuild with `-reindex`.
+
+> [!WARNING]
+> Versions before 4.0.6 name `-reindex-chainstate` in the message for `addressindex`, `spentindex` and `timestampindex`, and a start with `-reindex-chainstate` and a changed index deletes the token database before it stops. The next start then reports `Corrupted block database detected`, and only `-reindex` repairs the node. With those versions, never combine `-reindex-chainstate` with a changed index.
 
 ## A new node with indexes
 
@@ -78,7 +81,7 @@ The answer is then an object `{"utxos": [...], "next": "..."}`. Pass `next` back
 Amounts in these answers are in satoshis (1 AOK = 100,000,000).
 
 > [!IMPORTANT]
-> A node that kept an address index under 3.0.x or under 4.0 before 4.0.5 should rebuild it once with 4.0.5 (`-reindex`), so that every unspent output is in it.
+> A node that kept an address index under 3.0.x or under 4.0 before 4.0.5 should rebuild it once with 4.0.5 or later (`-reindex`), so that every unspent output is in it.
 
 ## Pruning
 
