@@ -23,8 +23,8 @@ curl -s https://v3.aokscan.com/api/v3/status
 ## Conventions
 
 - **Base address:** `https://v3.aokscan.com/api/v3`.
-- **Amounts are strings of integer satoshis** (1 AOK = 100000000), because the AOK supply and many token amounts do not fit into the safe integer range of JavaScript. Token amounts use the same base unit of 8 decimals; `units` is the precision a token is displayed with. Parse them with a big-integer or decimal type.
-- **Pages** are cursors: pass the `next` value of a page back as `before` or `after`, as the endpoint says.
+- **Amounts are strings of integer satoshis** (1 AOK = 100000000), because the AOK supply and many token amounts do not fit into the safe integer range of JavaScript. Token amounts use the same base unit of 8 decimals; `units` is the precision a token is displayed with. Parse them with a big-integer or decimal type. A few fields are in AOK instead, written with a decimal point: the issuing costs of `/governance`, `cost.amount` of `/tokens/issuance` and `/tokens/check` (next to `cost.sats` in satoshis), and `total_coins` of `/supply`.
+- **Pages** are cursors: pass the `next` value of a page back as `before` or `after`, as the endpoint says. The endpoints with an `offset` parameter (`/block/{id}/txs`, `/richlist`, `/token/{name}/holders`) page by offset instead.
 - **Errors** have a real HTTP status and a body `{"error": {"code": "...", "message": "..."}}`: 400 for bad input, 404 for something unknown (`"code": "not_found"`), 422 when the node refused a transaction (with the node's reason under `error.node`), 502 and 503 when the node or the index is not available.
 - **Fresh data:** `/status` shows the height of the index (`index.height`) and of its node (`node.height`); `lag` says how many blocks the index is behind its node.
 - The service is rate limited per client. Cache what does not change (blocks deep in the chain, old transactions) and back off when you get errors.
@@ -38,7 +38,7 @@ curl -s https://v3.aokscan.com/api/v3/status
 | `GET /block/{height or hash}` | One block. |
 | `GET /block/{height or hash}/txs?offset=&limit=` | Its transactions. |
 | `GET /tx/{txid}` | A transaction with inputs, outputs, addresses and tokens. |
-| `GET /tx/{txid}/raw` | The raw hex and the node's decoded JSON. |
+| `GET /tx/{txid}/raw` | The transaction in raw hex. |
 | `GET /tx/{txid}/status` | Confirmations of a transaction. |
 | `GET /address/{address}` | Balances per currency, transaction count, user names, first and last use. |
 | `GET /address/{address}/txs?currency=&before=&limit=` | Transactions of an address, newest first. |
@@ -53,8 +53,8 @@ curl -s https://v3.aokscan.com/api/v3/status
 | `POST /tokens/info` | Several tokens at once: units, supply, IPFS metadata. Body `{"names": [...]}`. |
 | `GET /token/{name}`, `/holders`, `/txs`, `/transfers`, `/children` | One token, its holders, transactions, transfers, and its sub tokens or unique tokens. URL-encode `#`, `/` and `@` in names. |
 | `GET /tokens/issuance` | What issuing each kind of token costs, and the address the cost is paid to. |
-| `GET /tokens/check?name=` | Whether a token name is valid and still free, by the node's own rules, with the cost. |
-| `GET /governance` | Issuing costs and the list of frozen addresses. |
+| `GET /tokens/check?name=` | Whether a token name is valid and still free, with the cost. The API checks the name with its own copy of the node's rules. |
+| `GET /governance` | Issuing costs and the list of frozen addresses, refreshed every 30 minutes. |
 | `GET /username/{name}` | The address that holds a user name now. |
 | `POST /verify` | Checks a signed message ([[message-signing]]). Body `{"address", "message", "signature"}`. |
 | `GET /stats/daily?days=` | Chain activity per day (UTC). |
@@ -78,14 +78,13 @@ These serve wallets that keep their keys on the device and leave the chain to th
 
 | Method and path | Returns |
 |---|---|
-| `GET /wallet/info` | The chain parameters a wallet needs: address versions, maturity, the transaction time rules, the server time. |
 | `POST /wallet/addresses` | For each address: used or not, transaction count, balances. For a gap search on the device. |
 | `POST /wallet/discover` | The used addresses of an account xpub. |
 | `POST /wallet/balance` | Balances per currency: confirmed, unconfirmed, locked, immature, spendable. |
 | `POST /wallet/utxos` | Unspent outputs, without those that a mempool transaction spends, with the script and lock and maturity details needed to sign. |
 | `POST /wallet/history` | Transactions of the address set, newest first, pending ones first. |
 | `POST /wallet/nfts` | Unique tokens held, with titles and thumbnails. |
-| `GET /wallet/fees` | Fee rates in satoshis per kB: `min_relay` and `recommended`. |
+| `GET /wallet/fees` | Fee rates in satoshis per kB: `min_relay` and `recommended`. These are lower than the default rate of the AokChain Core wallet (0.01025 AOK/kB), which uses its own `fallbackfee`. |
 | `POST /wallet/broadcast` | Checks a signed transaction with the node (`testmempoolaccept`) and sends it. Body `{"hex": "..."}`; a refused transaction answers 422 with the node's reason. |
 
 ```bash
@@ -93,7 +92,7 @@ curl -s -X POST https://v3.aokscan.com/api/v3/wallet/balance -H 'Content-Type: a
   -d '{"addresses":["KacWDE2Fyqywwr6YDKt1FYthycv3Ee7dqv","Krp9Fwe7rEZm6Y6YxnngFc9to7y1Q4QX9W"]}'
 ```
 
-A wallet that signs its own transactions needs the AokChain transaction format with its time field ([[raw-transactions]]). Take the time from `server_time` of `/wallet/info` rather than the device clock: a transaction more than 10 minutes ahead of the nodes' clocks is refused.
+A wallet that signs its own transactions needs the AokChain transaction format with its time field ([[raw-transactions]]). Do not trust the device clock blindly: a transaction more than 10 minutes ahead of the nodes' clocks is refused. Every answer of the API carries the server's time in its HTTP `Date` header.
 
 The `push` endpoints register the devices of the AOK wallet apps for payment notifications.
 
