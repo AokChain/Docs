@@ -30,7 +30,7 @@ A multisig wallet is also described by its multisig information file. Keep that 
 2. Open the data folder. The wallet file is `wallets/wallet.dat` (or `wallet.dat` in data folders of older versions). See [[desktop-wallet#where-the-files-are|Where the files are]].
 3. Rename the current `wallet.dat`, for example to `wallet-old.dat`, so that nothing is lost.
 4. Copy your backup into the same folder and name it `wallet.dat`.
-5. Start AokChain Core. It reads the blocks since the backup was made and adds the transactions it finds; the status light shows **Rescanning** meanwhile.
+5. Start AokChain Core. It reads the blocks since the backup was made and adds the transactions it finds, which can take a while.
 
 A new installation starts from a snapshot of the chain state and has no blocks from before it. If the restored wallet needs them to find its earlier transactions, the wallet asks to download the past blocks. Click **Download**; the side bar shows the progress, and you can keep using the wallet.
 
