@@ -403,12 +403,14 @@ class Checker:
                 where = f"{path} @{width} {theme}"
                 if first:
                     self.open(chrome, url, width, theme)
-                    self.console_problems(chrome, where)
+                    lost = chrome.cdp.js("document.body.classList.contains('kind-notfound')")
+                    self.console_problems(chrome, where, expect_404=lost)
                     info = chrome.cdp.js(STRUCTURE)
                     for p in info["problems"]:
                         self.fail(path, p)
                     for link in info["links"] + info["assets"]:
-                        if link.startswith(self.origin):
+                        # same-page anchors are checked in the page itself
+                        if link.startswith(self.origin) and link.split("#")[0] != url:
                             self.links.setdefault(link, path)
                     first = False
                 else:
@@ -479,9 +481,13 @@ class Checker:
                     self.fail("redirect", f"{bare} answers {e.code} {e.headers.get('Location')}")
 
     def check_aliases(self):
+        """Every alias page of the build forwards to a page that answers. For a
+        live address the alias list comes from the local build/ when it was
+        built for the same base."""
+        build = Path(self.args.build) if self.args.build else serve.BUILD
         if not self.args.build:
-            return
-        build = Path(self.args.build)
+            if serve.build_base(build) != urllib.parse.urlsplit(self.base).path or not (build / "index.html").exists():
+                return
         for f in sorted(build.rglob("index.html")):
             head = f.read_text(encoding="utf-8")[:2000]
             if 'http-equiv="refresh"' not in head:
@@ -502,8 +508,14 @@ class Checker:
     def interactions(self, chrome, pages):
         """Search by keyboard, the menu on a phone, the copy button, the 404 page."""
         cdp = chrome.cdp
-        doc = next((u for u in pages if u != self.base and "/sections/" not in u and "all-pages" not in u
-                    and "recent-changes" not in u), None)
+        doc = None
+        for u in pages:
+            if u == self.base or any(k in u for k in ("/sections/", "all-pages", "recent-changes")):
+                continue
+            status, _, body, _ = fetch(u)
+            if status == 200 and b'class="kind-page"' in body:
+                doc = u
+                break
         if doc:
             self.open(chrome, doc, 1440, "light")
             cdp.events.clear()

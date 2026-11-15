@@ -578,7 +578,10 @@
       .slice(0, 5).join(" ");
     if (words) {
       pageSearch.input.value = words;
-      pageSearch.run();
+      /* show suggestions only when there are some */
+      pageSearch.run(function () {
+        if (!$(".search-list [role=option]", pageSearch.root)) pageSearch.close();
+      });
     }
   }
 })();
