@@ -112,5 +112,5 @@ def test_callouts(build, out):
     build({"start/a.md": page("A", "> [!WARNING]\n> Keep a backup.")})
     html = out("a/index.html")
     assert '<div class="callout callout-warning" role="note">' in html
-    assert '<use href="#i-exclamation-triangle"/></svg>Warning</p>' in html
-    assert '<symbol id="i-exclamation-triangle"' in html
+    assert '<use href="#i.exclamation-triangle"/></svg>Warning</p>' in html
+    assert '<symbol id="i.exclamation-triangle"' in html

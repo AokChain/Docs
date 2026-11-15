@@ -525,7 +525,6 @@ class Checker:
                 if cdp.js("location.href") == before and n > 1:
                     self.fail("search", "Enter on a result does not open it")
             self.console_problems(chrome, "search")
-            has_code = cdp.js("!!document.querySelector('.code-copy')")
             self.open(chrome, doc, 390, "light")
             cdp.events.clear()
             cdp.js("document.querySelector('[data-menu]').click()")
@@ -544,8 +543,6 @@ class Checker:
             for p in cdp.js(PAGE_PROBES):
                 self.fail("search @390", p)
             self.console_problems(chrome, "menu")
-            if has_code is False:
-                print("  note: the first page has no code block; copy button not tried")
         code_page = None
         for u in pages:
             if self.html_cache.get(u.split("#")[0], (0, {}, b""))[2].find(b'class="code"') >= 0:

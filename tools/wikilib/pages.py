@@ -79,7 +79,14 @@ def read_page(path, section, errors):
     try:
         meta = yaml.safe_load(m.group(1) or "") or {}
     except yaml.YAMLError as e:
-        errors.append(f"{label}:1: front matter is not valid YAML: {e}")
+        mark = getattr(e, "problem_mark", None)
+        line = (mark.line + 2) if mark else 1
+        hint = ""
+        if "mapping values are not allowed" in str(e) and mark:
+            bad = (m.group(1) or "").splitlines()[mark.line]
+            key, _, value = bad.partition(":")
+            hint = f": a value with ': ' in it needs quotes, {key.strip()}: \"{value.strip()}\""
+        errors.append(f"{label}:{line}: front matter is not valid YAML{hint or ': ' + str(e).splitlines()[0]}")
         return None
     if not isinstance(meta, dict):
         errors.append(f"{label}:1: front matter must be key: value lines")
@@ -174,6 +181,8 @@ def index(pages, errors):
         for a in p.aliases:
             if a in RESERVED:
                 errors.append(f"{p.label}: alias {a!r} is used by the wiki itself")
+            elif a == p.slug:
+                errors.append(f"{p.label}: alias {a!r} is the page's own slug; leave it out")
             elif a in by_slug:
                 errors.append(f"{p.label}: alias {a!r} is the slug of {by_slug[a].label}")
             elif a in aliases:

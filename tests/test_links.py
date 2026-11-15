@@ -1,4 +1,3 @@
-import re
 
 import pytest
 
@@ -84,7 +83,7 @@ def test_relative_md_links_fail(build):
 def test_external_links_get_the_arrow(build, out):
     build({"start/intro.md": page("Intro", "The [explorer](https://v3.aokscan.com/) and https://github.com/AokChain")})
     html = out("intro/index.html")
-    assert re.search(r'<a href="https://v3.aokscan.com/" class="ext">explorer<svg class="icon icon-ext"', html)
+    assert '<a href="https://v3.aokscan.com/" class="ext">explorer</a>' in html
     assert 'href="https://github.com/AokChain"' in html
 
 

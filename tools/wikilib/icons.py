@@ -1,6 +1,7 @@
-"""The inline icon sprite. Pages reference icons as <use href="#i-NAME"/>
-(Heroicons, 24/outline) or "#b-NAME" (Simple Icons brand marks); each page
-gets exactly the <symbol>s it uses, so no icon file is fetched."""
+"""The inline icon sprite. Pages reference icons as <use href="#i.NAME"/>
+(Heroicons, 24/outline) or "#b.NAME" (Simple Icons brand marks); each page
+gets exactly the <symbol>s it uses, so no icon file is fetched. The dot keeps
+icon ids apart from heading anchors, which never contain one."""
 import re
 from functools import lru_cache
 
@@ -23,10 +24,10 @@ LOGO_LETTERS = (
     '<path d="M73.473 19.544l-2 .109v5.331h-1.8V12.142h1.8v5.774l1.963-.111 2.875-5.663h2.1l-3.357 6.421 3.524 6.42h-2.122z"/>'
 )
 SPECIAL = {
-    "i-aok-mark": ("0 0 39 39", f'<path d="{MARK}"/>'),
-    "i-aok-logo": ("0 0 79 38", f'<path transform="scale(.97436)" d="{MARK}"/>' + LOGO_LETTERS),
+    "i.aok-mark": ("0 0 39 39", f'<path d="{MARK}"/>'),
+    "i.aok-logo": ("0 0 79 38", f'<path transform="scale(.97436)" d="{MARK}"/>' + LOGO_LETTERS),
 }
-USE = re.compile(r'href="#((?:i|b)-[a-z0-9-]+)"')
+USE = re.compile(r'href="#((?:i|b)\.[a-z0-9-]+)"')
 
 
 @lru_cache(maxsize=None)
@@ -34,7 +35,7 @@ def symbol(name):
     if name in SPECIAL:
         box, inner = SPECIAL[name]
         return f'<symbol id="{name}" viewBox="{box}">{inner}</symbol>'
-    kind, _, base = name.partition("-")
+    kind, _, base = name.partition(".")
     folder = "heroicons" if kind == "i" else "simple"
     path = THEME / "icons" / folder / f"{base}.svg"
     if not path.exists():

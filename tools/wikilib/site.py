@@ -244,11 +244,21 @@ class Site:
     # -------------------------------------------------------------- write
 
     def prepare_out(self):
+        """Write into a folder next to the output; it replaces the output only
+        when the whole build has worked."""
+        if self.out.exists() and any(self.out.iterdir()) and not (self.out / MARKER).exists():
+            raise BuildError([f"{self.out}: not empty and not a wiki build; refusing to replace it"])
+        self.final = self.out
+        self.out = self.final.with_name(f".{self.final.name}.partial")
         if self.out.exists():
-            if any(self.out.iterdir()) and not (self.out / MARKER).exists():
-                raise BuildError([f"{self.out}: not empty and not a wiki build; refusing to clear it"])
             shutil.rmtree(self.out)
         (self.out / "assets").mkdir(parents=True)
+
+    def finish_out(self):
+        if self.final.exists():
+            shutil.rmtree(self.final)
+        self.out.rename(self.final)
+        self.out = self.final
 
     def _put(self, rel, data):
         path = self.out / rel
@@ -298,6 +308,8 @@ class Site:
             repo=cfg.repo, page_count=len(self.pages),
         )
         env.filters["nice_date"] = nice_date
+        # one-line copy (summaries, descriptions in lists) goes without a full stop
+        env.filters["line"] = lambda text: re.sub(r"(?<![.\s])\.$", "", str(text).strip())
         return env
 
     def canonical(self, path):
@@ -313,15 +325,17 @@ class Site:
         self._put(rel, html)
 
     def toc(self, page):
-        out = []
+        """h2 headings with their h3s; h3s before the first h2 stand alone."""
+        out, current = [], None
         for h in page.parsed.headings:
             if h.level == 2:
-                out.append({"id": h.id, "text": h.text, "children": []})
+                current = {"id": h.id, "text": h.text, "children": []}
+                out.append(current)
             elif h.level == 3:
-                if out:
-                    out[-1]["children"].append({"id": h.id, "text": h.text})
-                else:
+                if current is None:
                     out.append({"id": h.id, "text": h.text, "children": []})
+                else:
+                    current["children"].append({"id": h.id, "text": h.text})
         return out
 
     def write_pages(self, env):
@@ -341,6 +355,7 @@ class Site:
                 self.render(env, "page.html", f"{p.slug}/index.html", kind="page", page=p, section=s,
                             title=p.title, description=p.description, canonical=self.canonical(p.url),
                             current_slug=p.slug, current_section=s.id, toc=self.toc(p),
+                            toc_size=sum(1 for h in p.parsed.headings if h.level in (2, 3)),
                             prev=prev, next=nxt, meta=meta)
             self.render(env, "section.html", f"sections/{s.id}/index.html", kind="section", section=s,
                         title=s.title, description=s.summary, canonical=self.canonical(s.url),
@@ -397,14 +412,20 @@ class Site:
         self.read()
         self.read_git()
         self.prepare_out()
-        self.write_assets()
-        env = self.env()
-        self.write_pages(env)
-        self.write_lists(env)
-        self.write_home(env)
-        self.write_extras(env)
-        self._put(MARKER, json.dumps({
-            "base": self.base, "pages": len(self.pages), "aliases": len(self.aliases),
-            "built": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
-        }, indent=1) + "\n")
+        try:
+            self.write_assets()
+            env = self.env()
+            self.write_pages(env)
+            self.write_lists(env)
+            self.write_home(env)
+            self.write_extras(env)
+            self._put(MARKER, json.dumps({
+                "base": self.base, "pages": len(self.pages), "aliases": len(self.aliases),
+                "built": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+            }, indent=1) + "\n")
+        except BaseException:
+            shutil.rmtree(self.out, ignore_errors=True)
+            self.out = self.final
+            raise
+        self.finish_out()
         return self

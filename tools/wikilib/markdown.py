@@ -12,7 +12,7 @@ Pages go through three steps:
 Rendering adds: an id on every heading, callouts for > [!NOTE] and the other
 alerts, Pygments classes on fenced code, a scrolling wrapper on tables,
 classes instead of style attributes (the CSP allows no inline styles), and
-the arrow icon on links to other sites.
+the arrow on links to other sites (a class; docs.css draws it).
 """
 import re
 from dataclasses import dataclass, field
@@ -175,10 +175,6 @@ def parse(md, body, label, first_line, titles):
                         errors.append(f"{at}: mailto link: no email addresses in the wiki")
                     elif scheme in ("http", "https"):
                         c.attrJoin("class", "ext")
-                        for close in children[j + 1:]:
-                            if close.type == "link_close":
-                                close.meta["ext"] = True
-                                break
                 else:
                     errors.append(f"{at}: relative link {href!r}: link pages with [[slug]] "
                                   "and files with /assets/...")
@@ -277,11 +273,6 @@ def _wikilink(self, tokens, idx, options, env):
     return f'<a href="{escapeHtml(m["href"])}">{escapeHtml(m["label"])}</a>'
 
 
-def _link_close(self, tokens, idx, options, env):
-    icon = ""
-    if tokens[idx].meta.get("ext"):
-        icon = '<svg class="icon icon-ext" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>'
-    return icon + "</a>"
 
 
 def _image(self, tokens, idx, options, env):
@@ -328,7 +319,7 @@ def _alert_open(self, tokens, idx, options, env):
 def _alert_title_open(self, tokens, idx, options, env):
     kind = tokens[idx - 1].meta["kind"].lower()
     return (f'<p class="callout-title"><svg class="icon" aria-hidden="true">'
-            f'<use href="#i-{CALLOUT_ICONS[kind]}"/></svg>')
+            f'<use href="#i.{CALLOUT_ICONS[kind]}"/></svg>')
 
 
 def _alert_title_close(self, tokens, idx, options, env):
@@ -346,7 +337,7 @@ def _html(self, tokens, idx, options, env):
 
 RENDER_RULES = {
     "heading_open": _heading_open, "heading_close": _heading_close,
-    "wikilink": _wikilink, "link_close": _link_close, "image": _image,
+    "wikilink": _wikilink, "image": _image,
     "fence": _fence, "code_block": _code_block,
     "table_open": _table_open, "table_close": _table_close,
     "alert_open": _alert_open, "alert_title_open": _alert_title_open,

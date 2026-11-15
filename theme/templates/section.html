@@ -14,21 +14,21 @@
         <span class="tile-icon tile-icon--lg">{{ icon(section.icon, "icon-24") }}</span>
         <h1 class="doc-title">{{ section.title }}</h1>
       </div>
-      <p class="doc-lead">{{ section.summary }}</p>
+      <p class="doc-lead">{{ section.summary|line }}</p>
 {% if section.pages %}
       <ol class="listing">
 {% for p in section.pages %}
         <li>
           <a class="listing-link" href="{{ p.url }}">
             <span class="listing-title">{{ p.title }}</span>
-            <span class="listing-desc">{{ p.description }}</span>
+            <span class="listing-desc">{{ p.description|line }}</span>
             {{ icon("arrow-right", "listing-go") }}
           </a>
         </li>
 {% endfor %}
       </ol>
 {% else %}
-      <p class="doc-empty">No pages in this section yet. <a href="{{ all_url }}">All pages</a></p>
+      <p class="doc-empty">No pages in this section yet · <a href="{{ all_url }}">All pages</a></p>
 {% endif %}
     </div>
   </main>

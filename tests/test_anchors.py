@@ -50,3 +50,17 @@ def test_heading_with_a_link_is_not_wrapped(build, out):
     build({"node/a.md": page("A", "## See [[b]]"), "node/b.md": page("B", "Text.", order=2)})
     html = out("a/index.html")
     assert '<h2 id="see-b">See <a href="/doc/b/">B</a></h2>' in html
+
+
+def test_contents_of_a_page_that_starts_at_h3(build, out):
+    build({"reference/rpc.md": page("RPC", """
+        ### getblock
+        ### getblockhash
+        ## Notes
+        ### Ports
+    """)})
+    html = out("rpc/index.html")
+    assert 'class="layout has-toc"' in html
+    toc = html.split('<nav class="toc"', 1)[1].split("</nav>", 1)[0]
+    assert toc.count("<li>") == 4
+    assert toc.index("#getblockhash") < toc.index("#notes") < toc.index("#ports")

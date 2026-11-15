@@ -13,3 +13,4 @@
 .search--header .search-fallback { color: #ffffff; }
 .search--hero .search-fallback { font-size: 18px; }
 @media (min-width: 1024px) { .header-tools .hdr-btn.nojs-only { display: none !important; } }
+.kind-home .hero-meta { display: none; }

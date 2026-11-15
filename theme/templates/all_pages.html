@@ -27,14 +27,14 @@
           <li>
             <a class="az-title" href="{{ p.url }}">{{ p.title }}</a>
             <span class="az-sec">{{ p.section.title }}</span>
-            <p class="az-desc">{{ p.description }}</p>
+            <p class="az-desc">{{ p.description|line }}</p>
           </li>
 {% endfor %}
         </ul>
       </section>
 {% endfor %}
 {% else %}
-      <p class="doc-empty">No pages yet.</p>
+      <p class="doc-empty">No pages yet</p>
 {% endif %}
     </div>
   </main>

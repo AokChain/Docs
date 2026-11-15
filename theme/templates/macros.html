@@ -1,9 +1,9 @@
 {% macro icon(name, cls="") -%}
-<svg class="icon{{ ' ' ~ cls if cls }}" aria-hidden="true"><use href="#i-{{ name }}"/></svg>
+<svg class="icon{{ ' ' ~ cls if cls }}" aria-hidden="true"><use href="#i.{{ name }}"/></svg>
 {%- endmacro %}
 
 {% macro brand(name, cls="") -%}
-<svg class="icon icon-brand{{ ' ' ~ cls if cls }}" aria-hidden="true"><use href="#b-{{ name }}"/></svg>
+<svg class="icon icon-brand{{ ' ' ~ cls if cls }}" aria-hidden="true"><use href="#b.{{ name }}"/></svg>
 {%- endmacro %}
 
 {% macro search_box(id, variant) -%}

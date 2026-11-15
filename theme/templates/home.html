@@ -12,7 +12,7 @@
       <h1 class="hero-title" id="hero-title">AokChain docs</h1>
       <p class="hero-sub">Wallets, staking, tokens and nodes, down to every RPC command</p>
       {{ search_box("q-home", "hero") }}
-      <p class="hero-meta"><a href="{{ all_url }}">{{ page_count }} pages</a><span aria-hidden="true">·</span><a href="{{ recent_url }}">Recent changes</a></p>
+      <p class="hero-meta"><a href="{{ all_url }}">All {{ page_count }} pages</a></p>
     </div>
   </section>
 
@@ -24,10 +24,12 @@
         <li class="tile">
           <div class="tile-head">
             <span class="tile-icon">{{ icon(s.icon, "icon-24") }}</span>
+{% if s.pages %}
             <span class="tile-count">{{ s.pages|length }} {{ "page" if s.pages|length == 1 else "pages" }}</span>
+{% endif %}
           </div>
           <h3 class="tile-title"><a href="{{ s.url }}">{{ s.title }}</a></h3>
-          <p class="tile-sum">{{ s.summary }}</p>
+          <p class="tile-sum">{{ s.summary|line }}</p>
 {% if s.pages %}
           <ul class="tile-pages">
 {% for p in s.pages[:top] %}
