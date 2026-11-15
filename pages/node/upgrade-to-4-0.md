@@ -4,7 +4,7 @@ description: Replace a 3.0.x node with AokChain Core 4.0, check it afterwards an
 order: 50
 ---
 
-AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no activation height: a 4.0 node and a 3.0.x node accept the same blocks and connect to each other, so each node can be upgraded on its own, at any time. 4.0 includes security fixes; every node should be upgraded.
+AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no activation height: a 4.0 node and a 3.0.x node follow the same chain and connect to each other, so each node can be upgraded on its own, at any time. 4.0 includes security fixes; every node should be upgraded.
 
 ## What stays the same
 

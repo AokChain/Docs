@@ -11,7 +11,7 @@ AokChain Core 4.0 is a new node and desktop wallet for the same chain. It needs 
 | | |
 |---|---|
 | Chain | The same chain. The whole main network, more than three million blocks, was validated again from the first block with 4.0, and no block was rejected. |
-| Activation height | None. 4.0 and 3.0.x nodes accept the same blocks. |
+| Activation height | None. 4.0 and 3.0.x nodes follow the same chain. |
 | Protocol | Version 70021; 3.0.x (70020) and 4.0 nodes connect to each other. |
 | Wallet file | Unchanged (Berkeley DB 4.8): 3.0.x wallets open in 4.0, and 3.0.x opens them again afterwards. |
 | Data directory | Used as it is, with its indexes; no reindex for the upgrade. |

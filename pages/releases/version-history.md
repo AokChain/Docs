@@ -66,4 +66,4 @@ The first 4.0 version: a new node and desktop wallet for the same chain. Everyth
 | 3.0.1 | 2022-03-29 |
 | 3.0.0 | 2022-03-28 |
 
-The 3.0.x line speaks protocol version 70020. Its nodes and 4.0 nodes connect to each other and accept the same blocks, and its wallet files open in 4.0. 3.0.x does not build on current systems and has no further versions; replace it with 4.0 ([[upgrade-to-4-0]]).
+The 3.0.x line speaks protocol version 70020. Its nodes and 4.0 nodes connect to each other and follow the same chain, and its wallet files open in 4.0. 3.0.x does not build on current systems and has no further versions; replace it with 4.0 ([[upgrade-to-4-0]]).
