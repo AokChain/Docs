@@ -36,7 +36,7 @@ Both can also be set in `aokchain.conf` (`daemon=1`). Give `-datadir=<dir>` to e
 aokchain-cli -rpcwait getblockchaininfo
 ```
 
-While the node loads its databases, RPC calls answer with error `-28` and a message such as `Loading block index...`; `-rpcwait` waits until it can answer. Then:
+While the node loads its databases, RPC calls answer with error `-28` and a message such as `Loading block index...`; `-rpcwait` waits until it can answer. It cannot wait for the cookie file, though: in the first moment after `aokchaind -daemon` the file may not exist yet, and the call fails with `Could not locate RPC credentials`. Scripts that start a node and call it right away should start it with `-daemonwait`. Then:
 
 | Command | What to look at |
 |---|---|

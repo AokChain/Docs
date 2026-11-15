@@ -53,6 +53,7 @@ Lines such as `InvalidChainFound` or `bad-cs-proofhash` about a block on a short
 |---|---|
 | `couldn't connect to server: ... (make sure server is running and you are connecting to the correct RPC port)` | The node is not running, still starting, or listens on another port. Use `-rpcwait` while it starts; give `-datadir` or `-rpcport` if they are not the defaults. |
 | `error code: -28` with `Loading block index...` or `Fast start: ...` | The node is starting. Wait, or use `-rpcwait`. |
+| `Could not locate RPC credentials. No authentication cookie could be found, and RPC password is not set.` | The CLI looks in another data directory than the node's (give the same `-datadir`), the node has not written its cookie file yet (just started; see `-daemonwait` on [[start-and-stop]]), or it does not run. |
 | `incorrect rpcuser or rpcpassword (authorization failed)` | The password in `aokchain.conf` and the one the CLI uses differ. With `rpcpassword` set, no cookie file is written. |
 | `server returned HTTP error 403` | `rpcwhitelist` does not allow this user that command. With any `rpcwhitelist` line, users without one, the cookie user of `aokchain-cli` included, may call nothing unless `rpcwhitelistdefault=0`. See [[json-rpc#limit-a-user-to-some-commands]]. |
 | `Wallet file not specified (must request wallet RPC through /wallet/<filename> uri-path).` | Several wallets are loaded. Add `-rpcwallet=<name>`; the first wallet is `-rpcwallet=` with an empty name. |

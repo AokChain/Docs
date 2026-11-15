@@ -51,7 +51,7 @@ Downloads of the 4.0 programs are being prepared at [web.aok.network/download](h
 
    The first line says `AokChain Core Daemon version v4.0.5.0-` followed by the build's commit.
 
-The Linux package holds `aokchaind`, `aokchain-cli`, `aokchain-tx` and `aokchain-wallet`; the libraries they need are built in. On Windows the programs come as zip archives without an installer: unpack them into a folder of your choice. The Windows programs are not code-signed, so Windows asks for a confirmation the first time it starts them.
+The Linux package holds `aokchaind`, `aokchain-cli`, `aokchain-tx` and `aokchain-wallet`; the libraries they need are built in. On Windows, unpack the archive into a folder of your choice. The Windows programs are not code-signed, so Windows asks for a confirmation the first time it starts them.
 
 > [!WARNING]
 > Install only programs whose checksum matches the one published on web.aok.network. A wallet program from anywhere else can steal the keys of every wallet it opens.

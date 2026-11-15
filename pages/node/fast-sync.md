@@ -41,11 +41,11 @@ The desktop wallet does all of this by itself on the main network. On a first st
 3. Start the node with a new, empty data directory and the folder:
 
    ```bash
-   aokchaind -daemon -bootstrapdir=$HOME/aok-mainnet-files
-   aokchain-cli -rpcwait getblockcount
+   aokchaind -daemonwait -bootstrapdir=$HOME/aok-mainnet-files
+   aokchain-cli getblockcount
    ```
 
-   While it unpacks and checks the snapshot, RPC calls answer with messages such as `Fast start: unpacking the snapshot...`. About a minute and a half later the node answers at height 3,031,432 and continues from its peers.
+   `-daemonwait` returns once the node has unpacked and checked the snapshot and answers RPC calls, about a minute and a half later on a current server; the node is then at height 3,031,432 and continues from its peers. Started with `-daemon` instead, the node answers RPC calls meanwhile with messages such as `Fast start: unpacking the snapshot...`.
 4. Check the result:
 
    ```bash
