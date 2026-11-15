@@ -222,6 +222,9 @@ PAGE_PROBES = r"""
     if (!el || seen.has(el)) continue;
     seen.add(el);
     if (el.closest('[aria-hidden="true"], .sr-only, template, script, style, noscript, [hidden]')) continue;
+    // The content of a closed <details> is not shown; Chrome restyles it only
+    // when it opens, so its colours can be stale after a theme change.
+    if (el.closest('details:not([open]) > :not(summary)')) continue;
     const s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none' || parseFloat(s.opacity) === 0) continue;
     const rect = el.getBoundingClientRect();
@@ -420,7 +423,8 @@ class Checker:
                         {"name": "prefers-color-scheme", "value": theme},
                         {"name": "prefers-reduced-motion", "value": "reduce"},
                     ])
-                    chrome.cdp.pump(0.15)
+                    # Colours fade over --dur-fast (150 ms) when the theme flips.
+                    chrome.cdp.pump(0.25)
                 for p in chrome.cdp.js(PAGE_PROBES):
                     self.fail(where, p)
                 if shots:
@@ -531,11 +535,22 @@ class Checker:
                 self.fail("search", f'no results for "{word}"')
             else:
                 before = cdp.js("location.href")
-                press(cdp, "ArrowDown")
-                press(cdp, "Enter")
-                cdp.pump(1.2)
-                if cdp.js("location.href") == before and n > 1:
-                    self.fail("search", "Enter on a result does not open it")
+                here = before.split("#")[0]
+                # The best result can be this very page; step to one that is not.
+                target = ""
+                for _ in range(n):
+                    press(cdp, "ArrowDown")
+                    target = cdp.js(
+                        "(function () { var s = document.getElementById('w-search');"
+                        " var o = s && document.getElementById(s.getAttribute('aria-activedescendant') || '');"
+                        " var a = o && o.querySelector('a'); return a ? a.href : ''; })()") or ""
+                    if target and target.split("#")[0] != here:
+                        break
+                if target and target.split("#")[0] != here:
+                    press(cdp, "Enter")
+                    cdp.pump(1.2)
+                    if cdp.js("location.href").split("#")[0] != target.split("#")[0]:
+                        self.fail("search", "Enter on a result does not open it")
             self.console_problems(chrome, "search")
             self.open(chrome, doc, 390, "light")
             cdp.events.clear()
