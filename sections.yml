@@ -14,7 +14,7 @@
   summary: Earn block rewards with coins you hold, on your own node or offline.
 - id: tokens
   title: Tokens
-  summary: Create, send and trade tokens and unique tokens.
+  summary: Create, send and trade tokens, unique tokens and usernames.
 - id: governance
   title: Governance
   summary: Frozen addresses and how the rules of the network change.

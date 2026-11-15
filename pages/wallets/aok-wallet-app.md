@@ -9,4 +9,4 @@ A new AOK Wallet app for iOS and Android, with a version for the web browser, is
 
 The app is not released yet. Its release will be announced on web.aok.network and on the official AokChain channels. Until then, keep your coins in the desktop wallet.
 
-The desktop wallet does not use recovery words, and it does not restore a wallet from the recovery words of a mobile wallet.
+The desktop wallet does not create recovery words: its backup is the wallet file. See [[back-up-and-restore]].
