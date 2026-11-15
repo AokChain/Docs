@@ -49,12 +49,21 @@ MACHINE_DEFAULTS = {
 GROUP_TITLES = {"Options": "General options", "UI Options": "GUI options"}
 
 
+# Private network addresses in a help text are shown in the documentation range of RFC 5737.
+PRIVATE_IP = re.compile(r"(?<![\d.])(?:10\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])|192\.168)\.\d{1,3}\.(\d{1,3})(?!\.?\d)")
+
+
+def yaml_quote(text):
+    """A YAML double-quoted scalar, so that ': ' and other signs in a value are safe."""
+    return '"%s"' % text.replace("\\", "\\\\").replace('"', '\\"')
+
+
 def run_help(program, *args, env=None):
     result = subprocess.run([program] + list(args), stdin=subprocess.DEVNULL, capture_output=True,
                             text=True, timeout=120, env=env)
     if result.returncode != 0 or not result.stdout.strip():
         raise RuntimeError("%s %s failed: %s" % (program, " ".join(args), result.stderr.strip()))
-    return result.stdout
+    return PRIVATE_IP.sub(lambda m: "192.0.2." + m.group(1), result.stdout)
 
 
 def parse(text):
@@ -154,8 +163,9 @@ def build(daemon, qt, cli, label, tx=None, wallet_tool=None):
 
     cli_groups = parse(run_help(cli, "-help")) if cli else []
 
-    out = ["---", "title: Configuration options",
-           "description: Every option of aokchaind, the GUI wallet and the command-line tools, from the programs' own help, grouped as -help prints them.",
+    out = ["---", "title: " + yaml_quote("Configuration options"),
+           "description: " + yaml_quote("Every option of aokchaind, the GUI wallet and the command-line tools, "
+                                        "from the programs' own help, grouped as -help prints them."),
            "order: 11", "generated_by: " + GENERATED_BY, "---", ""]
     out.append("The options of %s, as `aokchaind -help` prints them. Give an option on the command line as "
                "`-name=value`, or write it as a line `name=value` in `aokchain.conf` (where the file lives is on "

@@ -1,8 +1,7 @@
 ---
-title: RPC commands
-description: Every JSON-RPC command of AokChain Core 4.0, by category, with a link to the help text of each.
+title: "RPC commands"
+description: "Every JSON-RPC command of AokChain Core 4.0, by category, with a link to the help text of each."
 order: 10
-aliases: [rpc]
 generated_by: tools/rpc_reference.py
 ---
 

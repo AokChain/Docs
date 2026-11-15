@@ -1,6 +1,6 @@
 ---
-title: RPC: Generating
-description: RPC reference: making proof-of-work blocks on regtest, and the generate setting.
+title: "RPC: Generating"
+description: "RPC reference: making proof-of-work blocks on regtest, and the generate setting."
 order: 23
 generated_by: tools/rpc_reference.py
 ---

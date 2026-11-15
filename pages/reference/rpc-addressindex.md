@@ -1,6 +1,6 @@
 ---
-title: RPC: Address index
-description: RPC reference: balances, transactions and unspent outputs of addresses, read from the address index.
+title: "RPC: Address index"
+description: "RPC reference: balances, transactions and unspent outputs of addresses, read from the address index."
 order: 20
 generated_by: tools/rpc_reference.py
 ---

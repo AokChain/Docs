@@ -1,6 +1,6 @@
 ---
-title: RPC: Not listed by help
-description: RPC reference: commands for testing and debugging that help does not list.
+title: "RPC: Not listed by help"
+description: "RPC reference: commands for testing and debugging that help does not list."
 order: 30
 generated_by: tools/rpc_reference.py
 ---

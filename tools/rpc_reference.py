@@ -258,6 +258,17 @@ def collect(node):
 
 # ---------------------------------------------------------------- rendering
 
+# The upstream help texts use private network addresses (192.168.0.6 and the like) in their
+# examples. The wiki shows such addresses in the documentation range of RFC 5737 instead.
+PRIVATE_IP = re.compile(r"(?<![\d.])(?:10\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])|192\.168)\.\d{1,3}\.(\d{1,3})(?!\.?\d)")
+
+
+def public_examples(text):
+    """(text with private IPv4 addresses moved to 192.0.2.x, whether anything was changed)"""
+    changed = PRIVATE_IP.sub(lambda m: "192.0.2." + m.group(1), text)
+    return changed, changed != text
+
+
 HEADING = re.compile(r"^(Arguments|Result|Results|Examples?|Named arguments)(\s*\(.*\))?\s*:?\s*$")
 
 
@@ -348,6 +359,7 @@ def fence(lines):
 
 
 def command_markdown(name, text):
+    text, _ = public_examples(text)
     usage, description, sections = split_help(name, text)
     out = ["### %s\n" % name]
     if usage:
@@ -382,10 +394,17 @@ def category_blurb(name):
     return CATEGORIES.get(name.lower(), (name, ""))[1] or ""
 
 
+def yaml_quote(text):
+    """A YAML double-quoted scalar, so that ': ' and other signs in a value are safe."""
+    return '"%s"' % text.replace("\\", "\\\\").replace('"', '\\"')
+
+
 def front_matter(title, description, order, aliases=None):
     if len(description) > 160:
         raise ValueError("description too long: " + description)
-    lines = ["---", "title: " + title, "description: " + description, "order: %d" % order]
+    if len(title) > 80:
+        raise ValueError("title too long: " + title)
+    lines = ["---", "title: " + yaml_quote(title), "description: " + yaml_quote(description), "order: %d" % order]
     if aliases:
         lines.append("aliases: [%s]" % ", ".join(aliases))
     lines += ["generated_by: " + GENERATED_BY, "---", ""]
@@ -397,6 +416,7 @@ ABBREVIATIONS = ("e.g.", "i.e.", "eg.", "etc.", "vs.")
 
 def summary_line(name, text, table=False):
     """The first sentence of the description, for the lists of commands."""
+    text, _ = public_examples(text)
     _, description, _ = split_help(name, text)
     found = paragraphs(trim_blank(description))
     lines = split_paragraph(found[0])[0] if found else []
@@ -441,7 +461,8 @@ EXAMPLES_NOTE = (
 def index_page(data):
     listed = [(c, cmds) for c, cmds in data["categories"] if c.lower() != "hidden"]
     total = sum(len(cmds) for _, cmds in listed)
-    out = [front_matter("RPC commands", "Every JSON-RPC command of AokChain Core 4.0, by category, with a link to the help text of each.", 10, ["rpc"])]
+    # the slug of this page is "rpc", the address of the RPC page of the old documentation, so it needs no alias
+    out = [front_matter("RPC commands", "Every JSON-RPC command of AokChain Core 4.0, by category, with a link to the help text of each.", 10)]
     out.append("Every command that %s answers over JSON-RPC and `aokchain-cli`, by category. "
                "Each name links to the command's help text, the same text that "
                "`aokchain-cli help <command>` prints. How to send a call is on [[json-rpc]].\n"
@@ -482,7 +503,11 @@ def category_page(data, name, commands, order):
         out.append("The help text of every command in the %s category, as %s prints it with "
                    "`aokchain-cli help <command>`. All categories are on [[rpc]].\n"
                    % (title.lower(), md_text(version_label(data["version"]))))
-    out.append(EXAMPLES_NOTE)
+    note = EXAMPLES_NOTE
+    if any(public_examples(data["help"][c])[1] for c in commands):
+        note += ("> The examples of the upstream code use private network addresses; this page shows them\n"
+                 "> in the documentation range 192.0.2.0/24.\n")
+    out.append(note)
     out.append("| Command | Summary |\n|---|---|")
     for command in commands:
         out.append("| [%s](#%s) | %s |" % (command, command, summary_line(command, data["help"][command], table=True)))

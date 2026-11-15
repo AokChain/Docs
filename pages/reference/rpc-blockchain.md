@@ -1,6 +1,6 @@
 ---
-title: RPC: Blockchain
-description: RPC reference: blocks, the chain state, the mempool, governance, the snapshot and the block archives.
+title: "RPC: Blockchain"
+description: "RPC reference: blocks, the chain state, the mempool, governance, the snapshot and the block archives."
 order: 21
 generated_by: tools/rpc_reference.py
 ---

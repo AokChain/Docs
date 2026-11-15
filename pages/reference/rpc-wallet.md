@@ -1,6 +1,6 @@
 ---
-title: RPC: Wallet
-description: RPC reference: keys, addresses, balances, payments, backups, encryption and the wallet files.
+title: "RPC: Wallet"
+description: "RPC reference: keys, addresses, balances, payments, backups, encryption and the wallet files."
 order: 29
 generated_by: tools/rpc_reference.py
 ---

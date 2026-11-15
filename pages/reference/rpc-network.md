@@ -1,6 +1,6 @@
 ---
-title: RPC: Network
-description: RPC reference: peers, connections, bans and network traffic.
+title: "RPC: Network"
+description: "RPC reference: peers, connections, bans and network traffic."
 order: 25
 generated_by: tools/rpc_reference.py
 ---
@@ -11,6 +11,8 @@ The help text of every command in the network category, as AokChain Core 4.0.5 p
 > Many examples in these help texts come from the upstream code: their addresses are often
 > Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on
 > port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].
+> The examples of the upstream code use private network addresses; this page shows them
+> in the documentation range 192.0.2.0/24.
 
 | Command | Summary |
 |---|---|
@@ -46,8 +48,8 @@ Attempts to add or remove a node from the addnode list. Or try a connection to a
 **Examples**
 
 ```text
-> aokchain-cli addnode "192.168.0.6:8767" "onetry"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addnode", "params": ["192.168.0.6:8767", "onetry"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli addnode "192.0.2.6:8767" "onetry"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addnode", "params": ["192.0.2.6:8767", "onetry"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
 ```
 
 ### clearbanned
@@ -87,9 +89,9 @@ To disconnect by nodeid, either set 'address' to the empty string, or call using
 **Examples**
 
 ```text
-> aokchain-cli disconnectnode "192.168.0.6:8767"
+> aokchain-cli disconnectnode "192.0.2.6:8767"
 > aokchain-cli disconnectnode "" 1
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["192.168.0.6:8767"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["192.0.2.6:8767"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
 ```
 
@@ -112,11 +114,11 @@ Returns information about the given added node, or all added nodes (note that on
 ```text
 [
   {
-    "addednode" : "192.168.0.201",   (string) The node IP address or name (as provided to addnode)
+    "addednode" : "192.0.2.201",   (string) The node IP address or name (as provided to addnode)
     "connected" : true|false,          (boolean) If connected
     "addresses" : [                    (list of objects) Only when connected = true
        {
-         "address" : "192.168.0.201:8767",  (string) The aokchain server IP and port we're connected to
+         "address" : "192.0.2.201:8767",  (string) The aokchain server IP and port we're connected to
          "connected" : "outbound"           (string) connection, inbound or outbound
        }
      ]
@@ -128,8 +130,8 @@ Returns information about the given added node, or all added nodes (note that on
 **Examples**
 
 ```text
-> aokchain-cli getaddednodeinfo "192.168.0.201"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddednodeinfo", "params": ["192.168.0.201"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli getaddednodeinfo "192.0.2.201"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddednodeinfo", "params": ["192.0.2.201"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
 ```
 
 ### getconnectioncount
@@ -383,9 +385,9 @@ Attempts to add or remove an IP/Subnet from the banned list.
 **Examples**
 
 ```text
-> aokchain-cli setban "192.168.0.6" "add" 86400
-> aokchain-cli setban "192.168.0.0/24" "add"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setban", "params": ["192.168.0.6", "add", 86400] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli setban "192.0.2.6" "add" 86400
+> aokchain-cli setban "192.0.2.0/24" "add"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setban", "params": ["192.0.2.6", "add", 86400] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
 ```
 
 ### setnetworkactive

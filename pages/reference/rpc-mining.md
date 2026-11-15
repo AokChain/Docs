@@ -1,6 +1,6 @@
 ---
-title: RPC: Mining
-description: RPC reference: block templates, mining and staking information, and block submission.
+title: "RPC: Mining"
+description: "RPC reference: block templates, mining and staking information, and block submission."
 order: 24
 generated_by: tools/rpc_reference.py
 ---

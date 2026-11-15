@@ -1,6 +1,6 @@
 ---
-title: RPC: Control
-description: RPC reference: memory, running commands, uptime, help and stopping the node.
+title: "RPC: Control"
+description: "RPC reference: memory, running commands, uptime, help and stopping the node."
 order: 22
 generated_by: tools/rpc_reference.py
 ---

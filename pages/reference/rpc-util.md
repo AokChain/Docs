@@ -1,6 +1,6 @@
 ---
-title: RPC: Utilities
-description: RPC reference: multisig addresses, fee estimates, message signatures, address checks and recovery words.
+title: "RPC: Utilities"
+description: "RPC reference: multisig addresses, fee estimates, message signatures, address checks and recovery words."
 order: 28
 generated_by: tools/rpc_reference.py
 ---

@@ -1,6 +1,6 @@
 ---
-title: RPC: Raw transactions
-description: RPC reference: creating, signing, checking and sending transactions by hand.
+title: "RPC: Raw transactions"
+description: "RPC reference: creating, signing, checking and sending transactions by hand."
 order: 26
 generated_by: tools/rpc_reference.py
 ---
