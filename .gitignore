@@ -1,5 +1,13 @@
-*/**/__pycache__/*
+# Python
 __pycache__/
-venv/*
+*.pyc
+.venv/
+.pytest_cache/
 
-.DS_STORE
+# Build output (tools/build.py)
+/build/
+
+# Deploy target, local only (see README)
+/.deploy.env
+
+.DS_Store
