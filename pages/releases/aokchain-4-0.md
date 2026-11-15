@@ -19,9 +19,9 @@ AokChain Core 4.0 is a new node and desktop wallet for the same chain. It needs 
 
 ## Security and validation
 
-Block and transaction validation, network handling and the wallet were reviewed and strengthened. For offline staking, block validation now makes sure that delegated coins and their rewards always go back to the owner's offline staking address; the rule tightens validation without a hard fork.
+Block and transaction validation, network handling and the wallet were reviewed and strengthened, without a hard fork.
 
-Peers that break the rules are no longer written to the ban list; the node keeps a record of them in memory until it restarts. `listbanned` and `setban` show and change only the bans that you set.
+`listbanned` and `setban` show and change only the bans that you set.
 
 ## Fast first sync
 
@@ -65,7 +65,7 @@ The Qt wallet was reorganized from the layout up ([[desktop-wallet]]):
 
 New RPC commands: `fetchblocks`, `getaddressinfo`, `getbalances`, `getblockstats`, `getbootstrapinfo`, `getindexinfo`, `getnodeaddresses`, `getrpcinfo`, `getsnapshotinfo`, `getstatehashes`, `importmnemonic`, `mnemonicfindaddress`, `mnemonictokeys`, `purgeorphanstakes`, `repaircoins`, `restorewallet`, `scantxoutset`, `signrawtransactionwithkey`, `signrawtransactionwithwallet`, `skipbootstrap`, `testmempoolaccept`, `unloadwallet`. `sendrawtransaction` takes a fee rate limit. See [[rpc]].
 
-New options: `rpcwhitelist` and `rpcwhitelistdefault` (limit an RPC user to some commands, [[json-rpc]]), `daemonwait`, `startupnotify`, `shutdownnotify`, `logratelimit`, `stakecombinethreshold`, `spendofflinestaking`. The default `dbcache` is 1024 MiB on computers with 4 GB of memory or more. See [[configuration-options]].
+New options: `rpcwhitelist` and `rpcwhitelistdefault` (limit an RPC user to some commands, [[json-rpc]]), `daemonwait`, `startupnotify`, `shutdownnotify`, `logratelimit`, `stakecombinethreshold`, `spendofflinestaking`, and the debugging option `maxblocksperstake`. The default `dbcache` is 1024 MiB on computers with 4 GB of memory or more. See [[configuration-options]].
 
 Changed answers: since 4.0.4 the address index calls take `{"addresses": [...]}` and `getaddressutxos` returns pages; `mediantime` of `getblock` and `getblockheader` is the median time past. `getblocktemplate` serves proof-of-work templates only. Some yes-or-no fields are still printed as `1` and `0`, as in 3.0.x.
 

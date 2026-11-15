@@ -31,7 +31,7 @@ The genesis block of mainnet carries the text `Trump Threatens WHO With Permanen
 | Block hash | BLAKE2b-256 of the 80-byte header |
 | Transaction id, merkle root | Double SHA-256, as in Bitcoin |
 | Transaction format | Version, time, inputs, outputs, lock time; a message string when the version is 2 or higher ([[raw-transactions]]) |
-| Block format | Header, transactions, then the block signature (proof-of-stake blocks) |
+| Block format | Header, transactions, then the block signature: a byte vector, empty in proof-of-work blocks |
 | Message signing prefix | `AOK Signed Message:\n` ([[message-signing]]) |
 | SegWit | Off on mainnet and testnet, on in regtest |
 | BIP34, BIP65 (CLTV), BIP66, CSV | On, on every network |

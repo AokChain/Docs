@@ -20,7 +20,7 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 
 The address index only; the chain state does not change.
 
-- When a block was disconnected, the coins of stakes that it had spent were not given back to the address index, so `getaddressutxos` missed them and `getaddressbalance` was too low. 4.0.5 gives them back.
+- When a block is disconnected, the address index now gets back the coins that the stakes of the block had spent, so that `getaddressutxos` and `getaddressbalance` include them.
 - A node whose address index has been running under an older version should rebuild it once with 4.0.5: start with `-reindex` ([[indexes]]).
 
 ## 4.0.4
@@ -50,8 +50,7 @@ The desktop wallet only; `aokchaind` is the same as in 4.0.1.
 - Security fixes. Every 4.0.0 node should upgrade.
 - `getblocktemplate` serves proof-of-work templates only; when the next block has to be a proof-of-stake block it returns an error.
 - `-debug=coinstake` works, and the duration of the first stake search after a start is logged.
-- The recovery words of the AOK mobile wallet, which have no BIP39 checksum, are accepted: `importmnemonic` takes `validate=false`.
-- `contrib/aokchain/upgrade.sh` waits for a node that does not run under systemd, can start a new installation from the snapshot, and keeps the newest three backups.
+- `importmnemonic` takes `validate=false`, which skips the BIP39 checksum of the recovery words.
 
 ## 4.0.0
 
