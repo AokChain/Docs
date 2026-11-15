@@ -1,6 +1,6 @@
 ---
 title: Start and stop
-description: Run aokchaind in the foreground, in the background and as a systemd service, check that it is up, and stop it without damaging its data.
+description: "Run aokchaind in the foreground, in the background and as a systemd service, check that it is up, and stop it without damaging its data."
 order: 30
 ---
 

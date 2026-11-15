@@ -1,6 +1,6 @@
 ---
 title: Explorer API
-description: API v3 of the AokChain block explorer: blocks, transactions, addresses, tokens, supply and wallet calls over HTTPS, with its conventions and examples.
+description: "API v3 of the AokChain block explorer: blocks, transactions, addresses, tokens, supply and wallet calls over HTTPS, with its conventions and examples."
 order: 80
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Payment links
-description: The aokchain: URI that the desktop wallet reads from links and QR codes: address, amount, label and message, encoding rules and examples.
+description: "The aokchain: URI that the desktop wallet reads from links and QR codes: address, amount, label and message, encoding rules and examples."
 order: 50
 ---
 

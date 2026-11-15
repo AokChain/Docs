@@ -1,6 +1,6 @@
 ---
 title: Exchange integration
-description: Run AOK and token deposits and withdrawals on an AokChain node: addresses, detecting deposits, confirmations, locked coins, fees, balances and safety.
+description: "Run AOK and token deposits and withdrawals on an AokChain node: addresses, detecting deposits, confirmations, locked coins, fees, balances and safety."
 order: 70
 ---
 

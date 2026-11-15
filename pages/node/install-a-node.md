@@ -1,6 +1,6 @@
 ---
 title: Install a node
-description: Get AokChain Core 4.0 as a package or build it from source, and check what a node needs in disk, memory and network.
+description: "Get AokChain Core 4.0 as a package or build it from source, and check what a node needs in disk, memory and network."
 order: 10
 aliases: [node]
 ---

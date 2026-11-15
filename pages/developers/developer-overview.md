@@ -1,6 +1,6 @@
 ---
 title: Developer overview
-description: Where to start when you build on AokChain: the interfaces of a node, the differences from Bitcoin that break code, and how to test on regtest.
+description: "Where to start when you build on AokChain: the interfaces of a node, the differences from Bitcoin that break code, and how to test on regtest."
 order: 10
 ---
 

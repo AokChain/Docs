@@ -1,6 +1,6 @@
 ---
 title: ZeroMQ notifications
-description: Have the node push new blocks and transactions to your program over ZeroMQ: the four topics, the message layout and a subscriber in Python.
+description: "Have the node push new blocks and transactions to your program over ZeroMQ: the four topics, the message layout and a subscriber in Python."
 order: 90
 ---
 

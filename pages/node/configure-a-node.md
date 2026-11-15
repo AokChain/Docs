@@ -1,6 +1,6 @@
 ---
 title: Configure a node
-description: Where the data directory and aokchain.conf are on each system, how the file is written, and settings for common kinds of nodes.
+description: "Where the data directory and aokchain.conf are on each system, how the file is written, and settings for common kinds of nodes."
 order: 20
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Raw transactions
-description: The AokChain transaction format with its time field, and how to create, fund, sign, check and send transactions with the raw transaction RPCs and aokchain-tx.
+description: "The AokChain transaction format with its time field, and how to create, fund, sign, check and send transactions with the raw transaction RPCs and aokchain-tx."
 order: 30
 ---
 

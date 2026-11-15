@@ -1,6 +1,6 @@
 ---
 title: Node troubleshooting
-description: What to do when a node does not start, does not sync, finds no peers, or refuses an RPC call, with the messages it prints.
+description: "What to do when a node does not start, does not sync, finds no peers, or refuses an RPC call, with the messages it prints."
 order: 80
 ---
 

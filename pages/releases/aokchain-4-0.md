@@ -1,6 +1,6 @@
 ---
 title: AokChain Core 4.0
-description: What is new in AokChain Core 4.0 for wallet users, stakers, exchanges and node operators, compared with 3.0.x.
+description: "What is new in AokChain Core 4.0 for wallet users, stakers, exchanges and node operators, compared with 3.0.x."
 order: 10
 ---
 

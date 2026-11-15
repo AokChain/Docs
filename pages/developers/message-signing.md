@@ -1,6 +1,6 @@
 ---
 title: Message signing
-description: Prove control of an AokChain address by signing a text: the RPCs, the signature format, the hash, and the block of text the desktop wallet exchanges.
+description: "Prove control of an AokChain address by signing a text: the RPCs, the signature format, the hash, and the block of text the desktop wallet exchanges."
 order: 60
 ---
 

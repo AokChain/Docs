@@ -1,6 +1,6 @@
 ---
 title: Upgrade to 4.0
-description: Replace a 3.0.x node with AokChain Core 4.0, check it afterwards and go back if needed; notes for staking, exchange and explorer nodes.
+description: "Replace a 3.0.x node with AokChain Core 4.0, check it afterwards and go back if needed; notes for staking, exchange and explorer nodes."
 order: 50
 ---
 

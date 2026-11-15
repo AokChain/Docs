@@ -1,6 +1,6 @@
 ---
 title: Version history
-description: The changes of every AokChain Core version from 4.0.0 to 4.0.5, and the 3.0.x line before them.
+description: "The changes of every AokChain Core version from 4.0.0 to 4.0.5, and the 3.0.x line before them."
 order: 20
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Indexes
-description: The optional indexes of an AokChain node (transactions, tokens, addresses, spent outputs, timestamps), what needs them and how to turn them on.
+description: "The optional indexes of an AokChain node (transactions, tokens, addresses, spent outputs, timestamps), what needs them and how to turn them on."
 order: 70
 ---
 

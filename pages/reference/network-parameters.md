@@ -1,6 +1,6 @@
 ---
 title: Network parameters
-description: Ports, message start bytes, address and key prefixes, block timing, maturity, reward schedule and activation heights of mainnet, testnet and regtest.
+description: "Ports, message start bytes, address and key prefixes, block timing, maturity, reward schedule and activation heights of mainnet, testnet and regtest."
 order: 12
 ---
 

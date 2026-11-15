@@ -1,6 +1,6 @@
 ---
 title: Multisig with RPC
-description: Create an M-of-N multisig address, fund it and spend from it with partly signed raw transactions, compatible with the desktop wallet's multisig pages.
+description: "Create an M-of-N multisig address, fund it and spend from it with partly signed raw transactions, compatible with the desktop wallet's multisig pages."
 order: 40
 ---
 

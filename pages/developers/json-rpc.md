@@ -1,6 +1,6 @@
 ---
 title: JSON-RPC
-description: Call an AokChain node over HTTP: the endpoint, cookie and password authentication, rpcauth users, command whitelists, wallets, errors and curl examples.
+description: "Call an AokChain node over HTTP: the endpoint, cookie and password authentication, rpcauth users, command whitelists, wallets, errors and curl examples."
 order: 20
 ---
 

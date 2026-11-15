@@ -1,6 +1,6 @@
 ---
 title: Fast sync
-description: Start a new node from the chain state snapshot or from the published block archives instead of downloading three million blocks from peers.
+description: "Start a new node from the chain state snapshot or from the published block archives instead of downloading three million blocks from peers."
 order: 40
 ---
 

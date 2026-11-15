@@ -1,6 +1,6 @@
 ---
 title: Ports and peers
-description: The P2P and RPC ports of each network, how a node finds peers, how to accept incoming connections, and the commands that manage peers.
+description: "The P2P and RPC ports of each network, how a node finds peers, how to accept incoming connections, and the commands that manage peers."
 order: 60
 ---
 
