@@ -60,7 +60,7 @@ aokchain-cli listsinceblock "<lastblock of the previous call>" 6
 - A deposit is an entry with `"category": "receive"`. One transaction can pay several of your addresses; it then has one entry per output (`vout`). Key your records by `txid` and `vout`.
 - `lastblock` is the block to pass next time. With a second argument `n`, it is the block `n - 1` below the tip, so that transactions with fewer than `n` confirmations come up again in the next call.
 - `removed` lists wallet transactions that a reorganization took out of the chain.
-- Look at `confirmations` in every call, and with `gettransaction <txid>` before you credit. A transaction whose `confirmations` falls to 0, or that shows up in `walletconflicts` of another, has been replaced.
+- Look at `confirmations` in every call, and with `gettransaction <txid>` before you credit. 0 means the transaction is not in a block (again, after a reorganization) and may still confirm. A negative number means that a conflicting transaction is in the chain: the payment was replaced and will not confirm; `walletconflicts` names the transactions it conflicts with.
 
 ### walletnotify
 
@@ -69,7 +69,7 @@ aokchain-cli listsinceblock "<lastblock of the previous call>" 6
 ## Detect token deposits
 
 > [!CAUTION]
-> `listsinceblock` does not list token transfers, and `listtransactions` lists them with `"category": "receive"` and an `amount` that is the token quantity, not AOK. A program that credits every `receive` entry as AOK credits tokens as AOK. Always check `token_name`.
+> `listsinceblock` does not list token transfers, and `listtransactions` lists them with `"category": "receive"` and an `amount` that is the token quantity, not AOK. A program that credits every `receive` entry as AOK credits tokens as AOK. Always check `token_name`, and `locktime` (see [Locked deposits](#locked-deposits)).
 
 A token deposit in `listtransactions`:
 
@@ -101,9 +101,9 @@ aokchain-cli gettransaction 275adebb9099a31020ffc95c05f5269602ba8311a205d14cf6bf
 
 A payment can lock its output until a block height or a time (a `CHECKLOCKTIMEVERIFY` output; `sendtoaddress` makes one when its third argument, `lock_time`, is above 255). Tokens can be locked the same way. The wallet treats such deposits differently:
 
-- A locked AOK output is not listed by `listtransactions`, `listsinceblock` or `getreceivedbyaddress` and is not in `getbalance` until the lock has passed. `getbalances` counts it under `mine.locked`, and `listunspent` shows it with `"spendable": 0`.
+- A locked AOK output is not listed by `listtransactions` or `listsinceblock` and is not in `getbalance` until the lock has passed. `getbalances` counts it under `mine.locked`, and `listunspent` shows it with `"spendable": 0`. `getreceivedbyaddress` never counts such an output, also after the lock.
 - When the lock has passed, `listtransactions` lists the payment (with a `locktime` field) under its original block, and the coins are spendable. `listsinceblock` with a later block does not report it then.
-- Locked tokens are in `listmylockedtokens`, not in `listmytokens`.
+- Locked tokens are different: a locked token transfer appears at once in `listtransactions` and in `token_details` of `gettransaction`, as a `receive` entry with a `locktime` field. Do not credit such an entry before that height or time. The wallet counts the tokens in `listmylockedtokens`, not in `listmytokens`, until then.
 
 To catch them, check `getbalances` regularly: a `locked` amount above 0 means locked coins are waiting. `listunspent` lists them with `"spendable": 0` and their script, which begins with the lock height or time. Credit them when they are spendable, or tell customers that time-locked deposits are not accepted.
 
@@ -125,11 +125,11 @@ Deposits are ordinary transactions and are spendable as soon as they are confirm
 | Call | Gives |
 |---|---|
 | `getbalance` | The spendable AOK of the whole wallet. |
-| `getbalance "*" 6` | The same, counting only coins with at least 6 confirmations. |
+| `getbalance "*" 6` | A legacy calculation: what was received with at least 6 confirmations, minus everything spent, plus your own unconfirmed change. For the coins that have 6 confirmations, add up `listunspent 6`. |
 | `getbalances` | `mine.trusted`, `untrusted_pending`, `immature`, `staked`, `locked`, `offline_staking`, in AOK. |
 | `listmytokens`, `listmylockedtokens` | Token balances, free and locked. |
-| `listunspent` | Every spendable AOK output, with `confirmations` and `spendable`. |
-| `scantxoutset start '["addr(K...)"]'` | The unspent outputs of any address from the chain state, without a wallet; token outputs are marked `"token": 1`. |
+| `listunspent` | Every unspent AOK output of the wallet, with `confirmations`; time-locked ones have `"spendable": 0`. |
+| `scantxoutset start '["addr(K...)"]'` | The unspent outputs of any address from the chain state, without a wallet; token outputs are marked `"token": 1`. Time-locked outputs are not matched by `addr()`; find them with `raw(<script hex>)`. |
 
 `getbalance ""` and `getbalance "<label>"` give legacy account balances, which can be negative. Do not use them for accounting.
 
@@ -145,7 +145,7 @@ Deposits are ordinary transactions and are spendable as soon as they are confirm
    Over JSON-RPC, pass `params` as an object: `{"address": "...", "amount": 12.5}`. `subtractfeefromamount=true` takes the fee out of the amount, and `comment_to` is a note that stays in your wallet.
 
    - The `message` argument is written into the transaction (as a version 2 transaction) and is public on the chain, although the help text says it stays in the wallet. Put no customer data there.
-   - Leave out `conf_target` and `estimate_mode`: with either of them `sendtoaddress` fails with `JSON value is not an integer as expected`.
+   - Leave out `conf_target` and `estimate_mode`: with either of them `sendtoaddress` fails (`JSON value is not an integer as expected` or `JSON value is not a string as expected`).
 
    > [!IMPORTANT]
    > The third positional argument of `sendtoaddress` is `lock_time`, not the `comment` of Bitcoin Core. Code written for Bitcoin Core that passes positional arguments must be changed: a value above 255 there locks the coins of the recipient until that height or time.
