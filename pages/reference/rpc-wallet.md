@@ -5,7 +5,7 @@ order: 29
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the wallet category, as AokChain Core 4.0.5 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the wallet category, as AokChain Core 4.0.6 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > Many examples in these help texts come from the upstream code: their addresses are often
@@ -63,7 +63,7 @@ The help text of every command in the wallet category, as AokChain Core 4.0.5 pr
 | [lockunspent](#lockunspent) | Updates list of temporarily unspendable outputs. |
 | [move](#move) | DEPRECATED. Move a specified amount from one account in your wallet to another. |
 | [purgeorphanstakes](#purgeorphanstakes) | Deletes this wallet's orphaned coinstake transactions from the wallet. |
-| [removeaddress](#removeaddress) | Remove a script (in hex) or address that can be watched as if it were in your wallet but cannot be used to spend. |
+| [removeaddress](#removeaddress) | Stop watching an address that was added with importaddress: the wallet no longer takes it as its own (watch-only). |
 | [removeprunedfunds](#removeprunedfunds) | Deletes the specified transaction from the wallet. |
 | [rescanblockchain](#rescanblockchain) | Rescan the local blockchain for wallet related transactions. |
 | [restorewallet](#restorewallet) | Restores a wallet from a backup file (of backupwallet, or a copy of a wallet.dat) and loads it. |
@@ -1759,28 +1759,27 @@ n            (numeric) The number of transactions deleted
 ### removeaddress
 
 ```text
-importaddress "address" ( "label" rescan p2sh )
+removeaddress "address"
 ```
 
-> [!NOTE]
-> The usage line of this help text names `importaddress`; the command is `removeaddress`.
-
-Remove a script (in hex) or address that can be watched as if it were in your wallet but cannot be used to spend.
+Stop watching an address that was added with importaddress: the wallet no longer takes it as its own (watch-only). Then the wallet is rescanned, unless the node does not have the past blocks (pruning, or a chain state snapshot without them).
 
 **Arguments**
 
 ```text
-1. "script"           (string, required) The hex-encoded script (or address)
+1. "address"          (string, required) The address to stop watching
 
-Note: This call can take minutes to complete if rescan is true.
-If you have the full public key, you should call importpubkey instead of this.
+Note: This call can take minutes to complete, for the rescan.
 ```
 
 **Examples**
 
 ```text
-Remove a script with rescan
-> aokchain-cli removeaddress "myscript"
+Stop watching an address
+> aokchain-cli removeaddress "myaddress"
+
+As a JSON-RPC call
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "removeaddress", "params": ["myaddress"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
 ```
 
 ### removeprunedfunds
@@ -1871,7 +1870,7 @@ Restores a wallet from a backup file (of backupwallet, or a copy of a wallet.dat
 ### sendfrom
 
 ```text
-sendfrom "fromaccount" "toaddress" amount ( minconf "comment" "comment_to" )
+sendfrom "fromaccount" "toaddress" amount ( lock_time minconf "comment" "comment_to" subtractfeefromamount )
 ```
 
 DEPRECATED (use sendtoaddress). Sent an amount from an account to a aokchain address. Requires wallet passphrase to be set with walletpassphrase call.
@@ -1885,7 +1884,9 @@ DEPRECATED (use sendtoaddress). Sent an amount from an account to a aokchain add
                        the spend.
 2. "toaddress"         (string, required) The aokchain address to send funds to.
 3. amount                (numeric or string, required) The amount in AOK (transaction fee is added on top).
-4. "lock_time"          (integer, optional, default=0) Locktime for transaction, could be height or timestamp
+4. lock_time            (integer, optional, default=0) 0 for no lock, or a block height, or a time in seconds since
+                             1970 (the values from 500000000 on), until which the coins that are sent cannot be spent.
+                             Values from 1 to 255 and negative values are refused: they would make no lock.
 5. minconf               (numeric, optional, default=1) Only use funds with at least this many confirmations.
 6. "comment"           (string, optional) A comment used to store what the transaction is for.
                                      This is not part of the transaction, just kept in your wallet.
@@ -1905,19 +1906,22 @@ DEPRECATED (use sendtoaddress). Sent an amount from an account to a aokchain add
 
 ```text
 Send 0.01 AOK from the default account to the address, must have at least 1 confirmation
-> aokchain-cli sendfrom "" "1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd" 0.01
+> aokchain-cli sendfrom "" "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.01
 
 Send 0.01 from the tabby account to the given address, funds must have at least 6 confirmations
-> aokchain-cli sendfrom "tabby" "1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd" 0.01 6 "donation" "seans outpost"
+> aokchain-cli sendfrom "tabby" "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.01 0 6 "donation" "seans outpost"
+
+Send 0.01 that is locked until block 1000000
+> aokchain-cli sendfrom "" "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.01 1000000
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendfrom", "params": ["tabby", "1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd", 0.01, 6, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendfrom", "params": ["tabby", "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh", 0.01, 0, 6, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
 ```
 
 ### sendmany
 
 ```text
-sendmany "fromaccount" {"address":amount,...} ( minconf "message" ["address",...] replaceable conf_target "estimate_mode")
+sendmany "fromaccount" {"address":amount,...} ( minconf "message" ["address",...] conf_target "estimate_mode" )
 ```
 
 Send multiple times. Amounts are double-precision floating point numbers. Requires wallet passphrase to be set with walletpassphrase call.
@@ -1932,7 +1936,8 @@ Send multiple times. Amounts are double-precision floating point numbers. Requir
       ,...
     }
 3. minconf                 (numeric, optional, default=1) Only use the balance confirmed at least this many times.
-4. "message"             (string, optional, default=) Message attached to transaction.
+4. "message"             (string, optional, default="") A message written into the transaction, at most 120 bytes;
+                           a transaction with a message has version 2. Anyone can read it in the block chain.
 5. subtractfeefrom         (array, optional) A json array with addresses.
                            The fee will be equally deducted from the amount of each selected address.
                            Those recipients will receive less aokchains than you enter in their corresponding amount field.
@@ -1974,7 +1979,7 @@ As a json rpc call
 ### sendtoaddress
 
 ```text
-sendtoaddress "address" amount ( "message" "comment_to" subtractfeefromamount replaceable conf_target "estimate_mode")
+sendtoaddress "address" amount ( lock_time "message" "comment_to" subtractfeefromamount conf_target "estimate_mode" )
 ```
 
 Send an amount to a given address.
@@ -1986,9 +1991,11 @@ Requires wallet passphrase to be set with walletpassphrase call.
 ```text
 1. "address"            (string, required) The aokchain address to send to.
 2. "amount"             (numeric or string, required) The amount in AOK to send. eg 0.1
-3. "lock_time"          (integer, optional, default=0) Locktime for transaction, could be height or timestamp
-5. "message"            (string, optional, default=) Message attached to transaction.
-                             This is not part of the transaction, just kept in your wallet.
+3. lock_time            (integer, optional, default=0) 0 for no lock, or a block height, or a time in seconds since
+                             1970 (the values from 500000000 on), until which the coins that are sent cannot be spent.
+                             Values from 1 to 255 and negative values are refused: they would make no lock.
+4. "message"            (string, optional, default="") A message written into the transaction, at most 120 bytes;
+                             a transaction with a message has version 2. Anyone can read it in the block chain.
 5. "comment_to"         (string, optional) A comment to store the name of the person or organization
                              to which you're sending the transaction. This is not part of the
                              transaction, just kept in your wallet.
@@ -2010,10 +2017,12 @@ Requires wallet passphrase to be set with walletpassphrase call.
 **Examples**
 
 ```text
-> aokchain-cli sendtoaddress "1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd" 0.1
-> aokchain-cli sendtoaddress "1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd" 0.1 "donation" "seans outpost"
-> aokchain-cli sendtoaddress "1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd" 0.1 "" "" true
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendtoaddress", "params": ["1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd", 0.1, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli sendtoaddress "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.1
+> aokchain-cli sendtoaddress "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.1 0 "donation" "seans outpost"
+> aokchain-cli sendtoaddress "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.1 0 "" "" true
+> aokchain-cli sendtoaddress "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.1 1000000
+> aokchain-cli -named sendtoaddress address="Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" amount=0.1 conf_target=6 estimate_mode=ECONOMICAL
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendtoaddress", "params": ["Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh", 0.1, 0, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
 ```
 
 ### setlabel

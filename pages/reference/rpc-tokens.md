@@ -5,7 +5,7 @@ order: 27
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the tokens category, as AokChain Core 4.0.5 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the tokens category, as AokChain Core 4.0.6 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > Many examples in these help texts come from the upstream code: their addresses are often
@@ -151,12 +151,12 @@ Issue an token, subtoken or unique token. Token name must not conflict with any 
 issueunique "root_name" [token_tags] ( [ipfs_hashes] ) "( to_address )" "( change_address )"
 ```
 
-Issue unique token(s). root\_name must be an token you own. An token will be created for each element of token\_tags. If provided ipfs\_hashes must be the same length as token\_tags. Hunderd (100) AOK will be burned for each token created.
+Issue unique token(s). root\_name is a token or a sub token whose owner token (root\_name!) is in the wallet. A token root\_name#tag will be created for each element of token\_tags. If provided ipfs\_hashes must be the same length as token\_tags. Each unique token costs the fee for a unique token in AOK, paid to the token fee address (issuanceinfo shows the fee and the address).
 
 **Arguments**
 
 ```text
-1. "root_name"             (string, required) name of the token the unique token(s) are being issued under
+1. "root_name"             (string, required) name of the token or sub token the unique token(s) are being issued under
 2. "token_tags"            (array, required) the unique tag for each token which is to be issued
 3. "ipfs_hashes"           (array, optional) ipfs hashes corresponding to each supplied tag (should be same size as "token_tags") (only sha2-256 hashes currently supported -- Qm...)
 4. "to_address"            (string, optional, default=""), address tokens will be sent to, if it is empty, address will be generated for you
@@ -174,6 +174,7 @@ Issue unique token(s). root\_name must be an token you own. An token will be cre
 ```text
 > aokchain-cli issueunique "MY_TOKEN" '["primo","secundo"]'
 > aokchain-cli issueunique "MY_TOKEN" '["primo","secundo"]' '["first_hash","second_hash"]'
+> aokchain-cli issueunique "MY_TOKEN/SUB_TOKEN" '["primo"]'
 ```
 
 ### listaddressesbytoken
@@ -443,7 +444,8 @@ registerusername "username" "( to_address )"
 **Arguments**
 
 ```text
-1. "username"              (string, required) a unique username
+1. "username"              (string, required) a unique username: @ followed by at least 4 characters,
+                             each one of A-Z 0-9 _ . (at most 31 characters with the @)
 2. "to_address"            (string), optional, default=""), address token will be sent to, if it is empty, address will be generated for you
 ```
 

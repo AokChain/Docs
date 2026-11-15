@@ -5,7 +5,7 @@ order: 10
 generated_by: tools/rpc_reference.py
 ---
 
-Every command that AokChain Core 4.0.5 answers over JSON-RPC and `aokchain-cli`, by category. Each name links to the command's help text, the same text that `aokchain-cli help <command>` prints. How to send a call is on [[json-rpc]].
+Every command that AokChain Core 4.0.6 answers over JSON-RPC and `aokchain-cli`, by category. Each name links to the command's help text, the same text that `aokchain-cli help <command>` prints. How to send a call is on [[json-rpc]].
 
 ## Categories
 
@@ -211,7 +211,7 @@ Every command that AokChain Core 4.0.5 answers over JSON-RPC and `aokchain-cli`,
 - [[rpc-wallet#lockunspent|lockunspent]]: Updates list of temporarily unspendable outputs.
 - [[rpc-wallet#move|move]]: DEPRECATED. Move a specified amount from one account in your wallet to another.
 - [[rpc-wallet#purgeorphanstakes|purgeorphanstakes]]: Deletes this wallet's orphaned coinstake transactions from the wallet.
-- [[rpc-wallet#removeaddress|removeaddress]]: Remove a script (in hex) or address that can be watched as if it were in your wallet but cannot be used to spend.
+- [[rpc-wallet#removeaddress|removeaddress]]: Stop watching an address that was added with importaddress: the wallet no longer takes it as its own (watch-only).
 - [[rpc-wallet#removeprunedfunds|removeprunedfunds]]: Deletes the specified transaction from the wallet.
 - [[rpc-wallet#rescanblockchain|rescanblockchain]]: Rescan the local blockchain for wallet related transactions.
 - [[rpc-wallet#restorewallet|restorewallet]]: Restores a wallet from a backup file (of backupwallet, or a copy of a wallet.dat) and loads it.

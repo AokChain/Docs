@@ -5,7 +5,7 @@ order: 26
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the raw transactions category, as AokChain Core 4.0.5 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the raw transactions category, as AokChain Core 4.0.6 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > Many examples in these help texts come from the upstream code: their addresses are often
@@ -59,7 +59,7 @@ Combine multiple partially signed transactions into one transaction. The combine
 ### createrawtransaction
 
 ```text
-createrawtransaction [{"txid":"id","vout":n},...] {"address":(amount or object),"data":"hex",...} ( locktime ) ( replaceable )
+createrawtransaction [{"txid":"id","vout":n},...] {"address":(amount or object),"data":"hex",...} ( locktime )
 ```
 
 Create a transaction spending the given inputs and creating new outputs. Outputs are addresses (paired with a AOK amount, data or object specifying an token operation) or data. Returns hex-encoded raw transaction. Note that the transaction's inputs are not signed, and it is not stored in the wallet or transmitted to the network.
@@ -67,11 +67,9 @@ Create a transaction spending the given inputs and creating new outputs. Outputs
 Paying for Token Operations:
 
 ```text
-  Some operations require an amount of AOK to be sent to a burn address:
-    transfer:       0
-    issue:        500 to Issue Burn Address
-    issue_unique    5 to Issue Unique Burn Address
-    reissue:      100 to Reissue Burn Address
+  issue, issue_unique and reissue pay a fee in AOK, in an output to the token fee address.
+  The fees and the address are set by governance: issuanceinfo shows them. A transfer pays
+  no such fee.
 ```
 
 Ownership:
@@ -86,7 +84,7 @@ Output Ordering:
 
 ```text
   Token operations require the following:
-    1) All coin outputs come first (including the burn output).
+    1) All coin outputs come first (including the fee output).
     2) The owner token change output comes next (if required).
     3) An issue, issue_unique, reissue or any number of transfers comes last
        (different types can't be mixed in a single transaction).
@@ -113,7 +111,7 @@ Output Ordering:
            "transfer":
              {
                "token-name":               (string, required) token name
-               token-quantity              (numeric, required) the number of raw units to transfer
+               token-quantity              (numeric, required) the quantity of the token to transfer
                ,...
              }
          }
@@ -122,8 +120,8 @@ Output Ordering:
            "issue":
              {
                "token_name":"token-name",  (string, required) new token name
-               "token_quantity":n,         (number, required) the number of raw units to issue
-               "units":[1-8],              (number, required) display units, between 1 (integral) to 8 (max precision)
+               "token_quantity":n,         (number, required) the quantity to issue
+               "units":[0-8],              (number, required) display units, between 0 (whole units) and 8 (max precision)
                "reissuable":[0-1],         (number, required) 1=reissuable token
                "has_ipfs":[0-1],           (number, required) 1=passing ipfs_hash
                "ipfs_hash":"hash"          (string, optional) an ipfs hash for discovering token metadata
@@ -143,11 +141,9 @@ Output Ordering:
            "reissue":
              {
                "token_name":"token-name",  (string, required) name of token to be reissued
-               "token_quantity":n,         (number, required) the number of raw units to issue
+               "token_quantity":n,         (number, required) the quantity to add
                "reissuable":[0-1],         (number, optional) default is 1, 1=reissuable token
-               "ipfs_hashes":["hash", ...],     (array, optional) ipfs hashes corresponding to each supplied tag (should be same size as "token_tags")
-             }
-         }
+               "ipfs_hash":"hash"          (string, optional) a new ipfs hash for the token
              }
          }
          or
@@ -168,10 +164,10 @@ Output Ordering:
 ```text
 > aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0}]" "{\"address\":0.01}"
 > aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0}]" "{\"data\":\"00010203\"}"
-> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0}]" "{\"RXissueTokenXXXXXXXXXXXXXXXXXhhZGt\":500,\"change_address\":change_amount,\"issuer_address\":{\"issue\":{\"token_name\":\"MYTOKEN\",\"token_quantity\":1000000,\"units\":1,\"reissuable\":0\"}}}"
-> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0}]" "{\"RXissueUniqueTokenXXXXXXXXXXWEAe58\":20,\"change_address\":change_amount,\"issuer_address\":{\"issue_unique\":{\"root_name\":\"MYTOKEN\",\"token_tags\":[\"AOKHA\",\"BETA\"],\"]}}}"
+> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0}]" "{\"KdZFAFeKV8C5JzdEdgcPYDZku92KkD3fHy\":10000,\"change_address\":change_amount,\"issuer_address\":{\"issue\":{\"token_name\":\"MYTOKEN\",\"token_quantity\":1000000,\"units\":1,\"reissuable\":0,\"has_ipfs\":0}}}"
+> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0},{\"txid\":\"myownership\",\"vout\":0}]" "{\"KdZFAFeKV8C5JzdEdgcPYDZku92KkD3fHy\":200,\"change_address\":change_amount,\"issuer_address\":{\"issue_unique\":{\"root_name\":\"MYTOKEN\",\"token_tags\":[\"ALPHA\",\"BETA\"]}}}"
 > aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0},{\"txid\":\"mytoken\",\"vout\":0}]" "{\"address\":{\"transfer\":{\"MYTOKEN\":50}}}"
-> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0},{\"txid\":\"myownership\",\"vout\":0}]" "{\"issuer_address\":{\"reissue\":{\"token_name\":\"MYTOKEN\",\"token_quantity\":2000000}}}"
+> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0},{\"txid\":\"myownership\",\"vout\":0}]" "{\"KdZFAFeKV8C5JzdEdgcPYDZku92KkD3fHy\":10000,\"change_address\":change_amount,\"issuer_address\":{\"reissue\":{\"token_name\":\"MYTOKEN\",\"token_quantity\":2000000}}}"
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": ["[{\"txid\":\"mycoin\",\"vout\":0}]", "{\"data\":\"00010203\"}"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
 ```
 

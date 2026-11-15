@@ -5,7 +5,7 @@ order: 11
 generated_by: tools/options_reference.py
 ---
 
-The options of AokChain Core 4.0.5, as `aokchaind -help` prints them. Give an option on the command line as `-name=value`, or write it as a line `name=value` in `aokchain.conf` (where the file lives is on [[configure-a-node]]). A setting on the command line wins over the same setting in the file. A switch such as `-txindex` is turned on with `1` and off with `0`, and `-nofoo` is the same as `-foo=0`.
+The options of AokChain Core 4.0.6, as `aokchaind -help` prints them. Give an option on the command line as `-name=value`, or write it as a line `name=value` in `aokchain.conf` (where the file lives is on [[configure-a-node]]). A setting on the command line wins over the same setting in the file. A switch such as `-txindex` is turned on with `1` and off with `0`, and `-nofoo` is the same as `-foo=0`.
 
 The GUI wallet, `aokchain-qt`, takes the same options except `-daemon` and `-daemonwait`, and the few of its own listed under [GUI options](#gui-options).
 
