@@ -8,7 +8,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
 
 ## What stays the same
 
-- **The data directory.** 4.0 uses the existing blocks, chain state and indexes (`txindex`, `addressindex`, `spentindex`, `tokenindex`, `timestampindex`). No reindex and no new download.
+- **The data directory.** 4.0 uses the existing blocks, chain state and indexes (`txindex`, `addressindex`, `spentindex`, `tokenindex`, `timestampindex`). No reindex and no new download; only a node with an address index should rebuild it once (see [Explorers and indexers](#explorers-and-indexers)).
 - **The wallet file.** The release programs use Berkeley DB 4.8 like the 3.0.x releases. A 3.0.x `wallet.dat` opens as before, and 3.0.x can open it again after 4.0 has used it.
 - **`aokchain.conf`.** Every option of 3.0.x still exists.
 - **The RPC interface.** Every command of 3.0.x still exists with the same arguments. 4.0 adds commands; 4.0.4 changed how the address index calls read their argument and what `mediantime` means (see below and [[aokchain-4-0]]).
@@ -46,8 +46,6 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
    aokchain-cli getwalletinfo | grep -E '"balance"|immature|txcount'
    ```
 
-The source has a script for Linux, `contrib/aokchain/upgrade.sh`, that does the same steps in one go: it checks the download, stops the node, keeps the old programs and a copy of the wallet, installs, starts the node again and waits until it answers. It leaves `aokchain.conf` and the wallet as they are.
-
 ## Going back
 
 Stop the node, put the old programs back and start it:
@@ -78,7 +76,7 @@ aokchaind -daemon
 
 - Stop deposits and withdrawals for the minutes of the upgrade, back up the wallet first and compare the balance afterwards.
 - The calls an exchange uses (`getnewaddress`, `sendtoaddress`, `sendmany`, `listtransactions`, `listsinceblock`, `gettransaction`, `getrawtransaction`, `signrawtransaction`, `sendrawtransaction`, the token calls) answer as before.
-- New and useful: `testmempoolaccept` checks a withdrawal before it is sent, `sendrawtransaction` takes a fee rate limit, `rpcwhitelist` limits an RPC user to a list of commands, `scantxoutset` reads the balance of an address without a wallet, and `getbalances` separates locked and immature coins. See [[exchange-integration]].
+- New and useful: `testmempoolaccept` checks a withdrawal before it is sent, `sendrawtransaction` takes a fee rate limit, `rpcwhitelist` limits an RPC user to a list of commands, `scantxoutset` reads the unspent outputs of an address without a wallet (time-locked ones excepted), and `getbalances` separates locked and immature coins. See [[exchange-integration]].
 
 ## Explorers and indexers
 

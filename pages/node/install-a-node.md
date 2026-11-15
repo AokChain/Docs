@@ -77,11 +77,11 @@ The 4.0 source code is published at [github.com/AokChain/AokChain](https://githu
    ```bash
    ./autogen.sh
    CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site \
-     ./configure --prefix=/ --without-gui --disable-bench --disable-tests
+     ./configure --prefix=/ --without-gui --disable-bench --disable-tests --with-tx
    make -j"$(nproc)"
    ```
 
-   The programs are `src/aokchaind`, `src/aokchain-cli`, `src/aokchain-tx` and `src/aokchain-wallet`.
+   The programs are `src/aokchaind`, `src/aokchain-cli`, `src/aokchain-tx` and `src/aokchain-wallet`. `aokchain-tx` is built only with `--with-tx`.
 
 The build needs a C++17 compiler (GCC 13 is known to work) and about 1.5 GB of free memory per compiler job.
 

@@ -50,7 +50,7 @@ A node accepts incoming connections when `listen=1` (the default unless `proxy` 
 
 1. Allow incoming TCP to port 33441 in the firewall, for example `sudo ufw allow 33441/tcp`.
 2. Forward the port on the router if the node is behind NAT. `upnp=1` asks the router to do it; it is off by default.
-3. Check from `getnetworkinfo`: `localaddresses` lists the addresses the node announces, and `getpeerinfo` shows peers with `"inbound": true` once others connect.
+3. Check from `getnetworkinfo`: `localaddresses` lists the addresses the node announces, and `getpeerinfo` shows peers with `"inbound": 1` once others connect.
 
 `externalip=<ip>` sets the address that the node announces, `bind=<addr>` the local address it listens on. `discover=0` stops it from looking up its own addresses.
 

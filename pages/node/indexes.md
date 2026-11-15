@@ -82,4 +82,4 @@ Amounts in these answers are in satoshis (1 AOK = 100,000,000).
 
 ## Pruning
 
-`prune` deletes old block files to save space. It cannot be combined with `txindex`, which is on by default, so a pruned node needs `txindex=0`; it cannot use the other indexes, rescan old wallet transactions or serve old blocks. Pruning was not tested with AokChain Core 4.0; a node that serves others or keeps a wallet should keep all blocks.
+`prune` deletes old block files to save space. It cannot be combined with `txindex`, which is on by default, so a pruned node needs `txindex=0`; it cannot rescan old wallet transactions or serve old blocks. Pruning was not tested with AokChain Core 4.0, nor with the other indexes; a node that serves others or keeps a wallet should keep all blocks.
