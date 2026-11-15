@@ -1,0 +1,15 @@
+/* Loaded only when scripts are off (inside <noscript>): the search needs
+   docs.js, so its field gives way to a link to All pages, and the menu
+   button becomes a link that opens the sidebar with :target. */
+.js-only { display: none !important; }
+.hdr-btn.nojs-only { display: grid !important; }
+.search-input, .search-key, .search-glass, .search-panel { display: none !important; }
+.search-fallback {
+  display: inline-flex !important; align-items: center; gap: 8px; min-height: 44px;
+  color: inherit; font-weight: 500; text-decoration: underline; text-underline-offset: 5px;
+}
+.search-fallback .icon { width: 18px; height: 18px; }
+.search--header { flex: 0 0 auto; }
+.search--header .search-fallback { color: #ffffff; }
+.search--hero .search-fallback { font-size: 18px; }
+@media (min-width: 1024px) { .header-tools .hdr-btn.nojs-only { display: none !important; } }

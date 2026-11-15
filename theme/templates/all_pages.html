@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="layout">
+{% include "sidebar.html" %}
+  <main class="main" id="w-main" tabindex="-1">
+    <div class="doc doc--wide">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ base }}">Docs</a></li>
+        </ol>
+      </nav>
+      <h1 class="doc-title">All pages</h1>
+      <p class="doc-lead">{{ page_count }} pages from A to Z</p>
+{% if groups %}
+      <nav class="letters" aria-label="Letters">
+        <ul>
+{% for letter, items in groups %}
+          <li><a href="#letter-{{ 'other' if letter == '#' else letter|lower }}">{{ letter }}</a></li>
+{% endfor %}
+        </ul>
+      </nav>
+{% for letter, items in groups %}
+      <section class="az" aria-labelledby="letter-{{ 'other' if letter == '#' else letter|lower }}">
+        <h2 class="az-letter" id="letter-{{ 'other' if letter == '#' else letter|lower }}">{{ letter }}</h2>
+        <ul class="az-list">
+{% for p in items %}
+          <li>
+            <a class="az-title" href="{{ p.url }}">{{ p.title }}</a>
+            <span class="az-sec">{{ p.section.title }}</span>
+            <p class="az-desc">{{ p.description }}</p>
+          </li>
+{% endfor %}
+        </ul>
+      </section>
+{% endfor %}
+{% else %}
+      <p class="doc-empty">No pages yet.</p>
+{% endif %}
+    </div>
+  </main>
+</div>
+{% endblock %}

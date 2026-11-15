@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% from "macros.html" import icon %}
+{% block body %}
+<div class="layout">
+{% include "sidebar.html" %}
+  <main class="main" id="w-main" tabindex="-1">
+    <div class="doc doc--wide">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ base }}">Docs</a></li>
+        </ol>
+      </nav>
+      <h1 class="doc-title">Recent changes</h1>
+      <p class="doc-lead">The latest edits, newest first. Every change is on <a href="{{ repo }}/commits/{{ site.branch }}">GitHub{{ icon("arrow-up-right", "icon-ext") }}</a></p>
+{% if days %}
+{% for nice, date, items in days %}
+      <section class="day" aria-label="{{ nice }}">
+        <h2 class="day-date"><time datetime="{{ date }}">{{ nice }}</time></h2>
+        <ol class="changes changes--full">
+{% for c in items %}
+          <li class="change">
+            <span class="change-subject">{{ c.subject }}</span>
+            <span class="change-pages">
+{% for p in c.pages %}
+              {% if p.url and not p.removed %}<a href="{{ p.url }}">{{ p.title }}</a>{% else %}<span class="{{ 'is-removed' if p.removed }}">{{ p.title }}</span>{% endif %}
+{% endfor %}
+            </span>
+            <a class="change-hash" href="{{ c.url }}" aria-label="Commit {{ c.short }} on GitHub">{{ c.short }}</a>
+          </li>
+{% endfor %}
+        </ol>
+      </section>
+{% endfor %}
+{% else %}
+      <p class="doc-empty">No changes recorded yet.</p>
+{% endif %}
+    </div>
+  </main>
+</div>
+{% endblock %}
