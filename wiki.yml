@@ -1,0 +1,47 @@
+# Settings for tools/build.py. The sections and their order are in
+# sections.yml; the pages are in pages/<section id>/<slug>.md.
+
+name: AokChain Docs
+
+# Where the wiki is served. --base on the command line overrides it.
+base: /doc/
+
+# The absolute address of the wiki root for each base, for canonical links
+# and link previews.
+site_url:
+  /doc/: https://web.aok.network/doc/
+  /: https://docs.aok.network/
+
+# The source of the pages: "Edit this page" and "Page history" links.
+repo: https://github.com/AokChain/Docs
+branch: wiki
+
+# Keep the wiki out of search engines (robots meta tag; robots.txt when the
+# wiki is served at the root of its own host).
+noindex: true
+
+# Shown in place of "Edit this page" on pages that have generated_by.
+generated_from: AokChain Core 4.0.5
+
+links:
+  website: https://web.aok.network/
+  explorer: https://v3.aokscan.com/
+  api: https://v3.aokscan.com/api/v3/docs
+  tokens: https://v3.aokscan.com/tokens
+  whitepaper: https://aok.gitbook.io/aok-en/
+  github: https://github.com/AokChain
+  telegram: https://t.me/aok21
+  x: https://x.com/Official_AOK21
+  discord: https://discord.com/invite/dMkyM7YsaE
+
+# One Heroicons (24/outline) name per section, from theme/icons/heroicons.
+section_icons:
+  start: book-open
+  wallets: wallet
+  staking: circle-stack
+  tokens: square-3-stack-3d
+  governance: building-library
+  node: server-stack
+  developers: code-bracket
+  reference: command-line
+  releases: tag

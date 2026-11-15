@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% from "macros.html" import icon, toc_list %}
+{% block body %}
+<div class="layout{{ ' has-toc' if toc_size > 1 }}">
+{% include "sidebar.html" %}
+  <main class="main" id="w-main" tabindex="-1">
+    <article class="doc">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ base }}">Docs</a></li>
+          <li><a href="{{ section.url }}">{{ section.title }}</a></li>
+        </ol>
+      </nav>
+      <h1 class="doc-title">{{ page.title }}</h1>
+{% if toc_size > 1 %}
+      <details class="toc-inline">
+        <summary>On this page{{ icon("chevron-down", "toc-chev") }}</summary>
+        {{ toc_list(toc) }}
+      </details>
+{% endif %}
+      <div class="prose">
+{{ page.html|safe }}
+      </div>
+      <footer class="doc-foot">
+{% if page.backlinks %}
+        <section class="backlinks" aria-labelledby="w-backlinks">
+          <h2 class="foot-title" id="w-backlinks">Linked from</h2>
+          <ul>
+{% for b in page.backlinks %}
+            <li><a href="{{ b.url }}">{{ b.title }}</a></li>
+{% endfor %}
+          </ul>
+        </section>
+{% endif %}
+{% if prev or next %}
+        <nav class="pager" aria-label="Previous and next page">
+{% if prev %}
+          <a class="pager-link pager-prev" href="{{ prev.url }}" rel="prev"><span class="pager-dir">{{ icon("arrow-left") }}Previous</span><span class="pager-title">{{ prev.title }}</span></a>
+{% endif %}
+{% if next %}
+          <a class="pager-link pager-next" href="{{ next.url }}" rel="next"><span class="pager-dir">Next{{ icon("arrow-right") }}</span><span class="pager-title">{{ next.title }}</span></a>
+{% endif %}
+        </nav>
+{% endif %}
+        <ul class="doc-meta">
+{% if meta.updated %}
+          <li class="doc-updated">Last updated <time datetime="{{ meta.updated }}">{{ meta.updated|nice_date }}</time></li>
+{% endif %}
+{% if meta.generated %}
+          <li>{{ icon("command-line") }}Generated from {{ meta.generated }}</li>
+{% else %}
+          <li><a href="{{ meta.edit }}">{{ icon("pencil-square") }}Edit this page</a></li>
+{% endif %}
+          <li><a href="{{ meta.history }}">{{ icon("clock") }}Page history</a></li>
+        </ul>
+      </footer>
+    </article>
+  </main>
+{% if toc_size > 1 %}
+  <nav class="toc" id="w-toc" aria-label="On this page">
+    <p class="toc-title">On this page</p>
+    {{ toc_list(toc) }}
+  </nav>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "macros.html" import icon, search_box with context %}
+{% block body %}
+{% include "sidebar.html" %}
+<main class="home" id="w-main" tabindex="-1">
+  <section class="hero hero--lost" aria-labelledby="lost-title">
+    <div class="wrap lost">
+      <div class="lost-art">
+{{ art_lost|safe }}
+      </div>
+      <div class="lost-copy">
+        <h1 class="hero-title" id="lost-title">Page not found</h1>
+        <p class="hero-sub">It may have moved or been renamed</p>
+        {{ search_box("q-lost", "hero") }}
+        <p class="hero-meta"><a href="{{ base }}">Docs home</a><span aria-hidden="true">·</span><a href="{{ all_url }}">All pages</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

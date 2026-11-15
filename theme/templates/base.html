@@ -1,0 +1,115 @@
+{% from "macros.html" import icon, brand, search_box with context %}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if kind == "home" %}{{ site.name }}{% else %}{{ title }} · {{ site.name }}{% endif %}</title>
+<meta name="description" content="{{ description }}">
+{% if site.noindex %}
+<meta name="robots" content="noindex, nofollow">
+{% endif %}
+<meta name="theme-color" content="#054848" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b3534" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="{{ canonical }}">
+<meta property="og:type" content="{{ 'article' if kind == 'page' else 'website' }}">
+<meta property="og:site_name" content="AOK">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ canonical }}">
+<link rel="icon" href="{{ assets.favicon }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ assets.touch }}">
+<link rel="preload" href="{{ assets['font-lora-500'] }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ assets['font-noto-sans-400'] }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ assets.css }}">
+<noscript><link rel="stylesheet" href="{{ assets.nojs }}"></noscript>
+<script src="{{ assets.js }}" defer></script>
+</head>
+<body class="kind-{{ kind }}" data-index="{{ assets.search }}">
+<!--sprite-->
+<a class="skip" href="#w-main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="{{ base }}" aria-label="AOK Docs home">
+      <svg class="brand-logo" viewBox="0 0 79 38" width="79" height="38" aria-hidden="true"><use href="#i.aok-logo"/></svg>
+      <span class="brand-docs" aria-hidden="true">Docs</span>
+    </a>
+{% if kind != "home" %}
+    {{ search_box("w-search", "header") }}
+{% endif %}
+    <nav class="header-nav" aria-label="AOK">
+      <a href="{{ links.website }}">Website</a>
+      <a class="btn-header" href="{{ links.explorer }}">Block explorer{{ icon("arrow-up-right") }}</a>
+    </nav>
+    <div class="header-tools">
+{% if kind != "home" %}
+      <button class="hdr-btn js-only" type="button" data-search-open aria-label="Search" aria-expanded="false">{{ icon("magnifying-glass") }}</button>
+      <a class="hdr-btn nojs-only" href="{{ all_url }}" aria-label="All pages">{{ icon("magnifying-glass") }}</a>
+{% endif %}
+      <button class="hdr-btn js-only" type="button" data-menu aria-controls="w-sidebar" aria-expanded="false" aria-label="Menu">{{ icon("bars-3", "i-open") }}{{ icon("x-mark", "i-close") }}</button>
+      <a class="hdr-btn nojs-only" href="#w-sidebar" aria-label="Menu">{{ icon("bars-3") }}</a>
+    </div>
+  </div>
+</header>
+
+{% block body %}{% endblock %}
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <a class="footer-logo" href="{{ links.website }}" aria-label="AOK website"><svg viewBox="0 0 79 38" width="79" height="38" aria-hidden="true"><use href="#i.aok-logo"/></svg></a>
+      <ul class="footer-social">
+        <li><a href="{{ links.telegram }}" aria-label="Telegram">{{ brand("telegram") }}</a></li>
+        <li><a href="{{ links.x }}" aria-label="X">{{ brand("x") }}</a></li>
+        <li><a href="{{ links.discord }}" aria-label="Discord">{{ brand("discord") }}</a></li>
+        <li><a href="{{ links.github }}" aria-label="GitHub">{{ brand("github") }}</a></li>
+      </ul>
+    </div>
+    <div class="footer-cols">
+      <div>
+        <h2>Docs</h2>
+        <ul>
+          <li><a href="{{ base }}">Docs home</a></li>
+          <li><a href="{{ all_url }}">All pages</a></li>
+          <li><a href="{{ recent_url }}">Recent changes</a></li>
+          <li><a href="{{ repo }}">Docs on GitHub{{ icon("arrow-up-right") }}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>AokChain</h2>
+        <ul>
+          <li><a href="{{ links.website }}">Website</a></li>
+          <li><a href="{{ links.website }}4.0/">What's new in 4.0</a></li>
+          <li><a href="{{ links.website }}download/">Download</a></li>
+          <li><a href="{{ links.whitepaper }}">Whitepaper{{ icon("arrow-up-right") }}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Services</h2>
+        <ul>
+          <li><a href="{{ links.explorer }}">Block explorer{{ icon("arrow-up-right") }}</a></li>
+          <li><a href="{{ links.api }}">API v3{{ icon("arrow-up-right") }}</a></li>
+          <li><a href="{{ links.tokens }}">Token list{{ icon("arrow-up-right") }}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Community</h2>
+        <ul>
+          <li><a href="{{ links.telegram }}">Telegram{{ icon("arrow-up-right") }}</a></li>
+          <li><a href="{{ links.x }}">X{{ icon("arrow-up-right") }}</a></li>
+          <li><a href="{{ links.discord }}">Discord{{ icon("arrow-up-right") }}</a></li>
+          <li><a href="{{ links.github }}">GitHub{{ icon("arrow-up-right") }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2020–2026 AOK Network Foundation Ltd.</p>
+      <address>3 Fraser Street #05-25, Duo Tower, Singapore 189352</address>
+    </div>
+  </div>
+</footer>
+<template id="w-tpl-copy"><button class="code-copy" type="button"><svg class="icon i-copy" aria-hidden="true"><use href="#i.clipboard"/></svg><svg class="icon i-done" aria-hidden="true"><use href="#i.check"/></svg><span>Copy</span></button></template>
+</body>
+</html>

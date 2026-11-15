@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% from "macros.html" import icon, search_box with context %}
+{% block body %}
+{% include "sidebar.html" %}
+<main class="home" id="w-main" tabindex="-1">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-art">
+{{ art_wide|safe }}
+{{ art_tall|safe }}
+    </div>
+    <div class="wrap hero-inner">
+      <h1 class="hero-title" id="hero-title">AokChain docs</h1>
+      <p class="hero-sub">Wallets, staking, tokens and nodes, down to every RPC command</p>
+      {{ search_box("q-home", "hero") }}
+      <p class="hero-meta"><a href="{{ all_url }}">All {{ page_count }} pages</a></p>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="sections-title">
+    <div class="wrap">
+      <h2 class="sr-only" id="sections-title">Sections</h2>
+      <ul class="tiles">
+{% for s in sections %}
+        <li class="tile">
+          <div class="tile-head">
+            <span class="tile-icon">{{ icon(s.icon, "icon-24") }}</span>
+{% if s.pages %}
+            <span class="tile-count">{{ s.pages|length }} {{ "page" if s.pages|length == 1 else "pages" }}</span>
+{% endif %}
+          </div>
+          <h3 class="tile-title"><a href="{{ s.url }}">{{ s.title }}</a></h3>
+          <p class="tile-sum">{{ s.summary|line }}</p>
+{% if s.pages %}
+          <ul class="tile-pages">
+{% for p in s.pages[:top] %}
+            <li><a href="{{ p.url }}">{{ p.title }}{{ icon("chevron-right") }}</a></li>
+{% endfor %}
+          </ul>
+{% endif %}
+{% if s.pages|length > top %}
+          <a class="tile-more" href="{{ s.url }}">All {{ s.pages|length }} pages{{ icon("arrow-right") }}</a>
+{% endif %}
+        </li>
+{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+{% if recent %}
+  <section class="sec sec-alt" aria-labelledby="recent-title">
+    <div class="wrap recent">
+      <div class="sec-head">
+        <h2 id="recent-title">Recent changes</h2>
+        <a class="link-arrow" href="{{ recent_url }}">All changes{{ icon("arrow-right") }}</a>
+      </div>
+      <ol class="changes">
+{% for c in recent %}
+        <li class="change">
+          <time class="change-date" datetime="{{ c.date }}">{{ c.nice }}</time>
+          <span class="change-subject">{{ c.subject }}</span>
+          <span class="change-pages">
+{% for p in c.pages[:3] %}
+            {% if p.url and not p.removed %}<a href="{{ p.url }}">{{ p.title }}</a>{% else %}<span>{{ p.title }}</span>{% endif %}
+{% endfor %}
+{% if c.pages|length > 3 %}
+            <span>+{{ c.pages|length - 3 }}</span>
+{% endif %}
+          </span>
+        </li>
+{% endfor %}
+      </ol>
+    </div>
+  </section>
+{% endif %}
+</main>
+{% endblock %}

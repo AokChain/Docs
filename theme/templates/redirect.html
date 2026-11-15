@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ target.title }} · {{ site.name }}</title>
+<meta http-equiv="refresh" content="0; url={{ target.url }}">
+<link rel="canonical" href="{{ canonical }}">
+<meta name="robots" content="noindex{{ ', nofollow' if site.noindex }}">
+<link rel="icon" href="{{ assets.favicon }}" type="image/svg+xml">
+<link rel="stylesheet" href="{{ assets.css }}">
+</head>
+<body class="kind-redirect">
+<main class="moved">
+  <p>This page is now <a href="{{ target.url }}">{{ target.title }}</a></p>
+</main>
+</body>
+</html>
