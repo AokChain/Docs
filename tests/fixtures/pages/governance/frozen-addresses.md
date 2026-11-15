@@ -11,12 +11,13 @@ Governance commands are signed transactions that can freeze or unfreeze an addre
 The explorer marks frozen addresses with a **Frozen** chip. On a node:
 
 ```bash
-aokchain-cli isfrozen <address>
+aokchain-cli checkfreeze "<address>"
+aokchain-cli freezelist
 ```
 
-## Why an address is frozen
+## Governance commands
 
-Freezing is used against stolen funds and attacks on the network. Each governance command is on the chain and can be read in the explorer.
+Freezing and unfreezing are governance commands: signed transactions on the chain, so anyone can read them in the explorer.
 
 > [!NOTE]
-> Sending to a frozen address works; spending from it does not.
+> `freezelist` returns every address that is frozen now.

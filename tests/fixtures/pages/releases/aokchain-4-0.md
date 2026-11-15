@@ -21,10 +21,8 @@ AokChain 4.0 reworks the node and the wallets without a hard fork. It connects t
 > [!NOTE]
 > 4.0 is not a hard fork. Nodes that stay on 3.0 keep following the same chain.
 
-## Changes for developers
+## For developers
 
-- `getstakinginfo` reports the expected time to the next stake
-- ~~`listassets`~~ is `listtokens`
-- New commands are in [[rpc-commands]]
+The commands of 4.0 are in [[rpc-commands]].
 
 [^1]: Measured on regtest, on a wallet with 30,000 transactions.

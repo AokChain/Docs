@@ -6,7 +6,7 @@ order: 3
 
 ## Back up the desktop wallet
 
-Use **File › Backup wallet** and save the copy somewhere other than the computer it runs on.
+Use **Settings › Wallet security › Backup Wallet** and save the copy somewhere other than the computer it runs on.
 
 - [x] Encrypt the wallet with a passphrase first
 - [x] Save the backup to a USB stick or another computer

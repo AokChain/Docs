@@ -16,10 +16,10 @@ Offline staking splits one address into two keys. The **staking key** goes to a 
    aokchain-cli getnewaddress
    ```
 
-2. In your wallet, create the offline staking address from the staking node's address and one of your own:
+2. In your wallet, make the offline staking address from the staking node's address and one of your own:
 
    ```bash
-   aokchain-cli delegatestake <staking address> <your address>
+   aokchain-cli getofflinestakingaddress "<staking address>" "<spending address>"
    ```
 
 3. Send the AOK you want staked to the new address.

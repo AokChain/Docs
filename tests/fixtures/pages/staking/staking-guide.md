@@ -39,13 +39,16 @@ aokchain-cli getstakinginfo
 {
   "enabled": true,
   "staking": true,
-  "errors": "",
-  "currentblocksize": 1000,
   "weight": 125000000000,
   "netstakeweight": 9800000000000,
-  "expectedtime": 5120
+  "expectedtime": 5120,
+  "stakes_24h": 2,
+  "orphaned_24h": 0,
+  "reward_24h": 0.25
 }
 ```
+
+The figures above are an example. `weight` and `netstakeweight` are in satoshis, `expectedtime` in seconds.
 
 ## Without leaving a computer on
 

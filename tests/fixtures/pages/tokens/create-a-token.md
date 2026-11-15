@@ -1,6 +1,6 @@
 ---
 title: Create a token
-description: Issue a token, a sub token or a unique token, and what each one costs.
+description: Issue a token, a sub token or a unique token from the command line.
 order: 1
 ---
 
@@ -8,20 +8,19 @@ A token has a name, an amount and a number of decimals (its units). Issuing it a
 
 ## Kinds of tokens
 
-| Kind | Name | Amount | Decimals |
+| Kind | Name | Quantity | Decimals |
 |---|---|--:|:-:|
-| Token | `ROOT` | up to 21 billion | 0–8 |
-| Sub token | `ROOT/SUB` | up to 21 billion | 0–8 |
+| Token | `ROOT` | any | 0–8 |
+| Sub token | `ROOT/SUB` | any | 0–8 |
 | Unique token | `ROOT#TAG` | 1 | 0 |
-| User name | `@name` | 1 | 0 |
 
 ## Issue a token
 
 ```bash
-aokchain-cli issue "ROOT" 1000 "" "" 0 true
+aokchain-cli issue "ROOT" 1000 "<address>" "<change address>" 0 true
 ```
 
-The arguments are the name, the amount, the address that receives it (empty for a new one), the change address, the units and whether it can be reissued.
+The arguments are the name, the amount, the receiving address, the change address, the units and whether it can be reissued.
 
 > [!TIP]
 > Pick the units carefully: they cannot be lowered once the token exists.
@@ -29,7 +28,7 @@ The arguments are the name, the amount, the address that receives it (empty for 
 ## Reissue
 
 ```bash
-aokchain-cli reissue "ROOT" 500 "<address>"
+aokchain-cli reissue "ROOT" 500 "<address>" "<change address>"
 ```
 
 Reissuing needs the owner token `ROOT!` in the same wallet. ~~Units can go down~~ Units can only go up.
