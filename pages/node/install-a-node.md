@@ -23,7 +23,7 @@ A node is a copy of AokChain Core that keeps the whole chain, checks every block
 
 | | |
 |---|---|
-| System | Linux x86_64 with glibc 2.34 or later (Ubuntu 22.04, Debian 12 or newer) for the Linux package. Windows 64-bit. The macOS package is being prepared. |
+| System | Linux x86_64 with glibc 2.34 or later (Ubuntu 22.04, Debian 12 or newer) for the Linux package. Windows 64-bit. The [download page](@@site@@/download/) lists the packages that are out. |
 | Disk | The blocks alone are 2.1 GB (blocks 1 to 3,031,432); with the chain state and the indexes, plan for 5 GB or more, growing with the chain. A node started from the chain state snapshot needs about 1.1 GB, and about 3.5 GB once it has fetched the past blocks (see [[fast-sync]]). An SSD makes the first sync much faster. |
 | Memory | 4 GB or more is comfortable. The database cache takes 1024 MiB by default on a computer with at least 4 GB of memory, 450 MiB on a smaller one (`dbcache`). |
 | Network | Outgoing TCP connections to port 33441 of other nodes. Incoming connections are optional; see [[ports-and-peers]]. |
@@ -31,7 +31,7 @@ A node is a copy of AokChain Core that keeps the whole chain, checks every block
 
 ## Get the package
 
-Downloads of the 4.0 programs are being prepared at [@@site_host@@/download](@@site@@/download/). Official downloads are listed on that site only, each with its SHA-256 checksum.
+The packages are listed at [@@site_host@@/download](@@site@@/download/), each with its SHA-256 checksum. Official downloads are listed on that site only.
 
 1. Download the archive for your system and the checksum file `SHA256SUMS.txt`.
 2. Check the archive against the checksum file:

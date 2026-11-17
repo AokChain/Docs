@@ -8,7 +8,7 @@ order: 40
 
 ### Where do I download the wallet?
 
-From [@@site_host@@/download](@@site@@/download/). Official downloads and their SHA256 checksums are listed on that page only. The 4.0 wallets are being prepared for release.
+From [@@site_host@@/download](@@site@@/download/). Official downloads and their SHA256 checksums are listed on that page only.
 
 ### Does my wallet file from version 3.0 work with 4.0?
 
@@ -28,7 +28,7 @@ No. Nobody can reset or recover it. Without the passphrase the coins in an encry
 
 ### What happened to the mobile wallet?
 
-A new AOK Wallet app is in testing. See [[aok-wallet-app]].
+The AOK Wallet runs on phones and in the web browser. See [[aok-wallet-app]].
 
 ## Payments
 

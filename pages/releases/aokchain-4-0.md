@@ -4,7 +4,7 @@ description: "What is new in AokChain Core 4.0 for wallet users, stakers, exchan
 order: 10
 ---
 
-AokChain Core 4.0 is a new node and desktop wallet for the same chain. It needs no hard fork and has no activation height, connects to 3.0.x nodes, and opens 3.0.x wallet files. It includes security fixes; every node, exchange and staker should upgrade ([[upgrade-to-4-0]]). The changes of each 4.0 version are on [[version-history]]; downloads are being prepared at [@@site_host@@/download](@@site@@/download/).
+AokChain Core 4.0 is a new node and desktop wallet for the same chain. It needs no hard fork and has no activation height, connects to 3.0.x nodes, and opens 3.0.x wallet files. It includes security fixes; every node, exchange and staker should upgrade ([[upgrade-to-4-0]]). The changes of each 4.0 version are on [[version-history]]; downloads are listed at [@@site_host@@/download](@@site@@/download/).
 
 ## Compatibility
 
