@@ -60,7 +60,7 @@ A node started from the chain state snapshot does not serve the blocks before th
 
 | Command | Use |
 |---|---|
-| `getpeerinfo` | Every connected peer: address, `version` (70021 for 4.0), `subver` (for example `/AokChain:4.0.8/`), `startingheight`, ping. |
+| `getpeerinfo` | Every connected peer: address, `version` (70021 for 4.0), `subver` (for example `/AokChain:4.0.9/`), `startingheight`, ping. |
 | `getconnectioncount` | The number of peers. |
 | `getnetworkinfo` | Version, protocol, local addresses, proxies, relay fee. |
 | `getnodeaddresses` | Known peer addresses, a random selection. |

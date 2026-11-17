@@ -31,7 +31,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
    ```bash
    sudo mv /usr/local/bin/aokchaind    /usr/local/bin/aokchaind-3.0
    sudo mv /usr/local/bin/aokchain-cli /usr/local/bin/aokchain-cli-3.0
-   sudo install -m 0755 aokchain-4.0.8-linux-x86_64/aokchain* /usr/local/bin/
+   sudo install -m 0755 aokchain-4.0.9-linux-x86_64/aokchain* /usr/local/bin/
    ```
 
    Get and check the 4.0 package as [[install-a-node]] describes.
@@ -41,7 +41,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
 4. **Check it**, a minute later:
 
    ```bash
-   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.8/"
+   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.9/"
    aokchain-cli getblockcount                          # rises to the height of the other nodes
    aokchain-cli getwalletinfo | grep -E '"balance"|immature|txcount'
    ```
@@ -83,7 +83,7 @@ aokchaind -daemon
 ## Explorers and indexers
 
 - A node with `addressindex`, `spentindex` and `txindex` starts on its existing data.
-- **Rebuild the address index once.** After the upgrade to 4.0.8, start a node that runs with `addressindex=1` once with `-reindex`, also when its index was rebuilt under an earlier 4.0 version. The rebuild corrects the records of earlier blocks: token outputs other than transfers are stored without a lock time, and an index that was kept under 3.0.x or under 4.0 before 4.0.5 has every unspent output again. New blocks are right without it. Rebuilding takes about as long as a full sync; you can rebuild a copy of the data directory on another machine and swap it in.
+- **Rebuild the address index once.** After the upgrade to 4.0.8 or later, start a node that runs with `addressindex=1` once with `-reindex`, also when its index was rebuilt under an earlier 4.0 version. The rebuild corrects the records of earlier blocks: token outputs other than transfers are stored without a lock time, and an index that was kept under 3.0.x or under 4.0 before 4.0.5 has every unspent output again. New blocks are right without it. Rebuilding takes about as long as a full sync; you can rebuild a copy of the data directory on another machine and swap it in.
 - 4.0.4 changed two answers: the address index calls take `{"addresses": [...]}` as their help says, and `getaddressutxos` can page with `limit` and `after`; `mediantime` of `getblock` and `getblockheader` is now the median time past instead of the block time. See [[version-history]].
 - A cron line that restarts the node within a minute of every stop gets in the way of an upgrade; use a systemd unit instead ([[start-and-stop]]).
 

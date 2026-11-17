@@ -1,6 +1,6 @@
 ---
 title: Version history
-description: "The changes of every AokChain Core version from 4.0.0 to 4.0.8, and the 3.0.x line before them."
+description: "The changes of every AokChain Core version from 4.0.0 to 4.0.9, and the 3.0.x line before them."
 order: 20
 ---
 
@@ -8,6 +8,7 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 
 | Version | Date | For whom |
 |---|---|---|
+| 4.0.9 | 2026-11-17 | Those who build for macOS; a node that runs 4.0.8 does not need it |
 | 4.0.8 | 2026-11-17 | Everyone on 4.0: nodes with an address index, nodes that open several wallets, desktop wallet users on Linux |
 | 4.0.7 | 2026-11-17 | Desktop wallet users; nodes that load wallets while they run |
 | 4.0.6 | 2026-11-16 | Everyone on 4.0: programs that call the wallet and token commands, operators who change indexes, desktop wallet users |
@@ -18,6 +19,13 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 | 4.0.1 | 2026-11-14 | Everyone on 4.0.0 |
 | 4.0.0 | 2026-11-13 | Everyone on 3.0.x |
 | 3.0.5 | 2022-09-24 | The last 3.0.x version |
+
+## 4.0.9
+
+A build release for macOS. The node and the wallet are those of 4.0.8: nothing changes in their behaviour, and the Linux and Windows programs work as in 4.0.8. A node that runs 4.0.8 does not need this version.
+
+- macOS on Apple silicon: the programs build on an Apple silicon Mac from the release tag, for macOS 11.0 and later, with Qt linked into the desktop wallet. macOS 11.0 is the minimum for every macOS build.
+- The release programs report `v4.0.9`.
 
 ## 4.0.8
 

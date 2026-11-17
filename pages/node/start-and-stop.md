@@ -43,7 +43,7 @@ While the node loads its databases, RPC calls answer with error `-28` and a mess
 | `aokchain-cli getblockcount` | The height. It rises until it reaches the height of the other nodes. |
 | `aokchain-cli getblockchaininfo` | `blocks`, `headers` and `verificationprogress` show how far the sync is. |
 | `aokchain-cli getconnectioncount` | The number of peers. 0 for minutes means the node finds no peers; see [[ports-and-peers]]. |
-| `aokchain-cli getnetworkinfo` | `subversion` is the version, for example `/AokChain:4.0.8/`. |
+| `aokchain-cli getnetworkinfo` | `subversion` is the version, for example `/AokChain:4.0.9/`. |
 | `tail -f ~/.aokchain/debug.log` | What the node is doing. |
 
 ## Stop
