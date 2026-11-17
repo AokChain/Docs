@@ -58,7 +58,7 @@ There are no bech32 addresses. An address with a valid checksum for one network 
 | Last height open to proof of work | 1,440 (the last mined block is 82) | 1,440,000 | 1,440,000 |
 | Stake search | In 16-second steps of the block time | same | same |
 | Block time ahead of the node's clock, at most | 10 minutes | 10 minutes | 10 minutes |
-| Deepest reorganization accepted (`maxreorg`) | 500 blocks | 500 blocks | 60 blocks |
+| Deepest reorganization accepted | 499 blocks (`maxreorg` is 500) | 499 blocks | 59 blocks (`maxreorg` is 60) |
 | Largest block | 2,000,000 bytes (weight 8,000,000) | same | weight 8,000,000; 2,000,000 bytes without witness data |
 
 On mainnet, blocks 1 to 72 were mined with proof of work. Block 73 is the first proof-of-stake block and block 82 the last mined one, 79 proof-of-work blocks in all; every block from 83 on is a proof-of-stake block. A block is refused when its size without witness data, times four, is above the weight limit, so without SegWit a block has at most 2,000,000 bytes. The difficulty rule moves the target after each block by `((N - 1) * T + 2 * actual) / ((N + 1) * T)`, where `T` is the interval, `N` is 15 (16 minutes over 64 seconds) and `actual` is the time between the two previous blocks of the same kind, at most `10 * T`.
@@ -93,7 +93,7 @@ The wallet shows its own staked coins and rewards as immature until one block la
 
 - The reward halves every 525,960 blocks; after the tenth halving there is none, and stakers earn the fees only.
 - A block may claim at most the reward of its height plus the fees of its transactions. A stake claims it as the difference between what the coinstake pays out and what it takes in.
-- If every block claims its full reward, the issuance ends at 2,104,203,562.9375 AOK. The explorer API serves the supply at the tip (`/api/v3/supply`, [[explorer-api]]).
+- If every block claims its full reward, the issuance ends at 2,104,203,562.9375 AOK. The [[explorer-api|AokChain API]] serves the supply at the tip (`/supply`).
 - The same schedule applies on testnet and regtest.
 
 1 AOK is 100,000,000 satoshis. No single amount may exceed 25,000,000,000 AOK; this bound is a range check, not the supply.
@@ -124,6 +124,6 @@ Testnet and regtest have no checkpoints and no snapshot.
 |---|---|---|---|
 | Governance master address | `kp5eNwMzDfDgHXMG3XZw73c6rTA6WzFJEx` | none | `2NDM6PPx2FNYvgqvDdE8qnopCCD6kcGt14v` |
 | Token fee address, as built in | `KdZFAFeKV8C5JzdEdgcPYDZku92KkD3fHy` | `TufvYmro3vSfDerUAjvjXMjYqUsFw6iWS7` | `n3XzBy9gndByXLeAgz5qG5xJkNNw31ULXy` |
-| Built-in costs: root, reissue, sub, unique, user name | 10,000, 10,000, 100, 100, 1 AOK | 1 AOK each | 10,000, 10,000, 100, 100, 1 AOK |
+| Built-in costs: root, reissue, sub, unique, username | 10,000, 10,000, 100, 100, 1 AOK | 1 AOK each | 10,000, 10,000, 100, 100, 1 AOK |
 
 Governance can change the fee address and the costs, and has done so on mainnet. `issuanceinfo` returns the values in force; see [[token-names-and-costs]] and [[address-freezing]].

@@ -113,7 +113,7 @@ To catch them, check `getbalances` regularly: a `locked` amount above 0 means lo
 |---|---|
 | Target block interval | 64 seconds |
 | Confirmations after which the desktop wallet shows a payment as confirmed | 6 |
-| Deepest reorganization a node accepts | 500 blocks |
+| Deepest reorganization a node accepts | 499 blocks |
 | Blocks before a staked coin or a stake reward can be spent | 60 |
 
 On a proof-of-stake chain the newest block is sometimes replaced by a competing block of the same height. Do not credit unconfirmed deposits. Wait for at least the 6 confirmations of the desktop wallet, and for more for large amounts; the right number is a risk decision of your own.

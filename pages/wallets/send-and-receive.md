@@ -32,7 +32,7 @@ An incoming payment shows under **Pending** on the **Overview** page until a blo
 The wallet then shows the transaction ID. **Copy the transaction ID** lets you look the payment up on the [[block-explorer]].
 
 > [!CAUTION]
-> A transaction that has been sent cannot be cancelled. If the confirmation window says "Not in the address book: nothing was sent to this address from this wallet before", check the address character by character.
+> A transaction that has been sent cannot be cancelled. If the confirmation window marks the recipient as **New address** and warns "Addresses that are not in the address book: 1. Nothing was sent there from this wallet before", check the address character by character.
 
 ### More than one recipient
 
