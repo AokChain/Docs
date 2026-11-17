@@ -33,14 +33,14 @@ A node is a copy of AokChain Core that keeps the whole chain, checks every block
 
 The packages that are out are listed at [@@site_host@@/download](@@site@@/download/), each with its SHA-256 checksum. Official downloads are listed on that page only.
 
-1. Download the archive for your system and the checksum file `SHA256SUMS.txt`.
-2. Check the archive against the checksum file:
+1. Download the archive for your system.
+2. Compute its SHA-256 and compare it with the one printed next to the link on the download page:
 
    ```bash
-   sha256sum -c SHA256SUMS.txt --ignore-missing
+   sha256sum aokchain-4.0.7-linux-x86_64.tar.gz
    ```
 
-   The line of your archive must end in `OK`.
+   If the two differ, do not use the file. With the checksum file `SHA256SUMS.txt` of the release in the same folder, `sha256sum -c SHA256SUMS.txt --ignore-missing` compares them for you; the line of your archive must end in `OK`.
 3. Unpack it and put the programs where the system finds them. On Linux:
 
    ```bash
