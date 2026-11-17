@@ -23,7 +23,8 @@ When you create `ORCHARD`, you also receive one `ORCHARD!`. Whoever holds it can
 - issue more `ORCHARD`, if the token is reissuable (see [[reissue-a-token]]);
 - create sub tokens such as `ORCHARD/GREEN` and unique tokens such as `ORCHARD#tree-17`.
 
-The owner token can be sent like any token, and with it the control of the token. If it is lost, nobody can issue more of the token or create tokens under it again.
+> [!WARNING]
+> The owner token can be sent like any token, and the control of the token goes with it. If it is sent to a wrong address, or the wallet that holds it is lost, nobody can issue more of the token or create tokens under it again.
 
 Keep an owner token apart from the wallet you use every day. In the desktop wallet (4.0.7 and later), create a wallet for it, for example "Issuer", send the owner token to an address of that wallet, and create and reissue tokens from there. See [[desktop-wallet#several-wallets|Several wallets]].
 

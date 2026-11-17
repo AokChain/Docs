@@ -19,7 +19,10 @@ Tokens are sent like AOK, and the fee is paid in AOK, so the wallet needs a litt
 
 ### Send an owner token
 
-Sending an owner token such as `ORCHARD!` hands over the control of the token. In the advanced view (see [[create-a-token#turn-on-the-advanced-view|Turn on the advanced view]]) the **Tokens** tab of **Send** has a **Transfer Administrator Token** box; tick it and pick the owner token in **Token:**.
+Sending an owner token such as `ORCHARD!` hands over the control of the token. In the advanced view (see [[create-a-token#turn-on-the-advanced-view|Turn on the advanced view]]) the **Tokens** tab of **Send** has a **Transfer Administrator Token** box; tick it and pick the owner token in **Token:**. The wallet then shows "Warning: Transferring administrator token".
+
+> [!CAUTION]
+> A token whose name ends in `!` is an owner token. Whoever receives it can reissue the token and create sub tokens and unique tokens under it, and you no longer can. Like every transfer it cannot be undone, so check the name and the recipient before you send, in the desktop wallet and with `transfer` on a node.
 
 ## With a node
 
