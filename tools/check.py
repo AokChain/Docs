@@ -441,7 +441,17 @@ class Checker:
 
     def check_links(self):
         print(f"links: {len(self.links)} same-site addresses", flush=True)
+        outside = 0
         for url, page in sorted(self.links.items()):
+            # A wiki under a base such as /doc/ links to pages of the website
+            # it is part of (the menu, the footer). The build alone does not
+            # have them: they are checked where the website is, with --site
+            # or when the address given is the live wiki.
+            if self.args.build and not self.internal(url):
+                if not self.args.site:
+                    outside += 1
+                    continue
+                url = self.args.site.rstrip("/") + url[len(self.origin):]
             target, _, frag = url.partition("#")
             if target not in self.html_cache:
                 status, headers, body, _final = fetch(target)
@@ -455,6 +465,8 @@ class Checker:
                 p.feed(body.decode("utf-8", "replace"))
                 if urllib.parse.unquote(frag) not in p.ids:
                     self.fail(page, f"link {url}: no id #{frag} on that page")
+        if outside:
+            print(f"links: {outside} lead to pages of the website and were not followed (give --site)", flush=True)
 
     def check_server(self):
         """Redirects, the 404 page and the headers of the server."""
@@ -619,6 +631,8 @@ def main(argv=None):
     ap.add_argument("--only", action="append", help="check only this page path (repeatable)")
     ap.add_argument("--widths", default=",".join(map(str, WIDTHS)))
     ap.add_argument("--shots", type=Path, help="save a full-page screenshot of every page, width and theme here")
+    ap.add_argument("--site", help="where the website's own pages answer while a build is checked, "
+                                   "such as http://127.0.0.1:8765 (default: links to them are not followed)")
     args = ap.parse_args(argv)
     args.widths = [int(w) for w in args.widths.split(",")]
     server = None

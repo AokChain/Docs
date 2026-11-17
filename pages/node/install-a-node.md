@@ -31,7 +31,7 @@ A node is a copy of AokChain Core that keeps the whole chain, checks every block
 
 ## Get the package
 
-Downloads of the 4.0 programs are being prepared at [web.aok.network/download](https://web.aok.network/download/). Official downloads are listed on that site only, each with its SHA-256 checksum.
+Downloads of the 4.0 programs are being prepared at [@@site_host@@/download](@@site@@/download/). Official downloads are listed on that site only, each with its SHA-256 checksum.
 
 1. Download the archive for your system and the checksum file `SHA256SUMS.txt`.
 2. Check the archive against the checksum file:
@@ -54,7 +54,7 @@ Downloads of the 4.0 programs are being prepared at [web.aok.network/download](h
 The Linux package holds `aokchaind`, `aokchain-cli`, `aokchain-tx` and `aokchain-wallet`; the libraries they need are built in. On Windows, unpack the archive into a folder of your choice. The Windows programs are not code-signed, so Windows asks for a confirmation the first time it starts them.
 
 > [!WARNING]
-> Install only programs whose checksum matches the one published on web.aok.network. A wallet program from anywhere else can steal the keys of every wallet it opens.
+> Install only programs whose checksum matches the one published on @@site_host@@. A wallet program from anywhere else can steal the keys of every wallet it opens.
 
 ## Build from source
 

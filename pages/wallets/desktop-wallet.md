@@ -9,7 +9,7 @@ The desktop wallet is AokChain Core with a window (`aokchain-qt`). It runs on Wi
 
 ## Download
 
-Get the desktop wallet from [web.aok.network/download](https://web.aok.network/download/). Official downloads and their SHA256 checksums are listed on that page only. Compare the checksum of the file you downloaded with the one on the page before you install it.
+Get the desktop wallet from [@@site_host@@/download](@@site@@/download/). Official downloads and their SHA256 checksums are listed on that page only. Compare the checksum of the file you downloaded with the one on the page before you install it.
 
 ## First start
 

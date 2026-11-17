@@ -4,10 +4,10 @@ description: "API v3 of the AokChain block explorer: blocks, transactions, addre
 order: 80
 ---
 
-API v3 answers questions about the chain over HTTPS, from the index behind the block explorer at [v3.aokscan.com](https://v3.aokscan.com/). Use it when you need data about any address without running a node with an address index, or as a second view next to your own node. The interactive reference with every parameter and schema is at [v3.aokscan.com/api/v3/docs](https://v3.aokscan.com/api/v3/docs); its OpenAPI description is `/api/v3/openapi.json`.
+API v3 answers questions about the chain over HTTPS, from the index behind the block explorer at [@@explorer_host@@](@@explorer@@/). Use it when you need data about any address without running a node with an address index, or as a second view next to your own node. The reference with every parameter, a real answer for each endpoint and a playground is at [@@site_host@@/api](@@site@@/api/); its OpenAPI description is [openapi.json](@@api@@/openapi.json).
 
 ```bash
-curl -s https://v3.aokscan.com/api/v3/status
+curl -s @@api@@/status
 ```
 
 ```json
@@ -22,7 +22,7 @@ curl -s https://v3.aokscan.com/api/v3/status
 
 ## Conventions
 
-- **Base address:** `https://v3.aokscan.com/api/v3`.
+- **Base address:** `@@api@@`.
 - **Amounts are strings of integer satoshis** (1 AOK = 100000000), because the AOK supply and many token amounts do not fit into the safe integer range of JavaScript. Token amounts use the same base unit of 8 decimals; `units` is the precision a token is displayed with. Parse them with a big-integer or decimal type. A few fields are in AOK instead, written with a decimal point: the issuing costs of `/governance`, `cost.amount` of `/tokens/issuance` and `/tokens/check` (next to `cost.sats` in satoshis), and `total_coins` of `/supply`.
 - **Pages** are cursors: pass the `next` value of a page back as `before` or `after`, as the endpoint says. The endpoints with an `offset` parameter (`/block/{id}/txs`, `/richlist`, `/token/{name}/holders`) page by offset instead.
 - **Errors** have a real HTTP status and a body `{"error": {"code": "...", "message": "..."}}`: 400 for bad input, 404 for something unknown (`"code": "not_found"`), 422 when the node refused a transaction (with the node's reason under `error.node`), 502 and 503 when the node or the index is not available.
@@ -63,10 +63,10 @@ curl -s https://v3.aokscan.com/api/v3/status
 Examples:
 
 ```bash
-curl -s https://v3.aokscan.com/api/v3/address/KacWDE2Fyqywwr6YDKt1FYthycv3Ee7dqv
-curl -s 'https://v3.aokscan.com/api/v3/address/KacWDE2Fyqywwr6YDKt1FYthycv3Ee7dqv/utxos?limit=100'
-curl -s https://v3.aokscan.com/api/v3/tokens/issuance
-curl -s -X POST https://v3.aokscan.com/api/v3/verify -H 'Content-Type: application/json' \
+curl -s @@api@@/address/KacWDE2Fyqywwr6YDKt1FYthycv3Ee7dqv
+curl -s '@@api@@/address/KacWDE2Fyqywwr6YDKt1FYthycv3Ee7dqv/utxos?limit=100'
+curl -s @@api@@/tokens/issuance
+curl -s -X POST @@api@@/verify -H 'Content-Type: application/json' \
   -d '{"address":"KgF2VA2npjK7bYitFfrvoZa9FXNPieuRDF","message":"I control this address. 2026-11-15","signature":"IFH7dGp1q987L4SN0jQoHNUE/mpKl9rWz//GCw6wc7s0LCyGYWKDZGEIcf41TMB9erXvEVH2ocr8vkYzKHnMIfw="}'
 ```
 
@@ -88,7 +88,7 @@ These serve wallets that keep their keys on the device and leave the chain to th
 | `POST /wallet/broadcast` | Checks a signed transaction with the node (`testmempoolaccept`) and sends it. Body `{"hex": "..."}`; a refused transaction answers 422 with the node's reason. |
 
 ```bash
-curl -s -X POST https://v3.aokscan.com/api/v3/wallet/balance -H 'Content-Type: application/json' \
+curl -s -X POST @@api@@/wallet/balance -H 'Content-Type: application/json' \
   -d '{"addresses":["KacWDE2Fyqywwr6YDKt1FYthycv3Ee7dqv","Krp9Fwe7rEZm6Y6YxnngFc9to7y1Q4QX9W"]}'
 ```
 

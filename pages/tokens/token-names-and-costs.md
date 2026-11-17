@@ -61,6 +61,6 @@ Where to see the current costs:
   }
   ```
 
-- **Explorer API:** [v3.aokscan.com/api/v3/tokens/issuance](https://v3.aokscan.com/api/v3/tokens/issuance).
+- **Explorer API:** [/tokens/issuance](@@api@@/tokens/issuance) of the API.
 
 How governance sets these values is described on [[how-network-rules-change]].

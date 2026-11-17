@@ -195,17 +195,19 @@ main:focus { outline: none; }
 .brand { display: inline-flex; align-items: center; gap: var(--space-3); flex: none; color: #ffffff; border-radius: var(--radius-control); }
 .brand:hover { color: #ffffff; }
 .brand-logo { width: auto; height: 32px; fill: currentColor; }
-.brand-docs { padding-left: var(--space-3); border-left: 1px solid rgba(255, 255, 255, 0.3); font: 500 18px/24px var(--font-sans); }
 .site-header :focus-visible { outline-color: var(--aok-mint); }
-.header-nav { display: none; align-items: center; gap: var(--space-2); margin-left: auto; }
-.header-nav > a:not(.btn-header) {
+/* The website's main menu; "Docs" is where the reader is */
+.header-nav { display: none; margin-left: var(--space-6); }
+.header-nav ul { display: flex; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.header-nav a {
   display: flex; align-items: center; min-height: 40px; padding: 0 var(--space-3);
   border-radius: var(--radius-control); color: #c2dad6; font: 500 15px/1 var(--font-sans);
   transition: color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
 }
-.header-nav > a:not(.btn-header):hover { color: #ffffff; background: rgba(255, 255, 255, 0.06); }
+.header-nav a:hover { color: #ffffff; background: rgba(255, 255, 255, 0.06); }
+.header-nav a[aria-current] { color: #ffffff; box-shadow: inset 0 -2px 0 var(--aok-mint); border-radius: 0; }
 .btn-header {
-  display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 var(--space-4);
+  display: none; flex: none; align-items: center; gap: 6px; min-height: 36px; padding: 0 var(--space-4);
   border: 1px solid rgba(255, 255, 255, 0.28); border-radius: var(--radius-pill);
   color: #ffffff; font: 500 14px/1 var(--font-sans);
   transition: background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
@@ -223,10 +225,13 @@ main:focus { outline: none; }
 .menu-open .hdr-btn .i-close { display: block; }
 @media (min-width: 1024px) {
   .brand-logo { height: 36px; }
-  .brand-docs { font-size: 19px; }
-  .header-nav { display: flex; }
-  .header-tools { display: none; }
+  .header-nav { display: block; }
+  .btn-header { display: inline-flex; }
+  .header-tools { margin-left: 0; margin-right: 0; }
+  .hdr-menu { display: none; }
 }
+/* From here the search field itself fits next to the menu */
+@media (min-width: 1280px) { .header-tools { display: none; } }
 
 /* Search: one component for the header, the home hero and the 404 page */
 .search { position: relative; display: flex; align-items: center; min-width: 0; }
@@ -267,7 +272,7 @@ main:focus { outline: none; }
 .search-empty a { text-decoration: underline; text-underline-offset: 3px; }
 
 /* In the header bar: a quiet field on deep teal */
-.search--header { display: none; flex: 0 1 440px; margin-left: var(--space-6); }
+.search--header { display: none; flex: 0 1 300px; margin-left: auto; }
 .search--header .search-input { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); color: #ffffff; }
 .search--header .search-input::placeholder { color: #c2dad6; }
 .search--header .search-input:hover { background: rgba(255, 255, 255, 0.12); }
@@ -275,9 +280,9 @@ main:focus { outline: none; }
 .search--header .search-glass { color: #c2dad6; }
 .search--header .search-key { color: #c2dad6; border-color: rgba(255, 255, 255, 0.3); }
 .search--header .search-panel { right: auto; width: min(600px, calc(100vw - 2 * var(--gutter))); }
-@media (min-width: 1024px) { .search--header { display: flex; } }
-/* Below 1,024px the search button opens the field as a row under the bar */
-@media (max-width: 1023.98px) {
+@media (min-width: 1280px) { .search--header { display: flex; } }
+/* Below 1,280px the search button opens the field as a row under the bar */
+@media (max-width: 1279.98px) {
   .search-open .search--header {
     display: flex; position: absolute; left: 0; right: 0; top: var(--header-h); margin: 0;
     padding: var(--space-1) var(--gutter) var(--space-3); background: var(--aok-ink);
@@ -288,7 +293,7 @@ main:focus { outline: none; }
   .search-open .search--header .search-key { display: none; }
   .search-open .search--header .search-panel { left: var(--gutter); right: var(--gutter); width: auto; }
 }
-@media (max-width: 1023.98px) and (prefers-color-scheme: dark) {
+@media (max-width: 1279.98px) and (prefers-color-scheme: dark) {
   .search-open .search--header { background: var(--color-band); }
 }
 
@@ -763,10 +768,6 @@ main:focus { outline: none; }
 .footer-logo { display: inline-flex; color: var(--color-heading); border-radius: var(--radius-control); }
 .footer-logo:hover { color: var(--color-heading); }
 .footer-logo svg { width: auto; height: 48px; fill: currentColor; }
-.footer-social { display: flex; gap: var(--space-2); }
-.footer-social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--color-border-strong); color: var(--color-heading); transition: background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease); }
-.footer-social a:hover { background: var(--aok-teal-soft); border-color: var(--aok-teal); color: var(--color-heading); }
-.footer-social .icon-brand { width: 18px; height: 18px; }
 .footer-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8) var(--space-6); padding-top: var(--space-10); }
 .footer-cols h2 { color: var(--color-text); font: 500 14px/1.4 var(--font-sans); }
 .footer-cols ul { display: grid; gap: var(--space-1); margin-top: var(--space-3); }
@@ -775,7 +776,8 @@ main:focus { outline: none; }
 .footer-cols .icon { width: 14px; height: 14px; color: var(--color-muted); }
 .footer-bottom { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); justify-content: space-between; margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: 13px; }
 .footer-bottom address { font-style: normal; }
-@media (min-width: 1024px) { .footer-cols { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 640px) { .footer-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .footer-cols { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 
 /* Line art. Colours come from the tokens; the hero switches the ink to
    white and mint. Strokes keep their width at any size. */

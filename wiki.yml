@@ -6,10 +6,20 @@ name: AokChain Docs
 # Where the wiki is served. --base on the command line overrides it.
 base: /doc/
 
-# The absolute address of the wiki root for each base, for canonical links
-# and link previews.
+# The website this wiki belongs to, the block explorer and the API. The
+# header, the footer and the pages take these addresses from here. A page
+# names them as @@site@@, @@explorer@@ and @@api@@ (and @@site_host@@,
+# @@explorer_host@@ for the name alone), so nothing in pages/ has to change
+# when a service moves: change its address here and build again.
+site: https://web.aok.network
+explorer: https://v3.aokscan.com
+api: https://v3.aokscan.com/api/v3
+github: https://github.com/AokChain
+
+# The absolute address of the wiki root, for canonical links and link
+# previews. Under a base such as /doc/ it is the website's address plus the
+# base. A wiki served at the root of a host of its own names that host here.
 site_url:
-  /doc/: https://web.aok.network/doc/
   /: https://docs.aok.network/
 
 # The source of the pages: "Edit this page" and "Page history" links.
@@ -23,16 +33,45 @@ noindex: true
 # Shown in place of "Edit this page" on pages that have generated_by.
 generated_from: AokChain Core 4.0.6
 
-links:
-  website: https://web.aok.network/
-  explorer: https://v3.aokscan.com/
-  api: https://v3.aokscan.com/api/v3/docs
-  tokens: https://v3.aokscan.com/tokens
-  whitepaper: https://web.aok.network/whitepaper/
-  github: https://github.com/AokChain
-  telegram: https://t.me/aok21
-  x: https://x.com/Official_AOK21
-  discord: https://discord.com/invite/dMkyM7YsaE
+# The website's main menu and footer, repeated here so that the wiki carries
+# the same header and footer. An address that begins with / is a page of the
+# website; "docs" is this wiki; {explorer} and {github} are the addresses
+# above.
+menu:
+  - {label: AokChain, href: /aokchain/}
+  - {label: Products, href: /products/}
+  - {label: Network, href: /network/}
+  - {label: Download, href: /download/}
+  - {label: Docs, href: docs}
+  - {label: API, href: /api/}
+
+footer:
+  - title: AokChain
+    links:
+      - {label: Staking, href: /aokchain/staking/}
+      - {label: Tokens, href: /aokchain/tokens/}
+      - {label: Governance, href: /aokchain/governance/}
+      - {label: Version 4.0, href: /aokchain/4.0/}
+      - {label: Specifications, href: /aokchain/specifications/}
+      - {label: Whitepaper, href: /whitepaper/}
+  - title: Products
+    links:
+      - {label: Desktop wallet, href: /products/desktop-wallet/}
+      - {label: Node, href: /products/node/}
+      - {label: AOK Wallet, href: /products/wallet/}
+      - {label: Block explorer, href: /products/explorer/}
+      - {label: AokChain API, href: /products/api/}
+  - title: Network
+    links:
+      - {label: Activity, href: /network/activity/}
+      - {label: Supply, href: /network/supply/}
+      - {label: Token list, href: "{explorer}/tokens"}
+  - title: Developers
+    links:
+      - {label: API quickstart, href: /api/quickstart/}
+      - {label: API reference, href: /api/reference/}
+      - {label: API playground, href: /api/playground/}
+      - {label: GitHub, href: "{github}"}
 
 # One Heroicons (24/outline) name per section, from theme/icons/heroicons.
 section_icons:

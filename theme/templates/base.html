@@ -1,4 +1,4 @@
-{% from "macros.html" import icon, brand, search_box with context %}
+{% from "macros.html" import icon, search_box with context %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -32,24 +32,25 @@
 
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="{{ base }}" aria-label="AOK Docs home">
-      <svg class="brand-logo" viewBox="0 0 79 38" width="79" height="38" aria-hidden="true"><use href="#i.aok-logo"/></svg>
-      <span class="brand-docs" aria-hidden="true">Docs</span>
-    </a>
+    <a class="brand" href="{{ site_home }}" aria-label="AOK home"><svg class="brand-logo" viewBox="0 0 79 38" width="79" height="38" aria-hidden="true"><use href="#i.aok-logo"/></svg></a>
+    <nav class="header-nav" aria-label="Main">
+      <ul>
+{% for m in menu %}
+        <li><a href="{{ m.href }}"{% if m.current %} aria-current="true"{% endif %}>{{ m.label }}</a></li>
+{% endfor %}
+      </ul>
+    </nav>
 {% if kind != "home" %}
     {{ search_box("w-search", "header") }}
 {% endif %}
-    <nav class="header-nav" aria-label="AOK">
-      <a href="{{ links.website }}">Website</a>
-      <a class="btn-header" href="{{ links.explorer }}">Block explorer{{ icon("arrow-up-right") }}</a>
-    </nav>
+    <a class="btn-header" href="{{ explorer }}">Block explorer{{ icon("arrow-up-right") }}</a>
     <div class="header-tools">
 {% if kind != "home" %}
       <button class="hdr-btn js-only" type="button" data-search-open aria-label="Search" aria-expanded="false">{{ icon("magnifying-glass") }}</button>
       <a class="hdr-btn nojs-only" href="{{ all_url }}" aria-label="All pages">{{ icon("magnifying-glass") }}</a>
 {% endif %}
-      <button class="hdr-btn js-only" type="button" data-menu aria-controls="w-sidebar" aria-expanded="false" aria-label="Menu">{{ icon("bars-3", "i-open") }}{{ icon("x-mark", "i-close") }}</button>
-      <a class="hdr-btn nojs-only" href="#w-sidebar" aria-label="Menu">{{ icon("bars-3") }}</a>
+      <button class="hdr-btn hdr-menu js-only" type="button" data-menu aria-controls="w-sidebar" aria-expanded="false" aria-label="Menu">{{ icon("bars-3", "i-open") }}{{ icon("x-mark", "i-close") }}</button>
+      <a class="hdr-btn hdr-menu nojs-only" href="#w-sidebar" aria-label="Menu">{{ icon("bars-3") }}</a>
     </div>
   </div>
 </header>
@@ -59,13 +60,7 @@
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-top">
-      <a class="footer-logo" href="{{ links.website }}" aria-label="AOK website"><svg viewBox="0 0 79 38" width="79" height="38" aria-hidden="true"><use href="#i.aok-logo"/></svg></a>
-      <ul class="footer-social">
-        <li><a href="{{ links.telegram }}" aria-label="Telegram">{{ brand("telegram") }}</a></li>
-        <li><a href="{{ links.x }}" aria-label="X">{{ brand("x") }}</a></li>
-        <li><a href="{{ links.discord }}" aria-label="Discord">{{ brand("discord") }}</a></li>
-        <li><a href="{{ links.github }}" aria-label="GitHub">{{ brand("github") }}</a></li>
-      </ul>
+      <a class="footer-logo" href="{{ site_home }}" aria-label="AOK home"><svg viewBox="0 0 79 38" width="79" height="38" aria-hidden="true"><use href="#i.aok-logo"/></svg></a>
     </div>
     <div class="footer-cols">
       <div>
@@ -77,32 +72,16 @@
           <li><a href="{{ repo }}">Docs on GitHub{{ icon("arrow-up-right") }}</a></li>
         </ul>
       </div>
+{% for col in footer %}
       <div>
-        <h2>AokChain</h2>
+        <h2>{{ col.title }}</h2>
         <ul>
-          <li><a href="{{ links.website }}">Website</a></li>
-          <li><a href="{{ links.website }}4.0/">What's new in 4.0</a></li>
-          <li><a href="{{ links.website }}download/">Download</a></li>
-          <li><a href="{{ links.whitepaper }}">Whitepaper</a></li>
+{% for l in col.links %}
+          <li><a href="{{ l.href }}">{{ l.label }}{% if l.out %}{{ icon("arrow-up-right") }}{% endif %}</a></li>
+{% endfor %}
         </ul>
       </div>
-      <div>
-        <h2>Services</h2>
-        <ul>
-          <li><a href="{{ links.explorer }}">Block explorer{{ icon("arrow-up-right") }}</a></li>
-          <li><a href="{{ links.api }}">API v3{{ icon("arrow-up-right") }}</a></li>
-          <li><a href="{{ links.tokens }}">Token list{{ icon("arrow-up-right") }}</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Community</h2>
-        <ul>
-          <li><a href="{{ links.telegram }}">Telegram{{ icon("arrow-up-right") }}</a></li>
-          <li><a href="{{ links.x }}">X{{ icon("arrow-up-right") }}</a></li>
-          <li><a href="{{ links.discord }}">Discord{{ icon("arrow-up-right") }}</a></li>
-          <li><a href="{{ links.github }}">GitHub{{ icon("arrow-up-right") }}</a></li>
-        </ul>
-      </div>
+{% endfor %}
     </div>
     <div class="footer-bottom">
       <p>© 2020–2026 AOK Network Foundation Ltd.</p>

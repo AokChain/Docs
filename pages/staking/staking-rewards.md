@@ -24,7 +24,7 @@ The subsidy started at 4 AOK per block and halves every 525,960 blocks. After te
 | 4,733,640 | 0.0078125 AOK |
 | 5,259,600 | 0 |
 
-Block 1 created the initial supply of 2,100,000,000 AOK. The home page of [v3.aokscan.com](https://v3.aokscan.com) shows the current subsidy and the height of the next halving.
+Block 1 created the initial supply of 2,100,000,000 AOK. The home page of [@@explorer_host@@](@@explorer@@) shows the current subsidy and the height of the next halving.
 
 ## Where the reward goes
 

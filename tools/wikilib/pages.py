@@ -59,7 +59,17 @@ def _label(path):
     return str(path) if rel.startswith("..") else rel
 
 
-def read_page(path, section, errors):
+ADDRESS = re.compile(r"@@([a-z_]+)@@")
+
+
+def addresses(cfg):
+    """What a page may write between @@ and @@: the addresses of wiki.yml."""
+    host = lambda url: re.sub(r"^https?://", "", url).split("/")[0]
+    return {"site": cfg.site, "site_host": host(cfg.site), "explorer": cfg.explorer,
+            "explorer_host": host(cfg.explorer), "api": cfg.api, "github": cfg.github}
+
+
+def read_page(path, section, errors, names=None):
     label = _label(path)
     try:
         raw = path.read_text(encoding="utf-8")
@@ -67,6 +77,10 @@ def read_page(path, section, errors):
         errors.append(f"{label}: not UTF-8 text")
         return None
     raw = raw.lstrip("﻿").replace("\r\n", "\n")
+    if names is not None:
+        for unknown in sorted(set(ADDRESS.findall(raw)) - set(names)):
+            errors.append(f"{label}: @@{unknown}@@ is not an address of wiki.yml ({', '.join(sorted(names))})")
+        raw = ADDRESS.sub(lambda m: names.get(m.group(1), m.group(0)), raw)
     errors.extend(checks.file_problems(raw, label))
 
     slug = path.stem
@@ -159,7 +173,7 @@ def load(dirs, cfg, errors):
                 if f.is_dir() or f.suffix != ".md":
                     errors.append(f"{_label(f)}: only .md pages go in pages/ (images go in assets/img/)")
                     continue
-                page = read_page(f, section, errors)
+                page = read_page(f, section, errors, addresses(cfg))
                 if page:
                     pages.append(page)
                 else:

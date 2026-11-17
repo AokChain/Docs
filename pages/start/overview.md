@@ -24,9 +24,9 @@ AokChain Core is the reference software. Its code descends from Bitcoin Core and
 | `aokchaind` | The node without a window, for servers. |
 | `aokchain-cli` | Sends commands to a running node. |
 
-The current release line is 4.0. It is an upgrade without a hard fork: see [[aokchain-4-0]]. Downloads are listed at [web.aok.network/download](https://web.aok.network/download/).
+The current release line is 4.0. It is an upgrade without a hard fork: see [[aokchain-4-0]]. Downloads are listed at [@@site_host@@/download](@@site@@/download/).
 
-The block explorer at [v3.aokscan.com](https://v3.aokscan.com) shows blocks, transactions, addresses and tokens of the main network. See [[block-explorer]].
+The block explorer at [@@explorer_host@@](@@explorer@@) shows blocks, transactions, addresses and tokens of the main network. See [[block-explorer]].
 
 ## Where to go next
 

@@ -51,7 +51,7 @@ aokchain-cli getusernameaddress @ALICE
 }
 ```
 
-The search box of [v3.aokscan.com](https://v3.aokscan.com) finds usernames as well.
+The search box of [@@explorer_host@@](@@explorer@@) finds usernames as well.
 
 ## Move a username to another address
 

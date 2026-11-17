@@ -7,6 +7,6 @@ aliases: [mobile]
 
 A new AOK Wallet app for iOS and Android, with a version for the web browser, is in testing. It is an HD wallet with BIP39 recovery words, for balances, tokens, sending and receiving.
 
-The app is not released yet. Its release will be announced on web.aok.network and on the official AokChain channels. Until then, keep your coins in the desktop wallet.
+The app is not released yet. Its release will be announced on [@@site_host@@](@@site@@/products/wallet/). Until then, keep your coins in the desktop wallet.
 
 The desktop wallet does not create recovery words: its backup is the wallet file. See [[back-up-and-restore]].

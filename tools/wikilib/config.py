@@ -38,7 +38,12 @@ class Config:
     branch: str
     noindex: bool
     generated_from: str
-    links: dict
+    site: str               # the website, without a slash at the end
+    explorer: str
+    api: str                # the API's base address
+    github: str
+    menu: list
+    footer: list
     sections: list
 
     def section(self, section_id):
@@ -65,10 +70,23 @@ def load(root=ROOT, base=None):
     base = base or wiki.get("base") or "/"
     if not (base.startswith("/") and base.endswith("/")):
         errors.append(f"base {base!r}: must start and end with /")
+    services = {}
+    for key in ("site", "explorer", "api", "github"):
+        value = str(wiki.get(key) or "").rstrip("/")
+        if not value.startswith(("https://", "http://")):
+            errors.append(f"wiki.yml: {key} must be an address (https://...)")
+        services[key] = value
+    # Under a base such as /doc/ the wiki is part of the website
     site_urls = wiki.get("site_url") or {}
-    site_url = site_urls.get(base)
+    site_url = site_urls.get(base) or (services["site"] + base if base != "/" else "")
     if not site_url:
         errors.append(f"wiki.yml: no site_url for base {base!r}")
+    menu, footer = wiki.get("menu") or [], wiki.get("footer") or []
+    for where, entries in [("menu", menu)] + [(f"footer: {c.get('title')}", c.get("links") or []) for c in footer
+                                              if isinstance(c, dict)]:
+        for e in entries:
+            if not (isinstance(e, dict) and e.get("label") and e.get("href")):
+                errors.append(f"wiki.yml: {where}: every entry needs a label and an href")
 
     icons = wiki.get("section_icons") or {}
     sections, seen = [], set()
@@ -110,7 +128,9 @@ def load(root=ROOT, base=None):
         branch=wiki["branch"],
         noindex=bool(wiki.get("noindex", True)),
         generated_from=wiki.get("generated_from", ""),
-        links=wiki.get("links") or {},
+        menu=menu,
+        footer=footer,
+        **services,
         sections=sections,
     )
     for s in cfg.sections:

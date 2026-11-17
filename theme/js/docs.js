@@ -8,6 +8,8 @@
   var body = d.body;
   var header = d.querySelector(".site-header");
   var narrow = window.matchMedia("(max-width: 1023.98px)");
+  // Below this width the header shows a search button instead of the field
+  var compact = window.matchMedia("(max-width: 1279.98px)");
 
   function $(sel, root) { return (root || d).querySelector(sel); }
   function $$(sel, root) { return Array.prototype.slice.call((root || d).querySelectorAll(sel)); }
@@ -373,7 +375,7 @@
       return true;
     }
     if (headerSearch) {
-      if (narrow.matches) setHeaderSearch(true);
+      if (compact.matches) setHeaderSearch(true);
       else { headerSearch.input.focus(); headerSearch.input.select(); }
       return true;
     }

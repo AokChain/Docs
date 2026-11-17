@@ -302,8 +302,25 @@ class Site:
             autoescape=True, undefined=StrictUndefined, trim_blocks=True, lstrip_blocks=True,
         )
         cfg = self.cfg
+        # A wiki under a base such as /doc/ is part of the website: its links
+        # to the website need no host, so the same build serves any host.
+        part_of_site = cfg.site_url.startswith(cfg.site + "/")
+
+        def href(target):
+            if target == "docs":
+                return self.base
+            target = target.replace("{explorer}", cfg.explorer).replace("{github}", cfg.github)
+            if target.startswith("/"):
+                return target if part_of_site else cfg.site + target
+            return target
+
+        menu = [{"label": m["label"], "href": href(m["href"]), "current": m["href"] == "docs"} for m in cfg.menu]
+        footer = [{"title": c["title"], "links": [{"label": l["label"], "href": href(l["href"]),
+                                                  "out": href(l["href"]).startswith("http")} for l in c["links"]]}
+                  for c in cfg.footer]
         env.globals.update(
-            site=cfg, base=self.base, links=cfg.links, assets=self.assets, sections=cfg.sections,
+            site=cfg, base=self.base, assets=self.assets, sections=cfg.sections,
+            menu=menu, footer=footer, site_home=href("/"), explorer=cfg.explorer + "/",
             home_url=self.base, all_url=f"{self.base}all-pages/", recent_url=f"{self.base}recent-changes/",
             repo=cfg.repo, page_count=len(self.pages),
         )

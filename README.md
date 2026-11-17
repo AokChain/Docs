@@ -1,6 +1,6 @@
 # AokChain Docs
 
-The AokChain documentation as a wiki: Markdown pages in `pages/`, built into a static site by `tools/build.py`. It is served at <https://web.aok.network/doc/> for now and will move to `docs.aok.network`, built from this repository.
+The AokChain documentation as a wiki: Markdown pages in `pages/`, built into a static site by `tools/build.py`. It is served under the AOK website at `/doc/`, built from this repository, and carries the website's menu and footer.
 
 The site is plain HTML, CSS and a little JavaScript, with the design of the AOK website. It needs no server-side code and makes no third-party requests.
 
@@ -11,7 +11,7 @@ The site is plain HTML, CSS and a little JavaScript, with the design of the AOK 
 | `pages/<section>/<slug>.md` | The pages, one file each. The folder is the section |
 | `assets/img/` | Images used by the pages |
 | `sections.yml` | The sections, in the order the sidebar and the home page show them |
-| `wiki.yml` | Name, base path, repository links, the section icons |
+| `wiki.yml` | Name, base path, the addresses of the website, the block explorer and the API, the website's menu and footer, the section icons |
 | `tools/build.py` | Builds `build/` (the `wikilib` package next to it does the work) |
 | `tools/check.py` | Opens the built site in headless Chrome and checks every page |
 | `tools/serve.py` | Serves `build/` locally with the production headers |
@@ -48,6 +48,7 @@ Front matter:
 
 The body is GitHub-flavored Markdown: tables, strikethrough, autolinks, task lists and footnotes. Also:
 
+- Addresses of the services: write `@@site@@`, `@@explorer@@` and `@@api@@` (the API's base address), or `@@site_host@@` and `@@explorer_host@@` for the name alone, instead of the address itself: `[@@site_host@@/download](@@site@@/download/)`, `curl -s @@api@@/status`. The build puts in the addresses of `wiki.yml`, so no page changes when a service moves.
 - Wiki links: `[[slug]]` (the link text is the page's title), `[[slug|text]]`, `[[slug#anchor|text]]` and `[[#anchor|text]]` on the same page. Anchors are GitHub's: lowercase, spaces become hyphens, punctuation is dropped.
 - Callouts: `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]` and `> [!CAUTION]` on the first line of a quote.
 - Code: fenced blocks with a language (`bash`, `ini`, `json`, `text` and any other Pygments name) are highlighted at build time and get a copy button.
@@ -77,6 +78,7 @@ python3 -m venv .venv            # once; or bootstrap pip into the venv if ensur
 
 .venv/bin/python tools/serve.py                  # http://127.0.0.1:8770/doc/ with the production headers
 .venv/bin/python tools/check.py                  # every page at 1440, 1024, 390 and 360 px, light and dark
+.venv/bin/python tools/check.py --site http://127.0.0.1:8765   # follow the links into the website on a local copy of it
 .venv/bin/python tools/check.py https://web.aok.network/doc/
 .venv/bin/python -m pytest
 

@@ -4,7 +4,7 @@ description: "The changes of every AokChain Core version from 4.0.0 to 4.0.6, an
 order: 20
 ---
 
-What changed in each version of AokChain Core. Every 4.0 version accepts the same blocks as every other; none of them has an activation height. Run the newest one. Downloads are being prepared at [web.aok.network/download](https://web.aok.network/download/).
+What changed in each version of AokChain Core. Every 4.0 version accepts the same blocks as every other; none of them has an activation height. Run the newest one. Downloads are being prepared at [@@site_host@@/download](@@site@@/download/).
 
 | Version | Date | For whom |
 |---|---|---|

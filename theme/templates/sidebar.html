@@ -28,8 +28,12 @@
     <li><a href="{{ all_url }}"{% if kind == "all" %} aria-current="page"{% endif %}>{{ icon("list-bullet") }}All pages</a></li>
     <li><a href="{{ recent_url }}"{% if kind == "recent" %} aria-current="page"{% endif %}>{{ icon("clock") }}Recent changes</a></li>
   </ul>
-  <ul class="tree-ext">
-    <li><a href="{{ links.website }}">Website</a></li>
-    <li><a href="{{ links.explorer }}">Block explorer{{ icon("arrow-up-right") }}</a></li>
+  <ul class="tree-ext" aria-label="Main">
+{% for m in menu %}
+{% if not m.current %}
+    <li><a href="{{ m.href }}">{{ m.label }}</a></li>
+{% endif %}
+{% endfor %}
+    <li><a href="{{ explorer }}">Block explorer{{ icon("arrow-up-right") }}</a></li>
   </ul>
 </nav>

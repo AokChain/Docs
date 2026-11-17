@@ -8,7 +8,7 @@ order: 40
 
 ### Where do I download the wallet?
 
-From [web.aok.network/download](https://web.aok.network/download/). Official downloads and their SHA256 checksums are listed on that page only. The 4.0 wallets are being prepared for release.
+From [@@site_host@@/download](@@site@@/download/). Official downloads and their SHA256 checksums are listed on that page only. The 4.0 wallets are being prepared for release.
 
 ### Does my wallet file from version 3.0 work with 4.0?
 
@@ -80,4 +80,4 @@ The wallet has no peers. Check that the computer is online and that a firewall d
 
 ### Is my address frozen?
 
-Look the address up on [v3.aokscan.com](https://v3.aokscan.com): a frozen address carries a **Frozen** mark. See [[address-freezing]].
+Look the address up on [@@explorer_host@@](@@explorer@@): a frozen address carries a **Frozen** mark. See [[address-freezing]].

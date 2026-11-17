@@ -17,7 +17,7 @@ Freeze and unfreeze commands are governance commands: transactions of the networ
 
 ## Check an address
 
-- **Block explorer:** look the address up on [v3.aokscan.com](https://v3.aokscan.com). A frozen address carries a **Frozen** mark and the line "This address is frozen by governance." The **Network** page lists all frozen addresses.
+- **Block explorer:** look the address up on [@@explorer_host@@](@@explorer@@). A frozen address carries a **Frozen** mark and the line "This address is frozen by governance." The **Network** page lists all frozen addresses.
 - **Node:** `checkfreeze` answers `true` or `false` for the script of the address:
 
   ```bash
@@ -25,7 +25,7 @@ Freeze and unfreeze commands are governance commands: transactions of the networ
   ```
 
 - **All at once:** `freezelist` lists every address that has a freeze entry, with `true` for frozen and `false` for one that was frozen and then unfrozen, and the `total`. On the main network it takes a while.
-- **API:** `https://v3.aokscan.com/api/v3/address/<address>/frozen` returns `{"address": "...", "frozen": true}` or `false`. See [[explorer-api]].
+- **API:** `@@api@@/address/<address>/frozen` returns `{"address": "...", "frozen": true}` or `false`. See [[explorer-api]].
 
 ## Before you send
 

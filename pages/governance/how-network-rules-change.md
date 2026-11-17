@@ -23,8 +23,8 @@ To see the current values:
 
 | Value | Node | Explorer |
 | --- | --- | --- |
-| Costs and the cost address | `issuanceinfo` | [/api/v3/tokens/issuance](https://v3.aokscan.com/api/v3/tokens/issuance) |
-| Frozen addresses | `freezelist`, `checkfreeze "<address>"` | The **Network** page, [/api/v3/governance](https://v3.aokscan.com/api/v3/governance) |
+| Costs and the cost address | `issuanceinfo` | [/tokens/issuance](@@api@@/tokens/issuance) |
+| Frozen addresses | `freezelist`, `checkfreeze "<address>"` | The **Network** page, [/governance](@@api@@/governance) |
 
 ## New versions of AokChain Core
 

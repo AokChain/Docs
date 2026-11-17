@@ -1,10 +1,10 @@
 ---
 title: Use the block explorer
-description: Look up blocks, transactions, addresses, tokens and usernames of the main network on v3.aokscan.com.
+description: Look up blocks, transactions, addresses, tokens and usernames of the main network on @@explorer_host@@.
 order: 30
 ---
 
-The block explorer at [v3.aokscan.com](https://v3.aokscan.com) shows what is on the main network. Use it to check that a payment arrived, to see the balance of any address, or to look at a token. It only reads the chain: it never asks for a key or a passphrase.
+The block explorer at [@@explorer_host@@](@@explorer@@) shows what is on the main network. Use it to check that a payment arrived, to see the balance of any address, or to look at a token. It only reads the chain: it never asks for a key or a passphrase.
 
 ## Search
 
@@ -53,7 +53,7 @@ A token page shows the **Supply**, the number of **Holders**, the **Decimals** (
 
 ## The explorer inside the desktop wallet
 
-The desktop wallet has an **Explorer** page of its own. It looks up transactions, blocks and addresses on the node of your computer, so nothing is sent to an outside server. For an address it says whether the address belongs to your wallet; for the balance and history of any address, use v3.aokscan.com.
+The desktop wallet has an **Explorer** page of its own. It looks up transactions, blocks and addresses on the node of your computer, so nothing is sent to an outside server. For an address it says whether the address belongs to your wallet; for the balance and history of any address, use @@explorer_host@@.
 
 ## The API
 
