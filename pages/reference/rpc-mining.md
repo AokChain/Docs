@@ -263,7 +263,7 @@ Using json rpc
 submitblock "hexdata"  ( "dummy" )
 ```
 
-Attempts to submit new block to network. See https://en.aokchain.it/wiki/BIP\_0022 for full specification.
+Attempts to submit new block to network. See `https://en.aokchain.it/wiki/BIP_0022` for full specification.
 
 **Arguments**
 

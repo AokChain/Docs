@@ -1,13 +1,13 @@
 ---
 title: "Configuration options"
-description: "Every option of aokchaind, the GUI wallet and the command-line tools, from the programs' own help, grouped as -help prints them."
+description: "Every option of aokchaind, the desktop wallet and the command-line tools, from the programs' own help, grouped as -help prints them."
 order: 11
 generated_by: tools/options_reference.py
 ---
 
 The options of AokChain Core 4.0.7, as `aokchaind -help` prints them. Give an option on the command line as `-name=value`, or write it as a line `name=value` in `aokchain.conf` (where the file lives is on [[configure-a-node]]). A setting on the command line wins over the same setting in the file. A switch such as `-txindex` is turned on with `1` and off with `0`, and `-nofoo` is the same as `-foo=0`.
 
-The GUI wallet, `aokchain-qt`, takes the same options except `-daemon` and `-daemonwait`, and the few of its own listed under [GUI options](#gui-options).
+The desktop wallet, `aokchain-qt`, takes the same options except `-daemon` and `-daemonwait`, and the few of its own listed under [GUI options](#gui-options).
 
 ## Contents
 
@@ -44,7 +44,7 @@ The GUI wallet, `aokchain-qt`, takes the same options except `-daemon` and `-dae
 | `-datadir=<dir>` | Specify data directory |
 | `-dbcache=<n>` | Set database cache size in megabytes (4 to 16384, default: 1024) |
 | `-loadblock=<file>` | Imports blocks from external blk000??.dat file on startup |
-| `-bootstrapurl=<url>` | Fetch the blocks as archives from this address when the node is far behind, instead of from peers. Every block is validated as usual. Can be given several times: mirrors, tried in this order. (default: none; on the main network the GUI wallet uses https://github.com/AokChain/Mainnet-blocks/releases/download/mainnet/) |
+| `-bootstrapurl=<url>` | Fetch the blocks as archives from this address when the node is far behind, instead of from peers. Every block is validated as usual. Can be given several times: mirrors, tried in this order. (default: none; on the main network the GUI wallet uses `https://github.com/AokChain/Mainnet-blocks/releases/download/mainnet/`) |
 | `-bootstrapdir=<dir>` | Import the block archives (manifest.json and the files it lists) from this folder, which is only read. Every block is validated as usual. |
 | `-bootstrap` | Use the block archives of -bootstrapurl or -bootstrapdir (default: 1) |
 | `-snapshot` | In a new data directory, start from the chain state snapshot that this program accepts instead of validating every block from the first one. The snapshot is taken from -bootstrapurl or -bootstrapdir and is used only when its content has the hashes that are compiled into this program. (default: 1) |
@@ -227,8 +227,9 @@ The programs read these options although `-help` does not show them.
 
 | Option | Description |
 |---|---|
-| `-staking` | Search for stakes with the wallets that are loaded, from the start (default: 0). The GUI wallet starts with the staking switch in this position. `getstakinginfo` reports it as `enabled`. |
+| `-staking` | Search for stakes with the wallets that are loaded, from the start (default: 0). The desktop wallet starts with the staking switch in this position. `getstakinginfo` reports it as `enabled`. |
 | `-tokenindex` | Maintain the token address index, used by listaddressesbytoken, listtokenbalancesbyaddress and listuniquetokenholders (default: 1). Changing it needs a rebuild with -reindex. |
+| `-advancedui` | Only `aokchain-qt` reads it: show the advanced view of the desktop wallet, with the pages Create Tokens and Manage Tokens in the side bar, the owner token box on the token send page and a unit list next to amount fields (default: 0). |
 
 ## Debugging options
 

@@ -1,6 +1,6 @@
 ---
 title: "RPC: Tokens"
-description: "RPC reference: issuing, reissuing, transferring and looking up tokens and user names."
+description: "RPC reference: issuing, reissuing, transferring and looking up tokens and usernames."
 order: 27
 generated_by: tools/rpc_reference.py
 ---

@@ -53,7 +53,7 @@ CATEGORIES = {
     "mining": ("Mining", "Block templates, mining and staking information, and block submission."),
     "network": ("Network", "Peers, connections, bans and network traffic."),
     "rawtransactions": ("Raw transactions", "Creating, signing, checking and sending transactions by hand."),
-    "tokens": ("Tokens", "Issuing, reissuing, transferring and looking up tokens and user names."),
+    "tokens": ("Tokens", "Issuing, reissuing, transferring and looking up tokens and usernames."),
     "util": ("Utilities", "Multisig addresses, fee estimates, message signatures, address checks and recovery words."),
     "wallet": ("Wallet", "Keys, addresses, balances, payments, backups, encryption and the wallet files."),
     "hidden": ("Not listed by help", "Commands for testing and debugging that `help` does not list."),
@@ -272,8 +272,21 @@ def public_examples(text):
 HEADING = re.compile(r"^(Arguments|Result|Results|Examples?|Named arguments)(\s*\(.*\))?\s*:?\s*$")
 
 
+# A web address in a help text is shown as code, not as a link: the wiki links
+# only to addresses that its own pages name.
+URL = re.compile(r"https?://[^\s<>()\"'`|]+")
+
+
 def md_text(text, table=False):
     """Escape help text so that Markdown shows it as it is (CommonMark and other dialects)."""
+    urls = []
+
+    def keep(m):
+        url = m.group(0).rstrip(".,;:")
+        urls.append(url)
+        return "\x00%d\x00%s" % (len(urls) - 1, m.group(0)[len(url):])
+
+    text = URL.sub(keep, text)
     text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     text = re.sub(r"([\\`*_\[\]])", r"\\\1", text)
     text = text.replace("~~", "\\~\\~")
@@ -282,7 +295,7 @@ def md_text(text, table=False):
     # what would start a heading or a list at the beginning of a paragraph
     text = re.sub(r"^(\s*)([#+-])", r"\1\\\2", text)
     text = re.sub(r"^(\s*\d+)([.)])", r"\1\\\2", text)
-    return text
+    return re.sub(r"\x00(\d+)\x00", lambda m: "`%s`" % urls[int(m.group(1))], text)
 
 
 def trim_blank(lines):

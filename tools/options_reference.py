@@ -6,7 +6,7 @@
         [--aokchain-tx /path/to/aokchain-tx] [--aokchain-wallet /path/to/aokchain-wallet]
 
 reads `aokchaind -help` and `aokchaind -help -help-debug` (and the same of
-aokchain-qt for the options of the GUI wallet, and the help of aokchain-cli,
+aokchain-qt for the options of the desktop wallet, and the help of aokchain-cli,
 aokchain-tx and aokchain-wallet) and writes pages/reference/configuration-options.md,
 grouped by the sections of the help. The text of every option is the program's
 own; nothing is added to it. The programs can also be given as AOKCHAIND,
@@ -33,12 +33,16 @@ SLUG = "configuration-options"
 
 # Options that the programs read but that -help does not list, with what the
 # source does with them (AokChain Core 4.0: src/wallet/init.cpp, src/miner.h,
-# src/validation.h, src/init.cpp, src/rpc/tokens.cpp). They are written by hand.
+# src/validation.h, src/init.cpp, src/rpc/tokens.cpp, src/qt/aokchaingui.cpp).
+# They are written by hand.
 NOT_IN_HELP = [
     ("-staking", "Search for stakes with the wallets that are loaded, from the start (default: 0). "
-                 "The GUI wallet starts with the staking switch in this position. `getstakinginfo` reports it as `enabled`."),
+                 "The desktop wallet starts with the staking switch in this position. `getstakinginfo` reports it as `enabled`."),
     ("-tokenindex", "Maintain the token address index, used by listaddressesbytoken, listtokenbalancesbyaddress "
                     "and listuniquetokenholders (default: 1). Changing it needs a rebuild with -reindex."),
+    ("-advancedui", "Only `aokchain-qt` reads it: show the advanced view of the desktop wallet, with the pages Create Tokens "
+                    "and Manage Tokens in the side bar, the owner token box on the token send page and a unit "
+                    "list next to amount fields (default: 0)."),
 ]
 
 # Help texts whose default depends on the computer that prints them.
@@ -97,10 +101,23 @@ def option_name(option):
     return re.split(r"[=<\[ ]", option, 1)[0]
 
 
+# A web address in a help text is shown as code, not as a link: the wiki links
+# only to addresses that its own pages name.
+URL = re.compile(r"https?://[^\s<>()\"'`|]+")
+
+
 def md_text(text):
+    urls = []
+
+    def keep(m):
+        url = m.group(0).rstrip(".,;:")
+        urls.append(url)
+        return "\x00%d\x00%s" % (len(urls) - 1, m.group(0)[len(url):])
+
+    text = URL.sub(keep, text)
     text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     text = re.sub(r"([\\`*_\[\]|])", r"\\\1", text)
-    return text
+    return re.sub(r"\x00(\d+)\x00", lambda m: "`%s`" % urls[int(m.group(1))], text)
 
 
 def code(text):
@@ -164,7 +181,7 @@ def build(daemon, qt, cli, label, tx=None, wallet_tool=None):
     cli_groups = parse(run_help(cli, "-help")) if cli else []
 
     out = ["---", "title: " + yaml_quote("Configuration options"),
-           "description: " + yaml_quote("Every option of aokchaind, the GUI wallet and the command-line tools, "
+           "description: " + yaml_quote("Every option of aokchaind, the desktop wallet and the command-line tools, "
                                         "from the programs' own help, grouped as -help prints them."),
            "order: 11", "generated_by: " + GENERATED_BY, "---", ""]
     out.append("The options of %s, as `aokchaind -help` prints them. Give an option on the command line as "
@@ -172,7 +189,7 @@ def build(daemon, qt, cli, label, tx=None, wallet_tool=None):
                "[[configure-a-node]]). A setting on the command line wins over the same setting in the file. "
                "A switch such as `-txindex` is turned on with `1` and off with `0`, and `-nofoo` is the same as `-foo=0`.\n"
                % md_text(label))
-    out.append("The GUI wallet, `aokchain-qt`, takes the same options except `-daemon` and `-daemonwait`, "
+    out.append("The desktop wallet, `aokchain-qt`, takes the same options except `-daemon` and `-daemonwait`, "
                "and the few of its own listed under [GUI options](#gui-options).\n")
     out.append("## Contents\n")
     sections = [anchor_title(g) for g, _ in regular]

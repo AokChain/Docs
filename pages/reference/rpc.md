@@ -16,7 +16,7 @@ Every command that AokChain Core 4.0.7 answers over JSON-RPC and `aokchain-cli`,
 - [[rpc-mining|Mining]] (7): Block templates, mining and staking information, and block submission.
 - [[rpc-network|Network]] (13): Peers, connections, bans and network traffic.
 - [[rpc-rawtransactions|Raw transactions]] (11): Creating, signing, checking and sending transactions by hand.
-- [[rpc-tokens|Tokens]] (17): Issuing, reissuing, transferring and looking up tokens and user names.
+- [[rpc-tokens|Tokens]] (17): Issuing, reissuing, transferring and looking up tokens and usernames.
 - [[rpc-util|Utilities]] (8): Multisig addresses, fee estimates, message signatures, address checks and recovery words.
 - [[rpc-wallet|Wallet]] (63): Keys, addresses, balances, payments, backups, encryption and the wallet files.
 - [[rpc-hidden|Not listed by help]] (11): Commands for testing and debugging that help does not list.
