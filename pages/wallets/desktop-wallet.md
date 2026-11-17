@@ -5,11 +5,11 @@ order: 20
 aliases: [desktop]
 ---
 
-The desktop wallet is AokChain Core with a window (`aokchain-qt`). It runs on Windows, Linux and macOS and keeps a full node on your computer. This page takes you from the download to a synchronized wallet.
+The desktop wallet is AokChain Core with a window (`aokchain-qt`). It keeps a full node on your computer. This page takes you from the download to a synchronized wallet.
 
 ## Download
 
-Get the desktop wallet from [@@site_host@@/download](@@site@@/download/). Official downloads and their SHA256 checksums are listed on that page only. Compare the checksum of the file you downloaded with the one on the page before you install it.
+Get the desktop wallet from [@@site_host@@/download](@@site@@/download/), which lists the systems it is available for. Official downloads and their SHA-256 checksums are listed on that page only. Compare the checksum of the file you downloaded with the one on the page before you install it.
 
 ## First start
 

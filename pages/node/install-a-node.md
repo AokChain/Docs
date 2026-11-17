@@ -5,7 +5,7 @@ order: 10
 aliases: [node]
 ---
 
-A node is a copy of AokChain Core that keeps the whole chain, checks every block and answers [[json-rpc|JSON-RPC]] calls. This page gets the programs onto the computer. The next steps are [[configure-a-node]], [[start-and-stop]] and [[fast-sync]].
+A node is a copy of AokChain Core that keeps the whole chain, checks every block and answers [[json-rpc|JSON-RPC]] calls. This page gets the programs onto the computer.
 
 ## The programs
 
@@ -23,7 +23,7 @@ A node is a copy of AokChain Core that keeps the whole chain, checks every block
 
 | | |
 |---|---|
-| System | Linux x86_64 with glibc 2.34 or later (Ubuntu 22.04, Debian 12 or newer) for the Linux package. Windows 64-bit. The [download page](@@site@@/download/) lists the packages that are out. |
+| System | Linux x86_64 with glibc 2.34 or later (Ubuntu 22.04, Debian 12 or newer) for the Linux package. Windows 64-bit. |
 | Disk | The blocks alone are 2.1 GB (blocks 1 to 3,031,432); with the chain state and the indexes, plan for 5 GB or more, growing with the chain. A node started from the chain state snapshot needs about 1.1 GB, and about 3.5 GB once it has fetched the past blocks (see [[fast-sync]]). An SSD makes the first sync much faster. |
 | Memory | 4 GB or more is comfortable. The database cache takes 1024 MiB by default on a computer with at least 4 GB of memory, 450 MiB on a smaller one (`dbcache`). |
 | Network | Outgoing TCP connections to port 33441 of other nodes. Incoming connections are optional; see [[ports-and-peers]]. |
@@ -31,7 +31,7 @@ A node is a copy of AokChain Core that keeps the whole chain, checks every block
 
 ## Get the package
 
-The packages are listed at [@@site_host@@/download](@@site@@/download/), each with its SHA-256 checksum. Official downloads are listed on that site only.
+The packages that are out are listed at [@@site_host@@/download](@@site@@/download/), each with its SHA-256 checksum. Official downloads are listed on that page only.
 
 1. Download the archive for your system and the checksum file `SHA256SUMS.txt`.
 2. Check the archive against the checksum file:
@@ -58,7 +58,7 @@ The Linux package holds `aokchaind`, `aokchain-cli`, `aokchain-tx` and `aokchain
 
 ## Build from source
 
-The 4.0 source code is published at [github.com/AokChain/AokChain](https://github.com/AokChain/AokChain) with the release. Build the release tag. These steps build the node and the tools on Ubuntu 22.04 or 24.04.
+The download page links to the source code of AokChain Core. Build the tag of the release. These steps build the node and the tools on Ubuntu 22.04 or 24.04.
 
 1. Install the build tools:
 

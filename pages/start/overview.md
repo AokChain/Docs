@@ -20,11 +20,11 @@ AokChain Core is the reference software. Its code descends from Bitcoin Core and
 
 | Program | What it is |
 | --- | --- |
-| Desktop wallet (`aokchain-qt`) | The wallet with a window, for Windows, Linux and macOS. It runs a full node and offers staking, tokens, multisig and an explorer. |
+| Desktop wallet (`aokchain-qt`) | The wallet with a window. It runs a full node and offers staking, tokens, multisig and an explorer. |
 | `aokchaind` | The node without a window, for servers. |
 | `aokchain-cli` | Sends commands to a running node. |
 
-The current release line is 4.0. It is an upgrade without a hard fork: see [[aokchain-4-0]]. Downloads are listed at [@@site_host@@/download](@@site@@/download/).
+The current release line is 4.0. It is an upgrade without a hard fork: see [[aokchain-4-0]]. The downloads, and the systems each program is available for, are listed at [@@site_host@@/download](@@site@@/download/).
 
 The block explorer at [@@explorer_host@@](@@explorer@@) shows blocks, transactions, addresses and tokens of the main network. See [[block-explorer]].
 

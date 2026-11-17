@@ -6,11 +6,13 @@ order: 10
 
 All AokChain wallets hold keys to the same chain, so the choice depends on how you want to use AOK.
 
-| Wallet | Runs on | Good for |
-| --- | --- | --- |
-| Desktop wallet (AokChain Core) | Windows, Linux, macOS | Holding and sending AOK, staking, tokens, multisig |
-| Node (`aokchaind` and `aokchain-cli`) | Linux servers, also Windows and macOS | Staking around the clock, exchanges, services |
-| AOK Wallet | Phone and web browser | Paying and getting paid without a node of your own, see [[aok-wallet-app]] |
+| Wallet | Good for |
+| --- | --- |
+| Desktop wallet (AokChain Core) | Holding and sending AOK, staking, tokens, multisig |
+| Node (`aokchaind` and `aokchain-cli`) | Staking around the clock, exchanges, services |
+| AOK Wallet | Paying and getting paid on a phone or in a web browser, without a node of your own, see [[aok-wallet-app]] |
+
+The systems each one is available for are listed at [@@site_host@@/download](@@site@@/download/).
 
 ## Desktop wallet
 
