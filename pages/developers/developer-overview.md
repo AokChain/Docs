@@ -17,7 +17,7 @@ AokChain Core descends from Bitcoin Core and Ravencoin, so most tools and habits
 | REST | Read-only blocks, transactions, headers and mempool over plain HTTP, without authentication. | below |
 | `aokchain-tx` | Build and sign transactions offline. | [[raw-transactions]] |
 | `aokchain-wallet` | Inspect, create or salvage a wallet file without a node. | [[configuration-options#aokchain-wallet]] |
-| Explorer API v3 | Chain data over HTTPS without your own node. | [[explorer-api]] |
+| AokChain API | Chain data over HTTPS without your own node. | [[explorer-api]] |
 
 ### REST
 
@@ -74,4 +74,4 @@ The test network (`-testnet`, port 44551) has no DNS seed; connect to nodes you 
 
 ## Source and builds
 
-The source of AokChain Core 4.0 is published at [github.com/AokChain/AokChain](https://github.com/AokChain/AokChain) with the release. [[install-a-node]] builds it on Linux.
+The [download page](@@site@@/download/) links to the source of AokChain Core. [[install-a-node]] builds it on Linux.

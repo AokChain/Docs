@@ -51,7 +51,7 @@ A new node no longer has to fetch three million blocks from its peers ([[fast-sy
 
 ## The desktop wallet
 
-The Qt wallet was reorganized from the layout up ([[desktop-wallet]]):
+The desktop wallet was reorganized from the layout up ([[desktop-wallet]]):
 
 - a side bar, a light theme, and amounts, addresses and transaction ids in a fixed-width font;
 - a first start that sets a wallet passphrase and makes a backup before anything else;

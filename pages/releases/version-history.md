@@ -54,7 +54,7 @@ The address index only; the chain state does not change.
 
 RPC only; the rules and the data do not change.
 
-- The address index calls (`getaddressbalance`, `getaddresstxids`, `getaddressutxos`, `getaddressmempool`, `getaddressdeltas`) take `{"addresses": [...]}`, as their help says. One address, or a user name, as a string works as before. An address given twice counts once. `getaddresstxids` takes `start` and `end` heights in the object.
+- The address index calls (`getaddressbalance`, `getaddresstxids`, `getaddressutxos`, `getaddressmempool`, `getaddressdeltas`) take `{"addresses": [...]}`, as their help says. One address, or a username, as a string works as before. An address given twice counts once. `getaddresstxids` takes `start` and `end` heights in the object.
 - `getaddressutxos` returns pages: with `{"limit": n}` it answers `{"utxos": [...], "next": "..."}`, and `after` continues from `next`. The outputs come in the order of block height, transaction id and output index. The object also takes `chainInfo`, `amount` and `tokenName`.
 - `mediantime` of `getblock` and `getblockheader` is the median time past of the block; before, it was the block's own time.
 

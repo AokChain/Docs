@@ -61,6 +61,6 @@ Where to see the current costs:
   }
   ```
 
-- **Explorer API:** [/tokens/issuance](@@api@@/tokens/issuance) of the API.
+- **AokChain API:** [/tokens/issuance](@@api@@/tokens/issuance).
 
 How governance sets these values is described on [[how-network-rules-change]].

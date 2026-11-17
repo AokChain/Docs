@@ -68,7 +68,7 @@ aokchain-cli getaddressbalance "KacWDE2Fyqywwr6YDKt1FYthycv3Ee7dqv"
 aokchain-cli getaddressbalance '{"addresses": ["KacWDE2Fyqywwr6YDKt1FYthycv3Ee7dqv", "Krp9Fwe7rEZm6Y6YxnngFc9to7y1Q4QX9W"]}'
 ```
 
-`aokchain-cli` reads an argument as JSON only when it starts with `{` or `[`. An address given twice counts once, and a user name (`@NAME`) can stand for its address. `getaddresstxids` and `getaddressdeltas` also take `start` and `end` heights in the object.
+`aokchain-cli` reads an argument as JSON only when it starts with `{` or `[`. An address given twice counts once, and a username (`@NAME`) can stand for its address. `getaddresstxids` and `getaddressdeltas` also take `start` and `end` heights in the object.
 
 `getaddressutxos` returns the unspent outputs that are no longer time locked, in the order of block height, transaction id and output index. With `limit` it returns pages:
 

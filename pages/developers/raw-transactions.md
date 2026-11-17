@@ -117,4 +117,4 @@ Here the token input holds 1,000 `DOCTOKEN`: 50 go to the recipient, 950 come ba
 - The fee is paid in AOK from the AOK inputs.
 - Issuing and reissuing tokens pay a cost in AOK to the token fee address. The help text of `createrawtransaction` shows example amounts from older code; the real costs and the address are what `issuanceinfo` answers. See [[token-names-and-costs]].
 
-The wallet's `transfer`, `transfermany` and `issue` build all of this; raw transactions are for wallets that keep their keys elsewhere. The explorer API serves the unspent outputs, scripts and fee rates such a wallet needs ([[explorer-api]]).
+The wallet's `transfer`, `transfermany` and `issue` build all of this; raw transactions are for wallets that keep their keys elsewhere. The [[explorer-api|AokChain API]] serves the unspent outputs, scripts and fee rates such a wallet needs.

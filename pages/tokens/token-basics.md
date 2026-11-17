@@ -45,7 +45,7 @@ Keep an owner token apart from the wallet you use every day. In the desktop wall
 
 ## Where tokens show up
 
-- **Desktop wallet:** the **Tokens** page lists the tokens of the wallet, with **Send** and **Receive** on each; the **Overview** page lists them too. Creating and reissuing tokens is on the pages **Create Tokens** and **Manage Tokens**, which appear in the advanced view: see [[create-a-token]].
+- **Desktop wallet:** the **Tokens** page lists the tokens of the wallet, with **Send** and **Receive** on each; the **Overview** page lists them too. Creating and reissuing tokens is on the pages **Create Tokens** and **Manage Tokens**, which appear in the advanced view.
 - **Block explorer:** the **Tokens** page of [@@explorer_host@@](@@explorer@@) lists every token with its supply and holders.
 - **Node:** `listmytokens` lists the tokens of the wallet, `gettokendata "NAME"` shows the settings of a token, and `listtokens` lists the tokens of the chain.
 

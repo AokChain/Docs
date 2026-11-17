@@ -25,7 +25,7 @@ Freeze and unfreeze commands are governance commands: transactions of the networ
   ```
 
 - **All at once:** `freezelist` lists every address that has a freeze entry, with `true` for frozen and `false` for one that was frozen and then unfrozen, and the `total`. On the main network it takes a while.
-- **API:** `@@api@@/address/<address>/frozen` returns `{"address": "...", "frozen": true}` or `false`. See [[explorer-api]].
+- **[[explorer-api|AokChain API]]:** `@@api@@/address/<address>/frozen` returns `{"address": "...", "frozen": true}` or `false`.
 
 ## Before you send
 

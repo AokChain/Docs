@@ -57,4 +57,4 @@ The desktop wallet has an **Explorer** page of its own. It looks up transactions
 
 ## The API
 
-Services and wallets read the same data through API v3. See [[explorer-api]].
+Services and wallets read the same data through the [[explorer-api|AokChain API]].

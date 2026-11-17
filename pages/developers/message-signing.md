@@ -38,7 +38,7 @@ The answer is `true`. With one character more or less in the text, or another ad
 - An encrypted wallet must be unlocked for `signmessage`. A wallet unlocked for staking only answers `Error: Wallet is unlocked for staking only.`
 - The text is signed byte for byte. Line breaks, trailing spaces and the character encoding (UTF-8) all count.
 
-The desktop wallet does the same on its Sign page ("Prove my address", "Check a signature"); see [[sign-and-verify]]. The explorer API checks signatures too: `POST /api/v3/verify` ([[explorer-api]]).
+The desktop wallet does the same on its Sign page ("Prove my address", "Check a signature"); see [[sign-and-verify]]. The [[explorer-api|AokChain API]] checks signatures too, with `POST /verify`.
 
 ## The format
 

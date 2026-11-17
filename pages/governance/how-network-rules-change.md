@@ -21,7 +21,7 @@ A command takes effect when its block is added to the chain. If that block is re
 
 To see the current values:
 
-| Value | Node | Explorer |
+| Value | Node | Explorer and AokChain API |
 | --- | --- | --- |
 | Costs and the cost address | `issuanceinfo` | [/tokens/issuance](@@api@@/tokens/issuance) |
 | Frozen addresses | `freezelist`, `checkfreeze "<address>"` | The **Network** page, [/governance](@@api@@/governance) |
@@ -33,7 +33,7 @@ The rules that decide whether a block or a transaction is valid, such as the blo
 - A change that only makes the rules stricter can come with a new version without a hard fork: nodes that have not upgraded still accept the blocks of upgraded nodes. Version 4.0 is an upgrade of this kind; it has no activation height.
 - A change that allows something the old rules refuse is a hard fork. It needs an activation height that is announced in advance, and every node, staker and exchange has to upgrade before that height.
 
-Version 4.0 speaks protocol version 70021 and connects to older nodes as before. It also carries a switch that stops peering with old, incompatible nodes from a block height. The switch is off; such a height would be announced in advance, once an upgrade schedule is set.
+Version 4.0 speaks protocol version 70021 and connects to older nodes as before. It also carries a switch that stops peering with old, incompatible nodes from a block height. The switch is off; such a height would be announced in advance.
 
 ## Keep up to date
 

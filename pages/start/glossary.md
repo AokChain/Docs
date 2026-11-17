@@ -12,7 +12,7 @@ The place you receive AOK and tokens at. Ordinary main network addresses start w
 
 ### AOK
 
-The coin of AokChain. 1 AOK is 100,000,000 of the smallest unit (often called a sat).
+The coin of AokChain. 1 AOK is 100,000,000 of the smallest unit, the satoshi (sat for short).
 
 ### AokChain Core
 

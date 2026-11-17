@@ -1,10 +1,10 @@
 ---
-title: Explorer API
-description: "API v3 of the AokChain block explorer: blocks, transactions, addresses, tokens, supply and wallet calls over HTTPS, with its conventions and examples."
+title: AokChain API
+description: "The AokChain API, version 3: blocks, transactions, addresses, tokens, supply and wallet calls over HTTPS, with its conventions and examples."
 order: 80
 ---
 
-API v3 answers questions about the chain over HTTPS, from the index behind the block explorer at [@@explorer_host@@](@@explorer@@/). Use it when you need data about any address without running a node with an address index, or as a second view next to your own node. The reference with every parameter, a real answer for each endpoint and a playground is at [@@site_host@@/api](@@site@@/api/); its OpenAPI description is [openapi.json](@@api@@/openapi.json).
+The AokChain API (version 3) answers questions about the chain over HTTPS, from the index behind the block explorer at [@@explorer_host@@](@@explorer@@/). Use it when you need data about any address without running a node with an address index, or as a second view next to your own node. The reference with every parameter, a real answer for each endpoint and a playground is at [@@site_host@@/api](@@site@@/api/); its OpenAPI description is [openapi.json](@@api@@/openapi.json).
 
 ```bash
 curl -s @@api@@/status
@@ -40,12 +40,12 @@ curl -s @@api@@/status
 | `GET /tx/{txid}` | A transaction with inputs, outputs, addresses and tokens. |
 | `GET /tx/{txid}/raw` | The transaction in raw hex. |
 | `GET /tx/{txid}/status` | Confirmations of a transaction. |
-| `GET /address/{address}` | Balances per currency, transaction count, user names, first and last use. |
+| `GET /address/{address}` | Balances per currency, transaction count, usernames, first and last use. |
 | `GET /address/{address}/txs?currency=&before=&limit=` | Transactions of an address, newest first. |
 | `GET /address/{address}/utxos?currency=&after=&limit=` | Unspent outputs of an address. |
 | `GET /address/{address}/frozen` | Whether governance has frozen the address. |
 | `GET /mempool?limit=` | Unconfirmed transactions. |
-| `GET /search?q=` | What a block height, hash, txid, address, token or user name refers to. |
+| `GET /search?q=` | What a block height, hash, txid, address, token or username refers to. |
 | `GET /richlist?currency=&limit=&offset=` | The largest balances of AOK or a token. |
 | `GET /supply`, `GET /supply/plain` | The AOK supply at the tip; `/supply/plain` is the total in AOK as plain text, for listing sites. |
 | `GET /tokens?kind=&q=&after=&limit=` | Tokens. |
@@ -55,7 +55,7 @@ curl -s @@api@@/status
 | `GET /tokens/issuance` | What issuing each kind of token costs, and the address the cost is paid to. |
 | `GET /tokens/check?name=` | Whether a token name is valid and still free, with the cost. The API checks the name with its own copy of the node's rules. |
 | `GET /governance` | Issuing costs and the list of frozen addresses, refreshed every 30 minutes. |
-| `GET /username/{name}` | The address that holds a user name now. |
+| `GET /username/{name}` | The address that holds a username now. |
 | `POST /verify` | Checks a signed message ([[message-signing]]). Body `{"address", "message", "signature"}`. |
 | `GET /stats/daily?days=` | Chain activity per day (UTC). |
 | `GET /network` | Peer count and the versions of the peers, as the index's node sees them. |
@@ -94,11 +94,11 @@ curl -s -X POST @@api@@/wallet/balance -H 'Content-Type: application/json' \
 
 A wallet that signs its own transactions needs the AokChain transaction format with its time field ([[raw-transactions]]). Do not trust the device clock blindly: a transaction more than 10 minutes ahead of the nodes' clocks is refused. Every answer of the API carries the server's time in its HTTP `Date` header.
 
-The `push` endpoints register the devices of the AOK wallet apps for payment notifications.
+The `push` endpoints register the devices of the AOK Wallet for payment notifications.
 
 ## Your own node or the API
 
-| | Your node | API v3 |
+| | Your node | AokChain API |
 |---|---|---|
 | Trust | You validate every block yourself. | You trust the operator of the service. |
 | Any address | Needs `addressindex=1` ([[indexes]]). | Built in. |

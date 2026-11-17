@@ -1,5 +1,5 @@
 ---
-title: AOK Wallet app
+title: AOK Wallet
 description: The AOK Wallet for phones and the web browser, an HD wallet with BIP39 recovery words. Where to get it is listed on the website.
 order: 90
 aliases: [mobile]
