@@ -21,7 +21,7 @@ If the wallet is not encrypted, a band above the pages says "This wallet is not 
 1. Click **Encrypt** in that band, or go to **Settings › Wallet security › Encrypt Wallet**.
 2. Type the passphrase in **New passphrase** and again in **Repeat new passphrase**.
 3. Tick **I wrote the passphrase down and understand that it cannot be recovered** and click **Encrypt wallet**.
-4. AokChain Core restarts to finish the encryption. After the restart it offers to save a backup: click **Save a backup...**.
+4. AokChain Core restarts to finish the encryption. After the restart it offers to save a backup: click **Save a backup...**. A wallet that you created or opened next to the first one (see [[desktop-wallet#several-wallets|Several wallets]]) needs no restart: it is closed and opened again, then the backup is offered.
 
 Backups made before the encryption are not encrypted, and they do not hold the keys of the addresses that the wallet makes from now on. Replace them with a new backup and destroy the old copies. See [[back-up-and-restore]].
 
@@ -35,11 +35,11 @@ Your backups stay valid, but they open with the passphrase that the wallet had w
 
 ## When the wallet asks for the passphrase
 
-The wallet stays locked while it runs. It asks for the passphrase when you send AOK or tokens, sign a message, create a token or make a multisig request, and locks itself again afterwards. The side bar shows **Wallet locked** or **Wallet unlocked**.
+The wallet stays locked while it runs. It asks for the passphrase when you send AOK or tokens, sign a message, create a token or make a multisig request, and locks itself again afterwards. The side bar shows **Wallet locked** or **Wallet unlocked** under the name of the wallet. Every wallet has its own passphrase.
 
 ## Unlock for staking only
 
-Staking needs the keys, so an encrypted wallet has to be unlocked to stake. When you turn on the **Staking** switch, the wallet asks for the passphrase with **For staking only (sending coins asks for the passphrase again)** ticked. In that state the keys sign stakes and nothing else, and the side bar says **Unlocked for staking only**. See [[stake-in-the-desktop-wallet]].
+Staking needs the keys, so an encrypted wallet has to be unlocked to stake. When you turn on the **Staking** switch, the wallet asks for the passphrase with **For staking only (sending coins asks for the passphrase again)** ticked. In that state the keys sign stakes and nothing else, and the side bar says **Staking only** under the name of the wallet (**Unlocked for staking only** in versions before 4.0.7). See [[stake-in-the-desktop-wallet]].
 
 ## On a node
 

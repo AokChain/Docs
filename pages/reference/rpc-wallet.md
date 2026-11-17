@@ -5,7 +5,7 @@ order: 29
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the wallet category, as AokChain Core 4.0.6 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the wallet category, as AokChain Core 4.0.7 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > Many examples in these help texts come from the upstream code: their addresses are often
@@ -210,7 +210,7 @@ bumpfee has been deprecated on the AOK Wallet.
 createwallet "wallet_name"
 ```
 
-Creates and loads a new wallet.
+Creates and loads a new wallet. It is not encrypted (see encryptwallet). The wallet stakes when the node runs with -staking, as the wallets of the start do.
 
 **Arguments**
 
@@ -1621,7 +1621,7 @@ Returns a list of currently loaded wallets. For full information on the wallet, 
 loadwallet "filename"
 ```
 
-Loads a wallet from a wallet file or directory. Note that all wallet command-line options used when starting bitcoind will be applied to the new wallet (eg -zapwallettxes, upgradewallet, rescan, etc).
+Loads a wallet from a wallet file or directory. Note that all wallet command-line options used when starting aokchaind will be applied to the new wallet (eg -zapwallettxes, upgradewallet, rescan, etc). The wallet stakes when the node runs with -staking, as the wallets of the start do.
 
 **Arguments**
 

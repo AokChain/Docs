@@ -5,7 +5,7 @@ order: 24
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the mining category, as AokChain Core 4.0.6 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the mining category, as AokChain Core 4.0.7 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > Many examples in these help texts come from the upstream code: their addresses are often

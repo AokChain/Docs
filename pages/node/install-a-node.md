@@ -44,12 +44,12 @@ Downloads of the 4.0 programs are being prepared at [@@site_host@@/download](@@s
 3. Unpack it and put the programs where the system finds them. On Linux:
 
    ```bash
-   tar xzf aokchain-4.0.6-linux-x86_64.tar.gz
-   sudo install -m 0755 aokchain-4.0.6-linux-x86_64/aokchain* /usr/local/bin/
+   tar xzf aokchain-4.0.7-linux-x86_64.tar.gz
+   sudo install -m 0755 aokchain-4.0.7-linux-x86_64/aokchain* /usr/local/bin/
    aokchaind -version
    ```
 
-   The first line says `AokChain Core Daemon version v4.0.6.0-` followed by the build's commit.
+   The first line says `AokChain Core Daemon version v4.0.7.0-` followed by the build's commit.
 
 The Linux package holds `aokchaind`, `aokchain-cli`, `aokchain-tx` and `aokchain-wallet`; the libraries they need are built in. On Windows, unpack the archive into a folder of your choice. The Windows programs are not code-signed, so Windows asks for a confirmation the first time it starts them.
 

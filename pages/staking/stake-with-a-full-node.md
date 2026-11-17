@@ -70,7 +70,7 @@ stakecombinethreshold=1000
 
 ## Several wallets
 
-A node with `staking=1` stakes with every wallet that is loaded when it starts. Unlock each one with `-rpcwallet=<name>`:
+A node with `staking=1` stakes with every loaded wallet. From 4.0.7 on that includes a wallet that is created or loaded while the node runs (`createwallet`, `loadwallet`, `restorewallet`); earlier versions stake only with the wallets of the start. Unlock each one with `-rpcwallet=<name>`:
 
 ```bash
 aokchain-cli -rpcwallet=second walletpassphrase "<passphrase>" 0 true

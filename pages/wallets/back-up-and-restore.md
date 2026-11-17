@@ -14,6 +14,8 @@ Your coins are in the wallet file on your computer. If the disk fails or the com
 
 The backup is encrypted with the same passphrase as the wallet. Keep the passphrase written down in a different place from the backup.
 
+With several wallets in the window, **Backup Wallet** saves the wallet that is shown. Make a backup of each wallet.
+
 ## When to make a new one
 
 Make a new backup:
@@ -25,6 +27,18 @@ Make a new backup:
 A multisig wallet is also described by its multisig information file. Keep that file with the backup. See [[multisig-wallets]].
 
 ## Restore in the desktop wallet
+
+### As a wallet of its own
+
+From version 4.0.7 on, a backup can be opened next to the wallets you already have:
+
+1. Click the wallet at the top of the side bar and choose **Open Wallet › Restore Wallet...**.
+2. Click **Choose...** and pick the backup file.
+3. Give the restored wallet a name and click **Restore**.
+
+The backup is copied into a new wallet folder and opened; the backup file itself is not changed. The restored wallet has the passphrase that the wallet had when the backup was made.
+
+### In place of the first wallet
 
 1. Close AokChain Core and wait until it has ended.
 2. Open the data folder. The wallet file is `wallets/wallet.dat` (or `wallet.dat` in data folders of older versions). See [[desktop-wallet#where-the-files-are|Where the files are]].

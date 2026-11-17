@@ -13,7 +13,7 @@ The desktop wallet stakes while it runs. You turn staking on with the **Staking*
 3. Turn on the **Staking** switch.
 4. The wallet asks for your passphrase. Keep **For staking only (sending coins asks for the passphrase again)** ticked, enter the passphrase and click **Start staking**.
 
-The side bar now shows **Unlocked for staking only** and a line such as "On · a reward about every 3 hours". Point at the staking line to see your weight, the network weight and the expected time.
+The side bar now shows **Staking only** under the name of the wallet (**Unlocked for staking only** in versions before 4.0.7) and a line such as "On · a reward about every 3 hours". Point at the staking line to see your weight, the network weight and the expected time.
 
 Keep the computer on and awake: a wallet that sleeps does not stake.
 
@@ -29,6 +29,10 @@ Keep the computer on and awake: a wallet that sleeps does not stake.
 Turn off the **Staking** switch. A wallet that was unlocked for staking only is locked again.
 
 After a restart the switch is off. Turn it on again to stake.
+
+## Several wallets
+
+Each wallet stakes on its own, with its own coins. The **Staking** switch is that of the wallet shown, so turn it on in every wallet that should stake. When other open wallets stake, the side bar adds a line such as "1 other wallet staking". Closing a wallet stops its staking. See [[desktop-wallet#several-wallets|Several wallets]].
 
 ## What the side bar says
 

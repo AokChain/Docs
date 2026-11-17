@@ -31,7 +31,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
    ```bash
    sudo mv /usr/local/bin/aokchaind    /usr/local/bin/aokchaind-3.0
    sudo mv /usr/local/bin/aokchain-cli /usr/local/bin/aokchain-cli-3.0
-   sudo install -m 0755 aokchain-4.0.6-linux-x86_64/aokchain* /usr/local/bin/
+   sudo install -m 0755 aokchain-4.0.7-linux-x86_64/aokchain* /usr/local/bin/
    ```
 
    Get and check the 4.0 package as [[install-a-node]] describes.
@@ -41,7 +41,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
 4. **Check it**, a minute later:
 
    ```bash
-   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.6/"
+   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.7/"
    aokchain-cli getblockcount                          # rises to the height of the other nodes
    aokchain-cli getwalletinfo | grep -E '"balance"|immature|txcount'
    ```

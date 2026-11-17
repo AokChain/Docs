@@ -47,7 +47,7 @@ The side bar on the left opens the pages:
 | **Sign message** | | Prove an address, check a signature, multisig, see [[sign-and-verify]] |
 | **Settings** | Alt+0 | Options, wallet security and information |
 
-At the bottom of the side bar are the **Staking** switch, the synchronization state, the number of peers and the network, the state of the wallet (for example **Wallet locked**) and the version.
+At the top of the side bar is the wallet that is shown, with its name and its state (for example **Wallet locked**). At the bottom are the **Staking** switch, the synchronization state, the number of peers and the network, and the version.
 
 Next to every page title is a status light:
 
@@ -56,6 +56,29 @@ Next to every page title is a status light:
 - **No connection** or **Network off** (red): no peers, or the network activity is turned off.
 
 Click the light, or press F5 (Cmd+R on a Mac), to read the page again. The back and forward buttons in the header go through the pages you have opened; Alt+Left and Alt+Right (Cmd+[ and Cmd+] on a Mac) do the same.
+
+## Several wallets
+
+From version 4.0.7 on, one window holds several wallets. Each wallet has its own keys, addresses, tokens, multisig wallets and passphrase, and stakes on its own.
+
+Click the wallet at the top of the side bar:
+
+| Entry | What it does |
+| --- | --- |
+| The name of a wallet | Shows that wallet. Every page follows it: balance, transactions, tokens, addresses and settings. |
+| **Create Wallet...** | Makes a new wallet. Give it a name, for example "Savings". Keep **Protect it with a passphrase (asked for next)** ticked to encrypt it right away. |
+| **Open Wallet** | Lists the wallets of the wallet folder that are not open. **Restore Wallet...** makes a wallet from a backup file, see [[back-up-and-restore]]. |
+| **Close Wallet** | Closes the wallet that is shown. Its coins and tokens stay in its file, and **Open Wallet** opens it again. |
+
+The same commands are in **Settings**, in the card **Your wallets**, which also shows the file of the wallet.
+
+- The first wallet, **Main wallet**, stays open and cannot be closed.
+- The wallets that were open are opened again at the next start, and the one you looked at last is shown.
+- With several wallets open, the window title and the notifications of incoming and sent transactions name the wallet.
+- A wallet that is loaded or unloaded with a command (`loadwallet`, `createwallet`, `unloadwallet`) appears in the window or leaves it within a few seconds.
+- Back up every wallet: each one is a file of its own.
+
+A separate wallet is a good place for owner tokens, see [[token-basics#the-owner-token|The owner token]].
 
 ## Coming from version 3.0
 
@@ -75,7 +98,7 @@ For nodes on servers, see [[upgrade-to-4-0]].
 | macOS | `~/.aokchain` |
 | Linux | `~/.aokchain` |
 
-The wallet file is `wallets/wallet.dat` in the data folder. Data folders made by older versions may keep it directly in the data folder as `wallet.dat`. **Settings › Open Configuration File** opens `aokchain.conf`, the configuration file in the data folder.
+The wallet file is `wallets/wallet.dat` in the data folder. Data folders made by older versions may keep it directly in the data folder as `wallet.dat`. A wallet that you create has a folder of its own next to it, named after the wallet, with its `wallet.dat` inside; **Settings › Your wallets** shows the file of the wallet that is shown. **Settings › Open Configuration File** opens `aokchain.conf`, the configuration file in the data folder.
 
 ## Change the language
 

@@ -1,6 +1,6 @@
 ---
 title: Version history
-description: "The changes of every AokChain Core version from 4.0.0 to 4.0.6, and the 3.0.x line before them."
+description: "The changes of every AokChain Core version from 4.0.0 to 4.0.7, and the 3.0.x line before them."
 order: 20
 ---
 
@@ -8,6 +8,7 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 
 | Version | Date | For whom |
 |---|---|---|
+| 4.0.7 | 2026-11-17 | Desktop wallet users; nodes that load wallets while they run |
 | 4.0.6 | 2026-11-16 | Everyone on 4.0: programs that call the wallet and token commands, operators who change indexes, desktop wallet users |
 | 4.0.5 | 2026-11-14 | Nodes with an address index (explorers, indexers) |
 | 4.0.4 | 2026-11-14 | Programs that use the address index calls |
@@ -16,6 +17,17 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 | 4.0.1 | 2026-11-14 | Everyone on 4.0.0 |
 | 4.0.0 | 2026-11-13 | Everyone on 3.0.x |
 | 3.0.5 | 2022-09-24 | The last 3.0.x version |
+
+## 4.0.7
+
+The desktop wallet runs several wallets in one window; the rules and the chain state do not change, and a node with one wallet behaves as before.
+
+- Desktop wallet: the wallet that is shown is chosen at the top of the side bar, with **Create Wallet**, **Open Wallet**, **Restore Wallet** and **Close Wallet**. Every page follows the wallet shown, and each wallet has its own keys, tokens, multisig wallets, passphrase and **Staking** switch ([[desktop-wallet#several-wallets|Several wallets]]).
+- A new wallet can be encrypted right away, and encrypting a wallet that is not the first one needs no restart. The wallets that were open are opened again at the next start; with `-wallet` exactly the named wallets are loaded.
+- With several wallets open, the window title, the notifications and the console name the wallet. The console has a wallet selector. A wallet that a command loads or unloads while the window is open appears in the window or leaves it within a few seconds.
+- A wallet that is created or loaded while the node runs (`createwallet`, `loadwallet`, `restorewallet`) stakes when the node runs with `-staking`; before, only the wallets of the start staked.
+- `unloadwallet` waits for a running stake search of that wallet (at most a minute) before the wallet file is closed. The answers and error codes of the wallet commands are unchanged.
+- Desktop wallet texts: "1 kind" and "2 kinds" of tokens and "24 h: 1 reward" instead of "(s)", **Staking only** under the name of a wallet that is unlocked for staking only.
 
 ## 4.0.6
 
