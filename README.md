@@ -16,6 +16,7 @@ The site is plain HTML, CSS and a little JavaScript, with the design of the AOK 
 | `tools/check.py` | Opens the built site in headless Chrome and checks every page |
 | `tools/serve.py` | Serves `build/` locally with the production headers |
 | `tools/deploy.sh` | Copies `build/` to the web server |
+| `tools/rpc_reference.py`, `tools/options_reference.py` | Write the generated reference pages from the help of the programs of a release |
 | `theme/` | Templates, CSS, JavaScript, fonts and icons |
 | `tests/` | Tests (`python -m pytest`) and the fixture pages they and the theme work use |
 
@@ -88,6 +89,18 @@ tools/deploy.sh
 `tools/check.py` fails on console errors, Content Security Policy violations, failed requests, requests to other sites, horizontal scrolling, text contrast below WCAG AA, missing fonts, links or anchors that do not answer, alias pages that do not forward, and a 404 page or headers that are not right. `--shots DIR` saves a screenshot of every page, width and theme.
 
 `tools/deploy.sh` reads the target from `.deploy.env`, which is not in git: `AOK_DEPLOY_HOST`, `AOK_DEPLOY_DIR`, `AOK_DEPLOY_KEY` (optional) and `AOK_DEPLOY_BASE` (default `/doc/`). It refuses a build made for another base.
+
+## The reference pages of a release
+
+The pages with `generated_by` (`pages/reference/rpc*.md` and `configuration-options.md`) hold the help texts of the programs. Write them again with the programs of each new release, then name its version as `generated_from` in `wiki.yml`:
+
+```sh
+tools/rpc_reference.py --aokchaind <dir>/aokchaind --aokchain-cli <dir>/aokchain-cli
+xvfb-run -a tools/options_reference.py --aokchaind <dir>/aokchaind --aokchain-qt <dir>/aokchain-qt \
+    --aokchain-cli <dir>/aokchain-cli --aokchain-tx <dir>/aokchain-tx --aokchain-wallet <dir>/aokchain-wallet
+```
+
+The first starts `aokchaind` on regtest in a temporary data directory, with no network connections and an RPC port of its own (the first free one from 19200), reads the help of every command and stops the node again. The second only reads `-help`; the desktop wallet of a release needs a display for that, which `xvfb-run` gives it.
 
 ## Rules for the site
 

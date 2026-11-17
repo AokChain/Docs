@@ -5,12 +5,12 @@ order: 30
 generated_by: tools/rpc_reference.py
 ---
 
-`aokchain-cli help` does not list these commands. They are meant for testing and debugging; some of them change what the node considers valid until they are undone. This is the help text that AokChain Core 4.0.7 prints for each with `aokchain-cli help <command>`. All categories are on [[rpc]].
+`aokchain-cli help` does not list these commands. They are meant for testing and debugging; some of them change what the node considers valid until they are undone. This is the help text that AokChain Core 4.0.8 prints for each with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
-> Many examples in these help texts come from the upstream code: their addresses are often
-> Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on
-> port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].
+> The addresses in the examples of these help texts are example addresses that belong to nobody.
+> Their `curl` lines use port 33440, where a node of the main network answers JSON-RPC; on testnet
+> and regtest it is port 44550, and `rpcport` sets another one. See [[json-rpc]].
 
 | Command | Summary |
 |---|---|
@@ -124,7 +124,7 @@ Permanently marks a block as invalid, as if it violated a consensus rule.
 
 ```text
 > aokchain-cli invalidateblock "blockhash"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "invalidateblock", "params": ["blockhash"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "invalidateblock", "params": ["blockhash"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### logging
@@ -146,7 +146,7 @@ Result: &lt;categories&gt;  (string): a list of the logging categories that are 
 
 ```text
 > aokchain-cli logging "[\"all\"]" "[\"http\"]"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "logging", "params": [["all"], "[libevent]"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "logging", "params": [["all"], "[libevent]"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### reconsiderblock
@@ -169,7 +169,7 @@ Removes invalidity status of a block and its descendants, reconsider them for ac
 
 ```text
 > aokchain-cli reconsiderblock "blockhash"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "reconsiderblock", "params": ["blockhash"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "reconsiderblock", "params": ["blockhash"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### resendwallettransactions
@@ -225,7 +225,7 @@ Returns the current block on timeout or exit.
 
 ```text
 > aokchain-cli waitforblock "0000000000079f8ef3d2c688c244eb7a4570b24c9ed7b4a8c619eb02596f8862", 1000
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "waitforblock", "params": ["0000000000079f8ef3d2c688c244eb7a4570b24c9ed7b4a8c619eb02596f8862", 1000] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "waitforblock", "params": ["0000000000079f8ef3d2c688c244eb7a4570b24c9ed7b4a8c619eb02596f8862", 1000] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### waitforblockheight
@@ -258,7 +258,7 @@ Returns the current block on timeout or exit.
 
 ```text
 > aokchain-cli waitforblockheight "100", 1000
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "waitforblockheight", "params": ["100", 1000] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "waitforblockheight", "params": ["100", 1000] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### waitfornewblock
@@ -290,5 +290,5 @@ Returns the current block on timeout or exit.
 
 ```text
 > aokchain-cli waitfornewblock 1000
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "waitfornewblock", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "waitfornewblock", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```

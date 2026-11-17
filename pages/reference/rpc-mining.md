@@ -5,12 +5,12 @@ order: 24
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the mining category, as AokChain Core 4.0.7 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the mining category, as AokChain Core 4.0.8 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
-> Many examples in these help texts come from the upstream code: their addresses are often
-> Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on
-> port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].
+> The addresses in the examples of these help texts are example addresses that belong to nobody.
+> Their `curl` lines use port 33440, where a node of the main network answers JSON-RPC; on testnet
+> and regtest it is port 44550, and `rpcport` sets another one. See [[json-rpc]].
 
 | Command | Summary |
 |---|---|
@@ -31,10 +31,10 @@ getblocktemplate ( TemplateRequest )
 If the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'. It returns data needed to construct a block to work on. For full specification, see BIPs 22, 23, 9, and 145:
 
 ```text
-    https://github.com/aokchain/bips/blob/master/bip-0022.mediawiki
-    https://github.com/aokchain/bips/blob/master/bip-0023.mediawiki
-    https://github.com/aokchain/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes
-    https://github.com/aokchain/bips/blob/master/bip-0145.mediawiki
+    https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki
+    https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki
+    https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes
+    https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki
 ```
 
 **Arguments**
@@ -107,7 +107,7 @@ If the request parameters include a 'mode' key, that is used to explicitly selec
 
 ```text
 > aokchain-cli getblocktemplate
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblocktemplate", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblocktemplate", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getmininginfo
@@ -139,7 +139,7 @@ Returns a json object containing mining-related information.
 
 ```text
 > aokchain-cli getmininginfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getnetworkhashps
@@ -167,7 +167,7 @@ x             (numeric) Hashes per second estimated
 
 ```text
 > aokchain-cli getnetworkhashps
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkhashps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkhashps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getstakinginfo
@@ -223,7 +223,7 @@ true              (boolean) Returns true
 
 ```text
 > aokchain-cli prioritisetransaction "txid" 0.0 10000
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "prioritisetransaction", "params": ["txid", 0.0, 10000] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "prioritisetransaction", "params": ["txid", 0.0, 10000] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### setgenerate
@@ -254,7 +254,7 @@ Turn off generation
 > aokchain-cli setgenerate false
 
 Using json rpc
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setgenerate", "params": [true, 1] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setgenerate", "params": [true, 1] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### submitblock
@@ -263,7 +263,7 @@ Using json rpc
 submitblock "hexdata"  ( "dummy" )
 ```
 
-Attempts to submit new block to network. See `https://en.aokchain.it/wiki/BIP_0022` for full specification.
+Attempts to submit new block to network. See `https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki` for full specification.
 
 **Arguments**
 
@@ -278,5 +278,5 @@ Attempts to submit new block to network. See `https://en.aokchain.it/wiki/BIP_00
 
 ```text
 > aokchain-cli submitblock "mydata"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "submitblock", "params": ["mydata"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "submitblock", "params": ["mydata"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```

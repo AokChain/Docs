@@ -12,9 +12,13 @@ grouped by the sections of the help. The text of every option is the program's
 own; nothing is added to it. The programs can also be given as AOKCHAIND,
 AOKCHAIN_QT, AOKCHAIN_CLI, AOKCHAIN_TX and AOKCHAIN_WALLET.
 
-`-help` starts no node and reads no data directory. aokchain-qt runs with
-QT_QPA_PLATFORM=offscreen and a temporary HOME, so it needs no display and
-leaves no settings behind.
+`-help` starts no node and reads no data directory. aokchain-qt runs with a
+temporary HOME, so it leaves no settings behind. Without a display it runs
+with QT_QPA_PLATFORM=offscreen, which a build against the system's Qt has.
+The release program for Linux has Qt linked in with the xcb platform only:
+give it a display, for example a virtual one,
+
+    xvfb-run -a tools/options_reference.py --aokchaind ... --aokchain-qt ...
 
 A few defaults depend on the computer that prints the help (-dbcache follows
 the memory of the computer); the page names them.
@@ -32,17 +36,13 @@ GENERATED_BY = "tools/options_reference.py"
 SLUG = "configuration-options"
 
 # Options that the programs read but that -help does not list, with what the
-# source does with them (AokChain Core 4.0: src/wallet/init.cpp, src/miner.h,
-# src/validation.h, src/init.cpp, src/rpc/tokens.cpp, src/qt/aokchaingui.cpp).
-# They are written by hand.
+# source does with them (AokChain Core 4.0: src/validation.h, src/init.cpp,
+# src/rpc/tokens.cpp). They are written by hand. An entry that the help of
+# the programs lists is left out of the page: since 4.0.8 the help has
+# -staking and -advancedui, which stood here before.
 NOT_IN_HELP = [
-    ("-staking", "Search for stakes with the wallets that are loaded, from the start (default: 0). "
-                 "The desktop wallet starts with the staking switch in this position. `getstakinginfo` reports it as `enabled`."),
     ("-tokenindex", "Maintain the token address index, used by listaddressesbytoken, listtokenbalancesbyaddress "
                     "and listuniquetokenholders (default: 1). Changing it needs a rebuild with -reindex."),
-    ("-advancedui", "Only `aokchain-qt` reads it: show the advanced view of the desktop wallet, with the pages Create Tokens "
-                    "and Manage Tokens in the side bar, the owner token box on the token send page and a unit "
-                    "list next to amount fields (default: 0)."),
 ]
 
 # Help texts whose default depends on the computer that prints them.
@@ -163,20 +163,29 @@ def build(daemon, qt, cli, label, tx=None, wallet_tool=None):
     shown = {o for _, opts in regular for o, _ in opts}
 
     gui_regular, gui_debug = [], []
+    daemon_names = {option_name(o) for _, opts in full for o, _ in opts}
+    listed = set(daemon_names)
     if qt:
         home = tempfile.mkdtemp(prefix="optref-")
-        env = dict(os.environ, QT_QPA_PLATFORM="offscreen", HOME=home, XDG_CONFIG_HOME=os.path.join(home, ".config"))
+        env = dict(os.environ, HOME=home, XDG_CONFIG_HOME=os.path.join(home, ".config"))
+        if not env.get("DISPLAY") and not env.get("QT_QPA_PLATFORM"):
+            env["QT_QPA_PLATFORM"] = "offscreen"
         try:
             qt_regular = parse(run_help(qt, "-help", env=env))
             qt_full = parse(run_help(qt, "-help", "-help-debug", env=env))
+        except RuntimeError as e:
+            raise RuntimeError("%s (aokchain-qt needs a display or the offscreen platform; "
+                               "for a release program run this script under xvfb-run -a)" % e)
         finally:
             shutil.rmtree(home, ignore_errors=True)
-        daemon_names = {option_name(o) for _, opts in full for o, _ in opts}
+        listed |= {option_name(o) for _, opts in qt_full for o, _ in opts}
         gui_shown = {o for _, opts in qt_regular for o, _ in opts}
         for group, opts in qt_full:
             mine = [(o, d) for o, d in opts if option_name(o) not in daemon_names]
             gui_regular += [(o, d) for o, d in mine if o in gui_shown]
             gui_debug += [(o, d) for o, d in mine if o not in gui_shown]
+    # what is written by hand stands on the page only while no help lists it
+    not_listed = [(o, d) for o, d in NOT_IN_HELP if o not in listed]
 
     cli_groups = parse(run_help(cli, "-help")) if cli else []
 
@@ -195,7 +204,9 @@ def build(daemon, qt, cli, label, tx=None, wallet_tool=None):
     sections = [anchor_title(g) for g, _ in regular]
     if gui_regular:
         sections.append("GUI options")
-    sections += ["Options not listed by -help", "Debugging options"]
+    if not_listed:
+        sections.append("Options not listed by -help")
+    sections.append("Debugging options")
     if cli_groups:
         sections.append("aokchain-cli options")
     if tx:
@@ -214,12 +225,14 @@ def build(daemon, qt, cli, label, tx=None, wallet_tool=None):
         out.append("Only `aokchain-qt` reads these.\n")
         out.append(table(gui_regular, {}))
 
-    out.append("## Options not listed by -help\n")
-    out.append("The programs read these options although `-help` does not show them.\n")
-    out.append("| Option | Description |\n|---|---|")
-    for option, description in NOT_IN_HELP:
-        out.append("| %s | %s |" % (code(option), md_text(description).replace("\\`", "`")))
-    out.append("")
+    if not_listed:
+        out.append("## Options not listed by -help\n")
+        out.append("The programs read this option although `-help` does not show it.\n" if len(not_listed) == 1
+                   else "The programs read these options although `-help` does not show them.\n")
+        out.append("| Option | Description |\n|---|---|")
+        for option, description in not_listed:
+            out.append("| %s | %s |" % (code(option), md_text(description).replace("\\`", "`")))
+        out.append("")
 
     out.append("## Debugging options\n")
     out.append("`aokchaind -help -help-debug` adds these options for testing and debugging. Several of them "

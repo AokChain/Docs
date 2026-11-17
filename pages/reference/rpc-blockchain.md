@@ -5,12 +5,12 @@ order: 21
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the blockchain category, as AokChain Core 4.0.7 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the blockchain category, as AokChain Core 4.0.8 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
-> Many examples in these help texts come from the upstream code: their addresses are often
-> Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on
-> port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].
+> The addresses in the examples of these help texts are example addresses that belong to nobody.
+> Their `curl` lines use port 33440, where a node of the main network answers JSON-RPC; on testnet
+> and regtest it is port 44550, and `rpcport` sets another one. See [[json-rpc]].
 
 | Command | Summary |
 |---|---|
@@ -77,7 +77,7 @@ true|false    (boolean) true: the download was started; false: the past blocks a
 
 ```text
 > aokchain-cli fetchblocks
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "fetchblocks", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "fetchblocks", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### freezelist
@@ -106,7 +106,7 @@ Returns the hash of the best (tip) block in the longest blockchain.
 
 ```text
 > aokchain-cli getbestblockhash
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbestblockhash", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbestblockhash", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getblock
@@ -174,7 +174,7 @@ If verbosity is 0, returns a string that is serialized, hex-encoded data for blo
 
 ```text
 > aokchain-cli getblock "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblock", "params": ["00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblock", "params": ["00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getblockchaininfo
@@ -235,7 +235,7 @@ Returns an object containing various state info regarding blockchain processing.
 
 ```text
 > aokchain-cli getblockchaininfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockchaininfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockchaininfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getblockcount
@@ -256,7 +256,7 @@ n    (numeric) The current block count
 
 ```text
 > aokchain-cli getblockcount
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockcount", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockcount", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getblockhash
@@ -283,7 +283,7 @@ Returns hash of block in best-block-chain at height provided.
 
 ```text
 > aokchain-cli getblockhash 1000
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhash", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhash", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getblockhashes
@@ -324,7 +324,7 @@ Returns array of hashes of blocks within the timestamp range provided.
 
 ```text
 > aokchain-cli getblockhashes 1231614698 1231024505
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhashes", "params": [1231614698, 1231024505] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhashes", "params": [1231614698, 1231024505] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 > aokchain-cli getblockhashes 1231614698 1231024505 '{"noOrphans":false, "logicalTimes":true}'
 ```
 
@@ -374,7 +374,7 @@ If verbose is false, returns a string that is serialized, hex-encoded data for b
 
 ```text
 > aokchain-cli getblockheader "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockheader", "params": ["00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockheader", "params": ["00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getblockstats
@@ -410,7 +410,7 @@ Computes statistics of one block of the active chain. Amounts are in satoshis. T
 
 ```text
 > aokchain-cli getblockstats 1000 '["txs","totalfee"]'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockstats", "params": [1000, ["txs","totalfee"]] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockstats", "params": [1000, ["txs","totalfee"]] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getbootstrapinfo
@@ -448,7 +448,7 @@ State of the block bootstrap (-bootstrapurl): block archives that are fetched ov
 
 ```text
 > aokchain-cli getbootstrapinfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbootstrapinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbootstrapinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getchaintips
@@ -488,7 +488,7 @@ Possible values for status:
 
 ```text
 > aokchain-cli getchaintips
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getchaintips", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getchaintips", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getchaintxstats
@@ -523,7 +523,7 @@ Compute statistics about the total number and rate of transactions in the chain.
 
 ```text
 > aokchain-cli getchaintxstats
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getchaintxstats", "params": [2016] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getchaintxstats", "params": [2016] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getdifficulty
@@ -544,7 +544,7 @@ n.nnn       (numeric) the proof-of-work difficulty as a multiple of the minimum 
 
 ```text
 > aokchain-cli getdifficulty
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getdifficulty", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getdifficulty", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getindexinfo
@@ -631,7 +631,7 @@ If txid is in the mempool, returns all in-mempool ancestors.
 
 ```text
 > aokchain-cli getmempoolancestors "mytxid"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmempoolancestors", "params": ["mytxid"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmempoolancestors", "params": ["mytxid"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getmempooldescendants
@@ -686,7 +686,7 @@ If txid is in the mempool, returns all in-mempool descendants.
 
 ```text
 > aokchain-cli getmempooldescendants "mytxid"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmempooldescendants", "params": ["mytxid"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmempooldescendants", "params": ["mytxid"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getmempoolentry
@@ -729,7 +729,7 @@ Returns mempool data for given transaction
 
 ```text
 > aokchain-cli getmempoolentry "mytxid"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmempoolentry", "params": ["mytxid"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmempoolentry", "params": ["mytxid"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getmempoolinfo
@@ -756,7 +756,7 @@ Returns details on the active state of the TX memory pool.
 
 ```text
 > aokchain-cli getmempoolinfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmempoolinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmempoolinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getrawmempool
@@ -806,7 +806,7 @@ Result: (for verbose = true):
 
 ```text
 > aokchain-cli getrawmempool true
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawmempool", "params": [true] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawmempool", "params": [true] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getsnapshotinfo
@@ -837,7 +837,7 @@ The chain state snapshot that this program accepts, whether this node started fr
 
 ```text
 > aokchain-cli getsnapshotinfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getsnapshotinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getsnapshotinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getspentinfo
@@ -871,7 +871,7 @@ Returns the txid and index where an output is spent.
 
 ```text
 > aokchain-cli getspentinfo '{"txid": "0437cd7f8525ceed2324359c2d0ba26006d92d856a9c20fa0241106ee5a597c9", "index": 0}'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getspentinfo", "params": [{"txid": "0437cd7f8525ceed2324359c2d0ba26006d92d856a9c20fa0241106ee5a597c9", "index": 0}] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getspentinfo", "params": [{"txid": "0437cd7f8525ceed2324359c2d0ba26006d92d856a9c20fa0241106ee5a597c9", "index": 0}] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getstatehashes
@@ -902,7 +902,7 @@ Compute the hashes that identify the chain state of this node at its tip: the va
 
 ```text
 > aokchain-cli getstatehashes
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getstatehashes", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getstatehashes", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### gettxout
@@ -952,7 +952,7 @@ View the details
 > aokchain-cli gettxout "txid" 1
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettxout", "params": ["txid", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettxout", "params": ["txid", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### gettxoutproof
@@ -1009,7 +1009,7 @@ Returns statistics about the unspent transaction output set. Note this call may 
 
 ```text
 > aokchain-cli gettxoutsetinfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettxoutsetinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettxoutsetinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### issuanceinfo
@@ -1044,7 +1044,7 @@ The effects of preciousblock are not retained across restarts.
 
 ```text
 > aokchain-cli preciousblock "blockhash"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "preciousblock", "params": ["blockhash"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "preciousblock", "params": ["blockhash"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### pruneblockchain
@@ -1070,7 +1070,7 @@ n    (numeric) Height of the last block pruned.
 
 ```text
 > aokchain-cli pruneblockchain 1000
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "pruneblockchain", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "pruneblockchain", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### repaircoins
@@ -1103,7 +1103,7 @@ Look for unspent outputs that have no transaction time in the chain state of thi
 ```text
 > aokchain-cli repaircoins true
 > aokchain-cli repaircoins
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "repaircoins", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "repaircoins", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### savemempool
@@ -1118,7 +1118,7 @@ Dumps the mempool to disk.
 
 ```text
 > aokchain-cli savemempool
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "savemempool", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "savemempool", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### scantxoutset
@@ -1168,7 +1168,7 @@ Scans the unspent transaction outputs of the chain for outputs that pay to the g
 
 ```text
 > aokchain-cli scantxoutset start '["address"]'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "scantxoutset", "params": ["start", ["address"]] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "scantxoutset", "params": ["start", ["address"]] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### skipbootstrap
@@ -1189,7 +1189,7 @@ true|false    (boolean) whether a bootstrap was running
 
 ```text
 > aokchain-cli skipbootstrap
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "skipbootstrap", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "skipbootstrap", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### verifychain
@@ -1217,7 +1217,7 @@ true|false       (boolean) Verified or not
 
 ```text
 > aokchain-cli verifychain
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "verifychain", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "verifychain", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### verifytxoutproof

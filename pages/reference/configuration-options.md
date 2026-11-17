@@ -5,7 +5,7 @@ order: 11
 generated_by: tools/options_reference.py
 ---
 
-The options of AokChain Core 4.0.7, as `aokchaind -help` prints them. Give an option on the command line as `-name=value`, or write it as a line `name=value` in `aokchain.conf` (where the file lives is on [[configure-a-node]]). A setting on the command line wins over the same setting in the file. A switch such as `-txindex` is turned on with `1` and off with `0`, and `-nofoo` is the same as `-foo=0`.
+The options of AokChain Core 4.0.8, as `aokchaind -help` prints them. Give an option on the command line as `-name=value`, or write it as a line `name=value` in `aokchain.conf` (where the file lives is on [[configure-a-node]]). A setting on the command line wins over the same setting in the file. A switch such as `-txindex` is turned on with `1` and off with `0`, and `-nofoo` is the same as `-foo=0`.
 
 The desktop wallet, `aokchain-qt`, takes the same options except `-daemon` and `-daemonwait`, and the few of its own listed under [GUI options](#gui-options).
 
@@ -122,6 +122,8 @@ The desktop wallet, `aokchain-qt`, takes the same options except `-daemon` and `
 | `-salvagewallet` | Attempt to recover private keys from a corrupt wallet on startup |
 | `-spendzeroconfchange` | Spend unconfirmed change when sending transactions (default: 1) |
 | `-spendofflinestaking` | Let a payment take coins at an offline staking address on its own. Otherwise they are spent only when they are selected, with coin control or in a raw transaction (default: 0) |
+| `-staking` | Stake with the coins of every wallet while it is unlocked; the desktop wallet has a switch for it (default: 0) |
+| `-stakingwallet=<name>` | With -staking, stake with this wallet only, by its name as listwallets shows it; may be given several times. A wallet that is not named does not stake, whether it is opened at the start or later (default: every wallet stakes) |
 | `-stakecombinethreshold=<amt>` | A stake gathers the coins of its address that are smaller than this amount (in AOK) and is split in two when it reaches twice the amount, so the staking coins end up between one and two times this size (default: 1000.00) |
 | `-txconfirmtarget=<n>` | If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: 6) |
 | `-walletrbf` | Send transactions with full-RBF opt-in enabled (default: 0) |
@@ -219,17 +221,16 @@ Only `aokchain-qt` reads these.
 | `-rootcertificates=<file>` | Set SSL root certificates for payment request (default: -system-) |
 | `-splash` | Show splash screen on startup (default: 1) |
 | `-resetguisettings` | Reset all settings changed in the GUI |
+| `-advancedui` | Show the controls for experts: the unit of the amount fields, and owner tokens in the fields for sending tokens (default: 0) |
 
 
 ## Options not listed by -help
 
-The programs read these options although `-help` does not show them.
+The programs read this option although `-help` does not show it.
 
 | Option | Description |
 |---|---|
-| `-staking` | Search for stakes with the wallets that are loaded, from the start (default: 0). The desktop wallet starts with the staking switch in this position. `getstakinginfo` reports it as `enabled`. |
 | `-tokenindex` | Maintain the token address index, used by listaddressesbytoken, listtokenbalancesbyaddress and listuniquetokenholders (default: 1). Changing it needs a rebuild with -reindex. |
-| `-advancedui` | Only `aokchain-qt` reads it: show the advanced view of the desktop wallet, with the pages Create Tokens and Manage Tokens in the side bar, the owner token box on the token send page and a unit list next to amount fields (default: 0). |
 
 ## Debugging options
 

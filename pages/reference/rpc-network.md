@@ -5,12 +5,12 @@ order: 25
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the network category, as AokChain Core 4.0.7 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the network category, as AokChain Core 4.0.8 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
-> Many examples in these help texts come from the upstream code: their addresses are often
-> Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on
-> port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].
+> The addresses in the examples of these help texts are example addresses that belong to nobody.
+> Their `curl` lines use port 33440, where a node of the main network answers JSON-RPC; on testnet
+> and regtest it is port 44550, and `rpcport` sets another one. See [[json-rpc]].
 > The examples of the upstream code use private network addresses; this page shows them
 > in the documentation range 192.0.2.0/24.
 
@@ -48,8 +48,8 @@ Attempts to add or remove a node from the addnode list. Or try a connection to a
 **Examples**
 
 ```text
-> aokchain-cli addnode "192.0.2.6:8767" "onetry"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addnode", "params": ["192.0.2.6:8767", "onetry"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli addnode "192.0.2.6:33441" "onetry"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addnode", "params": ["192.0.2.6:33441", "onetry"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### clearbanned
@@ -64,7 +64,7 @@ Clear all banned IPs.
 
 ```text
 > aokchain-cli clearbanned
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "clearbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "clearbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### disconnectnode
@@ -89,10 +89,10 @@ To disconnect by nodeid, either set 'address' to the empty string, or call using
 **Examples**
 
 ```text
-> aokchain-cli disconnectnode "192.0.2.6:8767"
+> aokchain-cli disconnectnode "192.0.2.6:33441"
 > aokchain-cli disconnectnode "" 1
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["192.0.2.6:8767"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["192.0.2.6:33441"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaddednodeinfo
@@ -118,7 +118,7 @@ Returns information about the given added node, or all added nodes (note that on
     "connected" : true|false,          (boolean) If connected
     "addresses" : [                    (list of objects) Only when connected = true
        {
-         "address" : "192.0.2.201:8767",  (string) The aokchain server IP and port we're connected to
+         "address" : "192.0.2.201:33441",  (string) The aokchain server IP and port we're connected to
          "connected" : "outbound"           (string) connection, inbound or outbound
        }
      ]
@@ -131,7 +131,7 @@ Returns information about the given added node, or all added nodes (note that on
 
 ```text
 > aokchain-cli getaddednodeinfo "192.0.2.201"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddednodeinfo", "params": ["192.0.2.201"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddednodeinfo", "params": ["192.0.2.201"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getconnectioncount
@@ -152,7 +152,7 @@ n          (numeric) The connection count
 
 ```text
 > aokchain-cli getconnectioncount
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getconnectioncount", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getconnectioncount", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getnettotals
@@ -186,7 +186,7 @@ Returns information about network traffic, including bytes in, bytes out, and cu
 
 ```text
 > aokchain-cli getnettotals
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnettotals", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnettotals", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getnetworkinfo
@@ -202,7 +202,7 @@ Returns an object containing various state info regarding P2P networking.
 ```text
 {
   "version": xxxxx,                      (numeric) the server version
-  "subversion": "/Satoshi:x.x.x/",     (string) the server subversion string
+  "subversion": "/AokChain:x.x.x/",     (string) the server subversion string
   "protocolversion": xxxxx,              (numeric) the protocol version
   "localservices": "xxxxxxxxxxxxxxxx", (string) the services we offer to the network
   "localrelay": true|false,              (bool) true if transaction relay is requested from peers
@@ -237,7 +237,7 @@ Returns an object containing various state info regarding P2P networking.
 
 ```text
 > aokchain-cli getnetworkinfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getnodeaddresses
@@ -271,7 +271,7 @@ Returns known addresses of nodes, which can be used to find new nodes in the net
 
 ```text
 > aokchain-cli getnodeaddresses 8
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnodeaddresses", "params": [8] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnodeaddresses", "params": [8] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getpeerinfo
@@ -303,7 +303,7 @@ Returns data about each connected network node as a json array of objects.
     "minping": n,              (numeric) minimum observed ping time (if any at all)
     "pingwait": n,             (numeric) ping wait (if non-zero)
     "version": v,              (numeric) The peer version, such as 7001
-    "subver": "/Satoshi:0.8.5/",  (string) The string version
+    "subver": "/AokChain:4.0.8/",  (string) The string version
     "inbound": true|false,     (boolean) Inbound (true) or Outbound (false)
     "addnode": true|false,     (boolean) Whether connection was due to addnode/-connect or if it was an automatic/inbound connection
     "startingheight": n,       (numeric) The starting height (block) of the peer
@@ -332,7 +332,7 @@ Returns data about each connected network node as a json array of objects.
 
 ```text
 > aokchain-cli getpeerinfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getpeerinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getpeerinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listbanned
@@ -347,7 +347,7 @@ List all banned IPs/Subnets.
 
 ```text
 > aokchain-cli listbanned
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### ping
@@ -362,7 +362,7 @@ Requests that a ping be sent to all other nodes, to measure ping time. Results p
 
 ```text
 > aokchain-cli ping
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "ping", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "ping", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### setban
@@ -387,7 +387,7 @@ Attempts to add or remove an IP/Subnet from the banned list.
 ```text
 > aokchain-cli setban "192.0.2.6" "add" 86400
 > aokchain-cli setban "192.0.2.0/24" "add"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setban", "params": ["192.0.2.6", "add", 86400] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setban", "params": ["192.0.2.6", "add", 86400] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### setnetworkactive

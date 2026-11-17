@@ -5,12 +5,12 @@ order: 26
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the raw transactions category, as AokChain Core 4.0.7 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the raw transactions category, as AokChain Core 4.0.8 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
-> Many examples in these help texts come from the upstream code: their addresses are often
-> Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on
-> port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].
+> The addresses in the examples of these help texts are example addresses that belong to nobody.
+> Their `curl` lines use port 33440, where a node of the main network answers JSON-RPC; on testnet
+> and regtest it is port 44550, and `rpcport` sets another one. See [[json-rpc]].
 
 | Command | Summary |
 |---|---|
@@ -62,7 +62,7 @@ Combine multiple partially signed transactions into one transaction. The combine
 createrawtransaction [{"txid":"id","vout":n},...] {"address":(amount or object),"data":"hex",...} ( locktime )
 ```
 
-Create a transaction spending the given inputs and creating new outputs. Outputs are addresses (paired with a AOK amount, data or object specifying an token operation) or data. Returns hex-encoded raw transaction. Note that the transaction's inputs are not signed, and it is not stored in the wallet or transmitted to the network.
+Create a transaction spending the given inputs and creating new outputs. Outputs are addresses (paired with an AOK amount, data or object specifying a token operation) or data. Returns hex-encoded raw transaction. Note that the transaction's inputs are not signed, and it is not stored in the wallet or transmitted to the network.
 
 Paying for Token Operations:
 
@@ -164,11 +164,11 @@ Output Ordering:
 ```text
 > aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0}]" "{\"address\":0.01}"
 > aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0}]" "{\"data\":\"00010203\"}"
-> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0}]" "{\"KdZFAFeKV8C5JzdEdgcPYDZku92KkD3fHy\":10000,\"change_address\":change_amount,\"issuer_address\":{\"issue\":{\"token_name\":\"MYTOKEN\",\"token_quantity\":1000000,\"units\":1,\"reissuable\":0,\"has_ipfs\":0}}}"
-> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0},{\"txid\":\"myownership\",\"vout\":0}]" "{\"KdZFAFeKV8C5JzdEdgcPYDZku92KkD3fHy\":200,\"change_address\":change_amount,\"issuer_address\":{\"issue_unique\":{\"root_name\":\"MYTOKEN\",\"token_tags\":[\"ALPHA\",\"BETA\"]}}}"
+> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0}]" "{\"KaokChainExampLeAddressFirstxCXj28\":10000,\"change_address\":change_amount,\"issuer_address\":{\"issue\":{\"token_name\":\"MYTOKEN\",\"token_quantity\":1000000,\"units\":1,\"reissuable\":0,\"has_ipfs\":0}}}"
+> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0},{\"txid\":\"myownership\",\"vout\":0}]" "{\"KaokChainExampLeAddressFirstxCXj28\":200,\"change_address\":change_amount,\"issuer_address\":{\"issue_unique\":{\"root_name\":\"MYTOKEN\",\"token_tags\":[\"ALPHA\",\"BETA\"]}}}"
 > aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0},{\"txid\":\"mytoken\",\"vout\":0}]" "{\"address\":{\"transfer\":{\"MYTOKEN\":50}}}"
-> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0},{\"txid\":\"myownership\",\"vout\":0}]" "{\"KdZFAFeKV8C5JzdEdgcPYDZku92KkD3fHy\":10000,\"change_address\":change_amount,\"issuer_address\":{\"reissue\":{\"token_name\":\"MYTOKEN\",\"token_quantity\":2000000}}}"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": ["[{\"txid\":\"mycoin\",\"vout\":0}]", "{\"data\":\"00010203\"}"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli createrawtransaction "[{\"txid\":\"mycoin\",\"vout\":0},{\"txid\":\"myownership\",\"vout\":0}]" "{\"KaokChainExampLeAddressFirstxCXj28\":10000,\"change_address\":change_amount,\"issuer_address\":{\"reissue\":{\"token_name\":\"MYTOKEN\",\"token_quantity\":2000000}}}"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": ["[{\"txid\":\"mycoin\",\"vout\":0}]", "{\"data\":\"00010203\"}"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### decoderawtransaction
@@ -218,7 +218,7 @@ Return a JSON object representing the serialized, hex-encoded transaction.
          "reqSigs" : n,            (numeric) The required sigs
          "type" : "pubkeyhash",  (string) The type, eg 'pubkeyhash'
          "addresses" : [           (json array of string)
-           "12tvKAXCxZjSmdNbao16dKXC8tRWfcF5oc"   (string) aokchain address
+           "KaokChainExampLeAddressFirstxCXj28"   (string) aokchain address
            ,...
          ]
        }
@@ -232,7 +232,7 @@ Return a JSON object representing the serialized, hex-encoded transaction.
 
 ```text
 > aokchain-cli decoderawtransaction "hexstring"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decoderawtransaction", "params": ["hexstring"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decoderawtransaction", "params": ["hexstring"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### decodescript
@@ -262,7 +262,7 @@ Decode a hex-encoded script.
      ,...
   ],
   "p2sh":"address",       (string) address of P2SH script wrapping this redeem script (not returned if the script is already a P2SH).
-  "(The following only appears if the script is an token script)
+  "(The following only appears if the script is a token script)
   "token_name":"name",      (string) Name of the token.
   "amount":"x.xx",          (numeric) The amount of tokens interacted with.
   "units": n,                (numeric) The units of the token. (Only appears in the type (new_token))
@@ -277,7 +277,7 @@ Decode a hex-encoded script.
 
 ```text
 > aokchain-cli decodescript "hexstring"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decodescript", "params": ["hexstring"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decodescript", "params": ["hexstring"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### fundrawtransaction
@@ -302,7 +302,7 @@ Add inputs to a transaction until it has enough in value to meet its out value. 
      "subtractFeeFromOutputs" (array, optional) A json array of integers.
                               The fee will be equally deducted from the amount of each specified output.
                               The outputs are specified by their zero-based index, before any change output is added.
-                              Those recipients will receive less aokchains than you enter in their corresponding amount field.
+                              Those recipients will receive less AOK than you enter in their corresponding amount field.
                               If no outputs are specified here, the sender pays the fee.
                                   [vout_index,...]
                               Allows this transaction to be replaced by a transaction with higher fees
@@ -419,7 +419,7 @@ If verbose is 'true', returns an Object with information about 'txid'. If verbos
 ```text
 > aokchain-cli getrawtransaction "mytxid"
 > aokchain-cli getrawtransaction "mytxid" true
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawtransaction", "params": ["mytxid", true] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawtransaction", "params": ["mytxid", true] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### sendrawtransaction
@@ -459,7 +459,7 @@ Send the transaction (signed hex)
 > aokchain-cli sendrawtransaction "signedhex"
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendrawtransaction", "params": ["signedhex"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendrawtransaction", "params": ["signedhex"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### signrawtransaction
@@ -524,7 +524,7 @@ Requires wallet passphrase to be set with walletpassphrase call.
 
 ```text
 > aokchain-cli signrawtransaction "myhex"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransaction", "params": ["myhex"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransaction", "params": ["myhex"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### signrawtransactionwithkey
@@ -558,7 +558,7 @@ Signs the inputs of a raw transaction (serialized, hex-encoded) with the given p
 
 ```text
 > aokchain-cli signrawtransactionwithkey "myhex" '["privatekey"]'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransactionwithkey", "params": ["myhex", ["privatekey"]] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransactionwithkey", "params": ["myhex", ["privatekey"]] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### signrawtransactionwithwallet
@@ -591,7 +591,7 @@ Signs the inputs of a raw transaction (serialized, hex-encoded) with the keys of
 
 ```text
 > aokchain-cli signrawtransactionwithwallet "myhex"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransactionwithwallet", "params": ["myhex"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransactionwithwallet", "params": ["myhex"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### testmempoolaccept
@@ -628,5 +628,5 @@ See sendrawtransaction for how to send it.
 
 ```text
 > aokchain-cli testmempoolaccept "[\"signedhex\"]"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "testmempoolaccept", "params": [["signedhex"]] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "testmempoolaccept", "params": [["signedhex"]] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```

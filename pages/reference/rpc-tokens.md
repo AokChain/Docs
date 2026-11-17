@@ -5,19 +5,19 @@ order: 27
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the tokens category, as AokChain Core 4.0.7 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the tokens category, as AokChain Core 4.0.8 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
-> Many examples in these help texts come from the upstream code: their addresses are often
-> Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on
-> port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].
+> The addresses in the examples of these help texts are example addresses that belong to nobody.
+> Their `curl` lines use port 33440, where a node of the main network answers JSON-RPC; on testnet
+> and regtest it is port 44550, and `rpcport` sets another one. See [[json-rpc]].
 
 | Command | Summary |
 |---|---|
 | [getcacheinfo](#getcacheinfo) |  |
 | [gettokendata](#gettokendata) | Returns tokens metadata if that token exists |
 | [getusernameaddress](#getusernameaddress) |  |
-| [issue](#issue) | Issue an token, subtoken or unique token. |
+| [issue](#issue) | Issue a token, a sub token or a unique token. |
 | [issueunique](#issueunique) | Issue unique token(s). |
 | [listaddressesbytoken](#listaddressesbytoken) | Returns a list of all address that own the given token (with balances) |
 | [listmylockedtokens](#listmylockedtokens) | Returns a list of all locked token that are owned by this wallet |
@@ -26,7 +26,7 @@ The help text of every command in the tokens category, as AokChain Core 4.0.7 pr
 | [listtokens](#listtokens) | Returns a list of all tokens |
 | [listuniquetokenholders](#listuniquetokenholders) | Returns a list holders of unique |
 | [registerusername](#registerusername) |  |
-| [reissue](#reissue) | Reissues a quantity of an token to an owned address if you own the Owner Token |
+| [reissue](#reissue) | Reissues a quantity of a token to an owned address if you own the Owner Token |
 | [transfer](#transfer) | Transfers a quantity of an owned token to a given address |
 | [transferfromaddress](#transferfromaddress) | Transfer a quantity of an owned token in a specific address to a given address |
 | [transfermany](#transfermany) | Send multiple times. |
@@ -57,7 +57,7 @@ getcacheinfo
 **Examples**
 
 ```text
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getcacheinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getcacheinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 > aokchain-cli getcacheinfo
 ```
 
@@ -112,7 +112,7 @@ getusernameaddress @USERNAME
 issue "token_name" qty "( to_address )" "( change_address )" ( units ) ( reissuable ) ( has_ipfs ) "( ipfs_hash )
 ```
 
-Issue an token, subtoken or unique token. Token name must not conflict with any existing token. Unit as the number of decimals precision for the token (0 for whole units ("1"), 8 for max precision ("1.00000000") Reissuable is true/false for whether additional units can be issued by the original issuer. If issuing a unique token these values are required (and will be defaulted to): qty=1, units=0, reissuable=false.
+Issue a token, a sub token or a unique token. Token name must not conflict with any existing token. Unit as the number of decimals precision for the token (0 for whole units ("1"), 8 for max precision ("1.00000000") Reissuable is true/false for whether additional units can be issued by the original issuer. If issuing a unique token these values are required (and will be defaulted to): qty=1, units=0, reissuable=false.
 
 **Arguments**
 
@@ -120,10 +120,10 @@ Issue an token, subtoken or unique token. Token name must not conflict with any 
 1. "token_name"            (string, required) a unique name
 2. "qty"                   (numeric, optional, default=1) the number of units to be issued
 3. "to_address"            (string), optional, default=""), address token will be sent to, if it is empty, address will be generated for you
-4. "change_address"        (string), optional, default=""), address the the AOK change will be sent to, if it is empty, change address will be generated for you
+4. "change_address"        (string), optional, default=""), address the AOK change will be sent to, if it is empty, change address will be generated for you
 5. "units"                 (integer, optional, default=0, min=0, max=8), the number of decimals precision for the token (0 for whole units ("1"), 8 for max precision ("1.00000000")
 6. "reissuable"            (boolean, optional, default=true (false for unique tokens)), whether future reissuance is allowed
-7. "has_ipfs"              (boolean, optional, default=false), whether ifps hash is going to be added to the token
+7. "has_ipfs"              (boolean, optional, default=false), whether an IPFS hash is going to be added to the token
 8. "ipfs_hash"             (string, optional but required if has_ipfs = 1), an ipfs hash (only sha2-256 hashes currently supported -- Qm...)
 ```
 
@@ -160,7 +160,7 @@ Issue unique token(s). root\_name is a token or a sub token whose owner token (r
 2. "token_tags"            (array, required) the unique tag for each token which is to be issued
 3. "ipfs_hashes"           (array, optional) ipfs hashes corresponding to each supplied tag (should be same size as "token_tags") (only sha2-256 hashes currently supported -- Qm...)
 4. "to_address"            (string, optional, default=""), address tokens will be sent to, if it is empty, address will be generated for you
-5. "change_address"        (string, optional, default=""), address the the AOK change will be sent to, if it is empty, change address will be generated for you
+5. "change_address"        (string, optional, default=""), address the AOK change will be sent to, if it is empty, change address will be generated for you
 ```
 
 **Result**
@@ -221,7 +221,7 @@ Returns a list of all locked token that are owned by this wallet
 **Arguments**
 
 ```text
-1. "token"                    (string, optional, default="*") filters results -- must be an token name or a partial token name followed by '*' ('*' matches all trailing characters)
+1. "token"                    (string, optional, default="*") filters results -- must be a token name or a partial token name followed by '*' ('*' matches all trailing characters)
 2. "verbose"                  (boolean, optional, default=false) when false results only contain balances -- when true results include outpoints
 3. "count"                    (integer, optional, default=ALL) truncates results to include only the first _count_ tokens found
 4. "start"                    (integer, optional, default=0) results skip over the first _start_ tokens found (if negative it skips back from the end)
@@ -260,7 +260,7 @@ Returns a list of all locked token that are owned by this wallet
 **Examples**
 
 ```text
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listmylockedtokens", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listmylockedtokens", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 > aokchain-cli listmylockedtokens TOKEN
 > aokchain-cli listmylockedtokens "TOKEN*" true 10 20
 ```
@@ -276,7 +276,7 @@ Returns a list of all token that are owned by this wallet
 **Arguments**
 
 ```text
-1. "token"                    (string, optional, default="*") filters results -- must be an token name or a partial token name followed by '*' ('*' matches all trailing characters)
+1. "token"                    (string, optional, default="*") filters results -- must be a token name or a partial token name followed by '*' ('*' matches all trailing characters)
 2. "verbose"                  (boolean, optional, default=false) when false results only contain balances -- when true results include outpoints
 3. "count"                    (integer, optional, default=ALL) truncates results to include only the first _count_ tokens found
 4. "start"                    (integer, optional, default=0) results skip over the first _start_ tokens found (if negative it skips back from the end)
@@ -315,7 +315,7 @@ Returns a list of all token that are owned by this wallet
 **Examples**
 
 ```text
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listmytokens", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listmytokens", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 > aokchain-cli listmytokens TOKEN
 > aokchain-cli listmytokens "TOKEN*" true 10 20
 ```
@@ -331,7 +331,7 @@ Returns a list of all token balances for an address.
 **Arguments**
 
 ```text
-1. "address"                  (string, required) a aokchain address
+1. "address"                  (string, required) an aokchain address
 2. "onlytotal"                (boolean, optional, default=false) when false result is just a list of tokens balances -- when true the result is just a single number representing the number of tokens
 3. "count"                    (integer, optional, default=50000, MAX=50000) truncates results to include only the first _count_ tokens found
 4. "start"                    (integer, optional, default=0) results skip over the first _start_ tokens found (if negative it skips back from the end)
@@ -367,7 +367,7 @@ This could be a slow/expensive operation as it reads from the database
 **Arguments**
 
 ```text
-1. "token"                    (string, optional, default="*") filters results -- must be an token name or a partial token name followed by '*' ('*' matches all trailing characters)
+1. "token"                    (string, optional, default="*") filters results -- must be a token name or a partial token name followed by '*' ('*' matches all trailing characters)
 2. "verbose"                  (boolean, optional, default=false) when false result is just a list of token names -- when true results are token name mapped to metadata
 3. "count"                    (integer, optional, default=ALL) truncates results to include only the first _count_ tokens found
 4. "start"                    (integer, optional, default=0) results skip over the first _start_ tokens found (if negative it skips back from the end)
@@ -401,7 +401,7 @@ This could be a slow/expensive operation as it reads from the database
 **Examples**
 
 ```text
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listtokens", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listtokens", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 > aokchain-cli listtokens TOKEN
 > aokchain-cli listtokens "TOKEN*" true 10 20
 ```
@@ -468,7 +468,7 @@ registerusername "username" "( to_address )"
 reissue "token_name" qty "to_address" "change_address" ( reissuable ) ( new_unit ) "( new_ipfs )"
 ```
 
-Reissues a quantity of an token to an owned address if you own the Owner Token Can change the reissuable flag during reissuance Can change the ipfs hash during reissuance
+Reissues a quantity of a token to an owned address if you own the Owner Token Can change the reissuable flag during reissuance Can change the ipfs hash during reissuance
 
 **Arguments**
 
@@ -479,7 +479,7 @@ Reissues a quantity of an token to an owned address if you own the Owner Token C
 4. "change_address"           (string, optional) address that the change of the transaction will be sent to
 5. "reissuable"               (boolean, optional, default=true), whether future reissuance is allowed
 6. "new_unit"                 (numeric, optional, default=-1), the new units that will be associated with the token
-7. "new_ifps"                 (string, optional, default=""), whether to update the current ipfshash (only sha2-256 hashes currently supported -- Qm...)
+7. "new_ipfs"                 (string, optional, default=""), whether to update the current IPFS hash (only sha2-256 hashes currently supported -- Qm...)
 ```
 
 **Result**
@@ -592,13 +592,13 @@ Send multiple times. Amounts are double-precision floating point numbers.
 
 ```text
 Send two amounts to two different addresses:
-> aokchain-cli transfermany "TOKEN_NAME" "{\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX\":0.01,\"1353tsE8YMTA4EuV7dgUXGjNFf9KpVvKHz\":0.02}"
+> aokchain-cli transfermany "TOKEN_NAME" "{\"KaokChainExampLeAddressFirstxCXj28\":0.01,\"KaokChainExampLeAddressNexty3g7Dd9\":0.02}"
 ```
 
 ### transfermanyoutputs
 
 ```text
-transfermanyoutputs [{"address":"Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh",...}]
+transfermanyoutputs [{"address":"KaokChainExampLeAddressFirstxCXj28",...}]
 ```
 
 Send transaction with multiple outputs.
@@ -620,5 +620,5 @@ Send transaction with multiple outputs.
 
 ```text
 Send two amounts to two different addresses:
-> aokchain-cli transfermanyoutputs [{"address":"Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh",...}]
+> aokchain-cli transfermanyoutputs [{"address":"KaokChainExampLeAddressFirstxCXj28",...}]
 ```

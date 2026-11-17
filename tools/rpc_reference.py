@@ -465,9 +465,9 @@ def version_label(version):
 
 EXAMPLES_NOTE = (
     "> [!NOTE]\n"
-    "> Many examples in these help texts come from the upstream code: their addresses are often\n"
-    "> Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on\n"
-    "> port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].\n"
+    "> The addresses in the examples of these help texts are example addresses that belong to nobody.\n"
+    "> Their `curl` lines use port 33440, where a node of the main network answers JSON-RPC; on testnet\n"
+    "> and regtest it is port 44550, and `rpcport` sets another one. See [[json-rpc]].\n"
 )
 
 

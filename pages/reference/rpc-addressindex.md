@@ -5,12 +5,12 @@ order: 20
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the address index category, as AokChain Core 4.0.7 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the address index category, as AokChain Core 4.0.8 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
-> Many examples in these help texts come from the upstream code: their addresses are often
-> Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on
-> port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].
+> The addresses in the examples of these help texts are example addresses that belong to nobody.
+> Their `curl` lines use port 33440, where a node of the main network answers JSON-RPC; on testnet
+> and regtest it is port 44550, and `rpcport` sets another one. See [[json-rpc]].
 
 | Command | Summary |
 |---|---|
@@ -65,10 +65,10 @@ OR
 **Examples**
 
 ```text
-> aokchain-cli getaddressbalance '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}'
-> aokchain-cli getaddressbalance '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}', true
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}, true] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli getaddressbalance '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}'
+> aokchain-cli getaddressbalance '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}', true
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}, true] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaddressdeltas
@@ -114,10 +114,10 @@ Returns all changes for an address (requires addressindex to be enabled).
 **Examples**
 
 ```text
-> aokchain-cli getaddressdeltas '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
-> aokchain-cli getaddressdeltas '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"],"tokenName":"MY_TOKEN"}'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"],"tokenName":"MY_TOKEN"}] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli getaddressdeltas '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}'
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
+> aokchain-cli getaddressdeltas '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"],"tokenName":"MY_TOKEN"}'
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"],"tokenName":"MY_TOKEN"}] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaddresses
@@ -182,10 +182,10 @@ Returns all mempool deltas for an address (requires addressindex to be enabled).
 **Examples**
 
 ```text
-> aokchain-cli getaddressmempool '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressmempool", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
-> aokchain-cli getaddressmempool '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}', true
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressmempool", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}, true] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli getaddressmempool '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}'
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressmempool", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
+> aokchain-cli getaddressmempool '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}', true
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressmempool", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}, true] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaddresstxids
@@ -224,10 +224,10 @@ Returns the txids for an address(es) (requires addressindex to be enabled).
 **Examples**
 
 ```text
-> aokchain-cli getaddresstxids '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
-> aokchain-cli getaddresstxids '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}', true
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}, true] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli getaddresstxids '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}'
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
+> aokchain-cli getaddresstxids '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}', true
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}, true] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaddressutxos
@@ -285,11 +285,11 @@ With "limit" or "chainInfo":
 **Examples**
 
 ```text
-> aokchain-cli getaddressutxos "12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"
-> aokchain-cli getaddressutxos '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"]}'
-> aokchain-cli getaddressutxos '{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"], "limit": 1000}'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"], "limit": 1000, "after": "<next of the last page>"}] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"],"tokenName":"MY_TOKEN"}] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli getaddressutxos "KaokChainExampLeAddressFirstxCXj28"
+> aokchain-cli getaddressutxos '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"]}'
+> aokchain-cli getaddressutxos '{"addresses": ["KaokChainExampLeAddressFirstxCXj28"], "limit": 1000}'
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"], "limit": 1000, "after": "<next of the last page>"}] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["KaokChainExampLeAddressFirstxCXj28"],"tokenName":"MY_TOKEN"}] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### gettokentransactions

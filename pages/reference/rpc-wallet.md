@@ -5,12 +5,12 @@ order: 29
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the wallet category, as AokChain Core 4.0.7 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the wallet category, as AokChain Core 4.0.8 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
-> Many examples in these help texts come from the upstream code: their addresses are often
-> Bitcoin addresses, and their `curl` lines use port 8766. An AokChain node answers JSON-RPC on
-> port 33440 (mainnet) or 44550 (testnet and regtest) unless `rpcport` says otherwise; see [[json-rpc]].
+> The addresses in the examples of these help texts are example addresses that belong to nobody.
+> Their `curl` lines use port 33440, where a node of the main network answers JSON-RPC; on testnet
+> and regtest it is port 44550, and `rpcport` sets another one. See [[json-rpc]].
 
 | Command | Summary |
 |---|---|
@@ -19,20 +19,20 @@ The help text of every command in the wallet category, as AokChain Core 4.0.7 pr
 | [addmultisigaddress](#addmultisigaddress) | Add a nrequired-to-sign multisignature address to the wallet. |
 | [addwitnessaddress](#addwitnessaddress) | Add a witness address for a script (with pubkey or redeemscript known). |
 | [backupwallet](#backupwallet) | Safely copies current wallet file to destination, which can be a directory or a path with filename. |
-| [bumpfee](#bumpfee) | bumpfee has been deprecated on the AOK Wallet. |
+| [bumpfee](#bumpfee) | bumpfee is not available in AokChain Core. |
 | [createwallet](#createwallet) | Creates and loads a new wallet. |
 | [dumpprivkey](#dumpprivkey) | Reveals the private key corresponding to 'address'. |
 | [dumpwallet](#dumpwallet) | Dumps all wallet keys in a human-readable format to a server-side file. |
 | [encryptwallet](#encryptwallet) | Encrypts the wallet with 'passphrase'. |
 | [getaccount](#getaccount) | DEPRECATED. Returns the account associated with the given address. |
-| [getaccountaddress](#getaccountaddress) | DEPRECATED. Returns the current Bitcoin address for receiving payments to this account. |
+| [getaccountaddress](#getaccountaddress) | DEPRECATED. Returns the current AokChain address for receiving payments to this account. |
 | [getaddressesbyaccount](#getaddressesbyaccount) | DEPRECATED. Returns the list of addresses for the given account. |
 | [getaddressesbylabel](#getaddressesbylabel) | Returns the list of addresses assigned the specified label. |
 | [getaddressinfo](#getaddressinfo) | Returns what the wallet knows about an address. |
 | [getbalance](#getbalance) | If account is not specified, returns the server's total available balance. |
 | [getbalances](#getbalances) | Returns all balances of the wallet in AOK. |
 | [getnewaddress](#getnewaddress) | Returns a new AokChain address for receiving payments. |
-| [getofflinestakingaddress](#getofflinestakingaddress) | Returns a offline staking address based on two address inputs |
+| [getofflinestakingaddress](#getofflinestakingaddress) | Returns an offline staking address based on two address inputs |
 | [getrawchangeaddress](#getrawchangeaddress) | Returns a new AokChain address, for receiving change. |
 | [getreceivedbyaddress](#getreceivedbyaddress) | Returns the total amount received by the given address in transactions with at least minconf confirmations. |
 | [getreceivedbylabel](#getreceivedbylabel) | Returns the total amount received by addresses with &lt;label&gt; in transactions with at least \[minconf\] confirmations. |
@@ -98,7 +98,7 @@ Mark in-wallet transaction &lt;txid&gt; as abandoned This will mark this transac
 
 ```text
 > aokchain-cli abandontransaction "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "abandontransaction", "params": ["1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "abandontransaction", "params": ["1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### abortrescan
@@ -119,7 +119,7 @@ Abort the running wallet rescan
 > aokchain-cli abortrescan
 
 As a JSON-RPC call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "abortrescan", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "abortrescan", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### addmultisigaddress
@@ -128,7 +128,7 @@ As a JSON-RPC call
 addmultisigaddress nrequired ["key",...] ( "label" )
 ```
 
-Add a nrequired-to-sign multisignature address to the wallet. Each key is a AokChain address or hex-encoded public key. If 'label' is specified, assign address to that label.
+Add a nrequired-to-sign multisignature address to the wallet. Each key is an AokChain address or hex-encoded public key. If 'label' is specified, assign address to that label.
 
 **Arguments**
 
@@ -145,17 +145,17 @@ Add a nrequired-to-sign multisignature address to the wallet. Each key is a AokC
 **Result**
 
 ```text
-"address"         (string) A aokchain address associated with the keys.
+"address"         (string) An aokchain address associated with the keys.
 ```
 
 **Examples**
 
 ```text
 Add a multisig address from 2 addresses
-> aokchain-cli addmultisigaddress 2 "[\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\",\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\"]"
+> aokchain-cli addmultisigaddress 2 "[\"KaokChainExampLeAddressFirstxCXj28\",\"KaokChainExampLeAddressNexty3g7Dd9\"]"
 
 As json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addmultisigaddress", "params": [2, "[\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\",\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\"]"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addmultisigaddress", "params": [2, "[\"KaokChainExampLeAddressFirstxCXj28\",\"KaokChainExampLeAddressNexty3g7Dd9\"]"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### addwitnessaddress
@@ -197,12 +197,12 @@ Safely copies current wallet file to destination, which can be a directory or a 
 
 ```text
 > aokchain-cli backupwallet "backup.dat"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "backupwallet", "params": ["backup.dat"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "backupwallet", "params": ["backup.dat"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### bumpfee
 
-bumpfee has been deprecated on the AOK Wallet.
+bumpfee is not available in AokChain Core.
 
 ### createwallet
 
@@ -231,7 +231,7 @@ Creates and loads a new wallet. It is not encrypted (see encryptwallet). The wal
 
 ```text
 > aokchain-cli createwallet "testwallet"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createwallet", "params": ["testwallet"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createwallet", "params": ["testwallet"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### dumpprivkey
@@ -259,7 +259,7 @@ Reveals the private key corresponding to 'address'. Then the importprivkey can b
 ```text
 > aokchain-cli dumpprivkey "myaddress"
 > aokchain-cli importprivkey "mykey"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpprivkey", "params": ["myaddress"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpprivkey", "params": ["myaddress"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### dumpwallet
@@ -288,7 +288,7 @@ Dumps all wallet keys in a human-readable format to a server-side file. This doe
 
 ```text
 > aokchain-cli dumpwallet "test"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### encryptwallet
@@ -321,7 +321,7 @@ Now lock the wallet again by removing the passphrase
 > aokchain-cli walletlock
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "encryptwallet", "params": ["my pass phrase"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "encryptwallet", "params": ["my pass phrase"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaccount
@@ -347,8 +347,8 @@ DEPRECATED. Returns the account associated with the given address.
 **Examples**
 
 ```text
-> aokchain-cli getaccount "1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaccount", "params": ["1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli getaccount "KaokChainExampLeAddressFirstxCXj28"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaccount", "params": ["KaokChainExampLeAddressFirstxCXj28"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaccountaddress
@@ -357,7 +357,7 @@ DEPRECATED. Returns the account associated with the given address.
 getaccountaddress "account"
 ```
 
-DEPRECATED. Returns the current Bitcoin address for receiving payments to this account.
+DEPRECATED. Returns the current AokChain address for receiving payments to this account.
 
 **Arguments**
 
@@ -368,7 +368,7 @@ DEPRECATED. Returns the current Bitcoin address for receiving payments to this a
 **Result**
 
 ```text
-"address"          (string) The account bitcoin address
+"address"          (string) The account AokChain address
 ```
 
 **Examples**
@@ -377,7 +377,7 @@ DEPRECATED. Returns the current Bitcoin address for receiving payments to this a
 > aokchain-cli getaccountaddress
 > aokchain-cli getaccountaddress ""
 > aokchain-cli getaccountaddress "myaccount"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaccountaddress", "params": ["myaccount"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaccountaddress", "params": ["myaccount"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaddressesbyaccount
@@ -398,7 +398,7 @@ DEPRECATED. Returns the list of addresses for the given account.
 
 ```text
 [                     (json array of string)
-  "address"         (string) a aokchain address associated with the given account
+  "address"         (string) an aokchain address associated with the given account
   ,...
 ]
 ```
@@ -407,7 +407,7 @@ DEPRECATED. Returns the list of addresses for the given account.
 
 ```text
 > aokchain-cli getaddressesbyaccount "tabby"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": ["tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": ["tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaddressesbylabel
@@ -438,7 +438,7 @@ Returns the list of addresses assigned the specified label.
 
 ```text
 > aokchain-cli getaddressesbylabel "tabby"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbylabel", "params": ["tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbylabel", "params": ["tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getaddressinfo
@@ -475,7 +475,7 @@ Returns what the wallet knows about an address. The fields are those of validate
 
 ```text
 > aokchain-cli getaddressinfo "address"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressinfo", "params": ["address"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressinfo", "params": ["address"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getbalance
@@ -521,7 +521,7 @@ The total amount in the wallet at least 6 blocks confirmed
 > aokchain-cli getbalance "*" 6
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbalance", "params": ["*", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbalance", "params": ["*", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getbalances
@@ -554,7 +554,7 @@ Returns all balances of the wallet in AOK.
 
 ```text
 > aokchain-cli getbalances
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbalances", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbalances", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getnewaddress
@@ -581,7 +581,7 @@ Returns a new AokChain address for receiving payments. If 'label' is specified, 
 
 ```text
 > aokchain-cli getnewaddress
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getofflinestakingaddress
@@ -590,7 +590,7 @@ Returns a new AokChain address for receiving payments. If 'label' is specified, 
 getofflinestakingaddress "stakingaddress" "spendingaddress"
 ```
 
-Returns a offline staking address based on two address inputs
+Returns an offline staking address based on two address inputs
 
 **Arguments**
 
@@ -602,10 +602,10 @@ Returns a offline staking address based on two address inputs
 **Examples**
 
 ```text
-> aokchain-cli getofflinestakingaddress "KgZDBz1dV8H4zcZUZ3yV1336bKkQ5L4FXv" "Ktf4i17uoofsKJqMTuLsqGBzHY92bfjPux"
+> aokchain-cli getofflinestakingaddress "KaokChainExampLeAddressFirstxCXj28" "KaokChainExampLeAddressNexty3g7Dd9"
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getofflinestakingaddress", "params": ["KgZDBz1dV8H4zcZUZ3yV1336bKkQ5L4FXv", "Ktf4i17uoofsKJqMTuLsqGBzHY92bfjPux"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getofflinestakingaddress", "params": ["KaokChainExampLeAddressFirstxCXj28", "KaokChainExampLeAddressNexty3g7Dd9"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getrawchangeaddress
@@ -626,7 +626,7 @@ Returns a new AokChain address, for receiving change. This is for use with raw t
 
 ```text
 > aokchain-cli getrawchangeaddress
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getreceivedbyaddress
@@ -654,16 +654,16 @@ amount   (numeric) The total amount in AOK received at this address.
 
 ```text
 The amount from transactions with at least 1 confirmation
-> aokchain-cli getreceivedbyaddress "1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX"
+> aokchain-cli getreceivedbyaddress "KaokChainExampLeAddressFirstxCXj28"
 
 The amount including unconfirmed transactions, zero confirmations
-> aokchain-cli getreceivedbyaddress "1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX" 0
+> aokchain-cli getreceivedbyaddress "KaokChainExampLeAddressFirstxCXj28" 0
 
 The amount with at least 6 confirmations
-> aokchain-cli getreceivedbyaddress "1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX" 6
+> aokchain-cli getreceivedbyaddress "KaokChainExampLeAddressFirstxCXj28" 6
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getreceivedbyaddress", "params": ["1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getreceivedbyaddress", "params": ["KaokChainExampLeAddressFirstxCXj28", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getreceivedbylabel
@@ -700,7 +700,7 @@ The amount with at least 6 confirmations
 > aokchain-cli getreceivedbylabel "tabby" 6
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getreceivedbylabel", "params": ["tabby", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getreceivedbylabel", "params": ["tabby", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### gettransaction
@@ -769,7 +769,7 @@ Get detailed information about in-wallet transaction &lt;txid&gt;
 ```text
 > aokchain-cli gettransaction "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"
 > aokchain-cli gettransaction "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d" true
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettransaction", "params": ["1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettransaction", "params": ["1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### getunconfirmedbalance
@@ -812,7 +812,7 @@ Returns an object containing various wallet state info.
 
 ```text
 > aokchain-cli getwalletinfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getwalletinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getwalletinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### importaddress
@@ -848,7 +848,7 @@ Import using a label without rescan
 > aokchain-cli importaddress "myscript" "testing" false
 
 As a JSON-RPC call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importaddress", "params": ["myscript", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importaddress", "params": ["myscript", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### importmnemonic
@@ -970,7 +970,7 @@ Import using default blank label and without rescan
 > aokchain-cli importprivkey "mykey" "" false
 
 As a JSON-RPC call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importprivkey", "params": ["mykey", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importprivkey", "params": ["mykey", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### importprunedfunds
@@ -1016,7 +1016,7 @@ Import using a label without rescan
 > aokchain-cli importpubkey "mypubkey" "testing" false
 
 As a JSON-RPC call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importpubkey", "params": ["mypubkey", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importpubkey", "params": ["mypubkey", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### importwallet
@@ -1043,7 +1043,7 @@ Import the wallet
 > aokchain-cli importwallet "test"
 
 Import using the json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### keypoolrefill
@@ -1064,7 +1064,7 @@ Fills the keypool. Requires wallet passphrase to be set with walletpassphrase ca
 
 ```text
 > aokchain-cli keypoolrefill
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "keypoolrefill", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "keypoolrefill", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listaccounts
@@ -1104,7 +1104,7 @@ List account balances for 6 or more confirmations
 > aokchain-cli listaccounts 6
 
 As json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaccounts", "params": [6] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaccounts", "params": [6] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listaddressgroupings
@@ -1135,7 +1135,7 @@ Lists groups of addresses which have had their common ownership made public by c
 
 ```text
 > aokchain-cli listaddressgroupings
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaddressgroupings", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaddressgroupings", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listlabels
@@ -1174,7 +1174,7 @@ List labels that have sending addresses
 > aokchain-cli listlabels send
 
 As json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listlabels", "params": [receive] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listlabels", "params": [receive] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listlockunspent
@@ -1213,7 +1213,7 @@ Unlock the transaction again
 > aokchain-cli lockunspent true "[{\"txid\":\"a08e6907dbbd3d809776dbfc5d82e371b764ed838b5655e72f463568df1aadf0\",\"vout\":1}]"
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listlockunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listlockunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listreceivedbyaddress
@@ -1258,8 +1258,8 @@ List balances by receiving address.
 ```text
 > aokchain-cli listreceivedbyaddress
 > aokchain-cli listreceivedbyaddress 6 true
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaddress", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaddress", "params": [6, true, true, "1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaddress", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaddress", "params": [6, true, true, "KaokChainExampLeAddressFirstxCXj28"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listreceivedbylabel
@@ -1298,7 +1298,7 @@ List received transactions by label.
 ```text
 > aokchain-cli listreceivedbylabel
 > aokchain-cli listreceivedbylabel 6 true
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbylabel", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbylabel", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listsinceblock
@@ -1359,7 +1359,7 @@ Get all transactions in blocks since block \[blockhash\], or all transactions if
 ```text
 > aokchain-cli listsinceblock
 > aokchain-cli listsinceblock "000000000000000bacf66f7497b7dc45ef753ee9a7d38571037cdb1a57f663ad" 6
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listsinceblock", "params": ["000000000000000bacf66f7497b7dc45ef753ee9a7d38571037cdb1a57f663ad", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listsinceblock", "params": ["000000000000000bacf66f7497b7dc45ef753ee9a7d38571037cdb1a57f663ad", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listtransactions
@@ -1435,7 +1435,7 @@ List transactions 100 to 120
 > aokchain-cli listtransactions "*" 20 100
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listtransactions", "params": ["*", 20, 100] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listtransactions", "params": ["*", 20, 100] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listunspent
@@ -1495,10 +1495,10 @@ Returns array of unspent transaction outputs with between minconf and maxconf (i
 
 ```text
 > aokchain-cli listunspent
-> aokchain-cli listunspent 6 9999999 "[\"1PGFqEzfmQch1gKD3ra4k18PNj3tTUUSqg\",\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\"]"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [6, 9999999 "[\"1PGFqEzfmQch1gKD3ra4k18PNj3tTUUSqg\",\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\"]"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli listunspent 6 9999999 "[\"KaokChainExampLeAddressFirstxCXj28\",\"KaokChainExampLeAddressNexty3g7Dd9\"]"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [6, 9999999 "[\"KaokChainExampLeAddressFirstxCXj28\",\"KaokChainExampLeAddressNexty3g7Dd9\"]"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 > aokchain-cli listunspent 6 9999999 '[]' true '{ "minimumAmount": 0.005 }'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [6, 9999999, [] , true, { "minimumAmount": 0.005 } ] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [6, 9999999, [] , true, { "minimumAmount": 0.005 } ] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listunspenttoken
@@ -1559,10 +1559,10 @@ Returns array of unspent transaction outputs with between minconf and maxconf (i
 
 ```text
 > aokchain-cli listunspenttoken
-> aokchain-cli listunspenttoken EXAMPLE 6 9999999 "[\"1PGFqEzfmQch1gKD3ra4k18PNj3tTUUSqg\",\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\"]"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspenttoken", "params": [EXAMPLE 6, 9999999 "[\"1PGFqEzfmQch1gKD3ra4k18PNj3tTUUSqg\",\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\"]"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli listunspenttoken EXAMPLE 6 9999999 "[\"KaokChainExampLeAddressFirstxCXj28\",\"KaokChainExampLeAddressNexty3g7Dd9\"]"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspenttoken", "params": [EXAMPLE 6, 9999999 "[\"KaokChainExampLeAddressFirstxCXj28\",\"KaokChainExampLeAddressNexty3g7Dd9\"]"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 > aokchain-cli listunspenttoken EXAMPLE 6 9999999 '[]' true '{ "minimumAmount": 0.005 }'
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspenttoken", "params": [EXAMPLE 6, 9999999, [] , true, { "minimumAmount": 0.005 } ] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspenttoken", "params": [EXAMPLE 6, 9999999, [] , true, { "minimumAmount": 0.005 } ] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listwalletdir
@@ -1588,7 +1588,7 @@ Returns a list of wallets in the wallet directory.
 
 ```text
 > aokchain-cli listwalletdir
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listwalletdir", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listwalletdir", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### listwallets
@@ -1612,7 +1612,7 @@ Returns a list of currently loaded wallets. For full information on the wallet, 
 
 ```text
 > aokchain-cli listwallets
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listwallets", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listwallets", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### loadwallet
@@ -1642,7 +1642,7 @@ Loads a wallet from a wallet file or directory. Note that all wallet command-lin
 
 ```text
 > aokchain-cli loadwallet "test.dat"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "loadwallet", "params": ["test.dat"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "loadwallet", "params": ["test.dat"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### lockunspent
@@ -1651,7 +1651,7 @@ Loads a wallet from a wallet file or directory. Note that all wallet command-lin
 lockunspent unlock ([{"txid":"txid","vout":n},...])
 ```
 
-Updates list of temporarily unspendable outputs. Temporarily lock (unlock=false) or unlock (unlock=true) specified transaction outputs. If no transaction outputs are specified when unlocking then all current locked transaction outputs are unlocked. A locked transaction output will not be chosen by automatic coin selection, when spending aokchains. Locks are stored in memory only. Nodes start with zero locked outputs, and the locked output list is always cleared (by virtue of process exit) when a node stops or fails. Also see the listunspent call
+Updates list of temporarily unspendable outputs. Temporarily lock (unlock=false) or unlock (unlock=true) specified transaction outputs. If no transaction outputs are specified when unlocking then all current locked transaction outputs are unlocked. A locked transaction output will not be chosen by automatic coin selection, when spending AOK. Locks are stored in memory only. Nodes start with zero locked outputs, and the locked output list is always cleared (by virtue of process exit) when a node stops or fails. Also see the listunspent call
 
 **Arguments**
 
@@ -1689,7 +1689,7 @@ Unlock the transaction again
 > aokchain-cli lockunspent true "[{\"txid\":\"a08e6907dbbd3d809776dbfc5d82e371b764ed838b5655e72f463568df1aadf0\",\"vout\":1}]"
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "lockunspent", "params": [false, "[{\"txid\":\"a08e6907dbbd3d809776dbfc5d82e371b764ed838b5655e72f463568df1aadf0\",\"vout\":1}]"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "lockunspent", "params": [false, "[{\"txid\":\"a08e6907dbbd3d809776dbfc5d82e371b764ed838b5655e72f463568df1aadf0\",\"vout\":1}]"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### move
@@ -1726,7 +1726,7 @@ Move 0.01 AOK timotei to akiko with a comment and funds have 6 confirmations
 > aokchain-cli move "timotei" "akiko" 0.01 6 "happy birthday!"
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "move", "params": ["timotei", "akiko", 0.01, 6, "happy birthday!"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "move", "params": ["timotei", "akiko", 0.01, 6, "happy birthday!"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### purgeorphanstakes
@@ -1753,7 +1753,7 @@ n            (numeric) The number of transactions deleted
 
 ```text
 > aokchain-cli purgeorphanstakes
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "purgeorphanstakes", "params": [3600] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "purgeorphanstakes", "params": [3600] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### removeaddress
@@ -1779,7 +1779,7 @@ Stop watching an address
 > aokchain-cli removeaddress "myaddress"
 
 As a JSON-RPC call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "removeaddress", "params": ["myaddress"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "removeaddress", "params": ["myaddress"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### removeprunedfunds
@@ -1802,7 +1802,7 @@ Deletes the specified transaction from the wallet. Meant for use with pruned wal
 > aokchain-cli removeprunedfunds "a8d0c0184dde994a09ec054286f1ce581bebf46446a512166eae7628734ea0a5"
 
 As a JSON-RPC call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "removeprunedfunds", "params": ["a8d0c0184dde994a09ec054286f1ce581bebf46446a512166eae7628734ea0a5"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "removeprunedfunds", "params": ["a8d0c0184dde994a09ec054286f1ce581bebf46446a512166eae7628734ea0a5"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### rescanblockchain
@@ -1833,7 +1833,7 @@ Rescan the local blockchain for wallet related transactions.
 
 ```text
 > aokchain-cli rescanblockchain 100000 120000
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "rescanblockchain", "params": [100000, 120000] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "rescanblockchain", "params": [100000, 120000] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### restorewallet
@@ -1864,7 +1864,7 @@ Restores a wallet from a backup file (of backupwallet, or a copy of a wallet.dat
 
 ```text
 > aokchain-cli restorewallet "restored" "/home/user/backup.dat"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "restorewallet", "params": ["restored", "/home/user/backup.dat"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "restorewallet", "params": ["restored", "/home/user/backup.dat"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### sendfrom
@@ -1873,7 +1873,7 @@ Restores a wallet from a backup file (of backupwallet, or a copy of a wallet.dat
 sendfrom "fromaccount" "toaddress" amount ( lock_time minconf "comment" "comment_to" subtractfeefromamount )
 ```
 
-DEPRECATED (use sendtoaddress). Sent an amount from an account to a aokchain address. Requires wallet passphrase to be set with walletpassphrase call.
+DEPRECATED (use sendtoaddress). Sent an amount from an account to an aokchain address. Requires wallet passphrase to be set with walletpassphrase call.
 
 **Arguments**
 
@@ -1906,16 +1906,16 @@ DEPRECATED (use sendtoaddress). Sent an amount from an account to a aokchain add
 
 ```text
 Send 0.01 AOK from the default account to the address, must have at least 1 confirmation
-> aokchain-cli sendfrom "" "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.01
+> aokchain-cli sendfrom "" "KaokChainExampLeAddressFirstxCXj28" 0.01
 
 Send 0.01 from the tabby account to the given address, funds must have at least 6 confirmations
-> aokchain-cli sendfrom "tabby" "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.01 0 6 "donation" "seans outpost"
+> aokchain-cli sendfrom "tabby" "KaokChainExampLeAddressFirstxCXj28" 0.01 0 6 "donation" "seans outpost"
 
 Send 0.01 that is locked until block 1000000
-> aokchain-cli sendfrom "" "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.01 1000000
+> aokchain-cli sendfrom "" "KaokChainExampLeAddressFirstxCXj28" 0.01 1000000
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendfrom", "params": ["tabby", "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh", 0.01, 0, 6, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendfrom", "params": ["tabby", "KaokChainExampLeAddressFirstxCXj28", 0.01, 0, 6, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### sendmany
@@ -1940,7 +1940,7 @@ Send multiple times. Amounts are double-precision floating point numbers. Requir
                            a transaction with a message has version 2. Anyone can read it in the block chain.
 5. subtractfeefrom         (array, optional) A json array with addresses.
                            The fee will be equally deducted from the amount of each selected address.
-                           Those recipients will receive less aokchains than you enter in their corresponding amount field.
+                           Those recipients will receive less AOK than you enter in their corresponding amount field.
                            If no addresses are specified here, the sender pays the fee.
     [
       "address"          (string) Subtract fee from this address
@@ -1964,16 +1964,16 @@ Send multiple times. Amounts are double-precision floating point numbers. Requir
 
 ```text
 Send two amounts to two different addresses:
-> aokchain-cli sendmany "" "{\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX\":0.01,\"1353tsE8YMTA4EuV7dgUXGjNFf9KpVvKHz\":0.02}"
+> aokchain-cli sendmany "" "{\"KaokChainExampLeAddressFirstxCXj28\":0.01,\"KaokChainExampLeAddressNexty3g7Dd9\":0.02}"
 
 Send two amounts to two different addresses setting the confirmation and comment:
-> aokchain-cli sendmany "" "{\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX\":0.01,\"1353tsE8YMTA4EuV7dgUXGjNFf9KpVvKHz\":0.02}" 6 "testing"
+> aokchain-cli sendmany "" "{\"KaokChainExampLeAddressFirstxCXj28\":0.01,\"KaokChainExampLeAddressNexty3g7Dd9\":0.02}" 6 "testing"
 
 Send two amounts to two different addresses, subtract fee from amount:
-> aokchain-cli sendmany "" "{\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX\":0.01,\"1353tsE8YMTA4EuV7dgUXGjNFf9KpVvKHz\":0.02}" 1 "" "[\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX\",\"1353tsE8YMTA4EuV7dgUXGjNFf9KpVvKHz\"]"
+> aokchain-cli sendmany "" "{\"KaokChainExampLeAddressFirstxCXj28\":0.01,\"KaokChainExampLeAddressNexty3g7Dd9\":0.02}" 1 "" "[\"KaokChainExampLeAddressFirstxCXj28\",\"KaokChainExampLeAddressNexty3g7Dd9\"]"
 
 As a json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendmany", "params": ["", "{\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX\":0.01,\"1353tsE8YMTA4EuV7dgUXGjNFf9KpVvKHz\":0.02}", 6, "testing"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendmany", "params": ["", "{\"KaokChainExampLeAddressFirstxCXj28\":0.01,\"KaokChainExampLeAddressNexty3g7Dd9\":0.02}", 6, "testing"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### sendtoaddress
@@ -2000,7 +2000,7 @@ Requires wallet passphrase to be set with walletpassphrase call.
                              to which you're sending the transaction. This is not part of the
                              transaction, just kept in your wallet.
 6. subtractfeefromamount  (boolean, optional, default=false) The fee will be deducted from the amount being sent.
-                             The recipient will receive less aokchains than you enter in the amount field.
+                             The recipient will receive less AOK than you enter in the amount field.
 7. conf_target            (numeric, optional) Confirmation target (in blocks)
 8. "estimate_mode"      (string, optional, default=UNSET) The fee estimate mode, must be one of:
        "UNSET"
@@ -2017,12 +2017,12 @@ Requires wallet passphrase to be set with walletpassphrase call.
 **Examples**
 
 ```text
-> aokchain-cli sendtoaddress "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.1
-> aokchain-cli sendtoaddress "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.1 0 "donation" "seans outpost"
-> aokchain-cli sendtoaddress "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.1 0 "" "" true
-> aokchain-cli sendtoaddress "Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" 0.1 1000000
-> aokchain-cli -named sendtoaddress address="Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh" amount=0.1 conf_target=6 estimate_mode=ECONOMICAL
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendtoaddress", "params": ["Kb9ma4bw6aRcB6CrbE67VPzGH8VUyafTrh", 0.1, 0, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli sendtoaddress "KaokChainExampLeAddressFirstxCXj28" 0.1
+> aokchain-cli sendtoaddress "KaokChainExampLeAddressFirstxCXj28" 0.1 0 "donation" "seans outpost"
+> aokchain-cli sendtoaddress "KaokChainExampLeAddressFirstxCXj28" 0.1 0 "" "" true
+> aokchain-cli sendtoaddress "KaokChainExampLeAddressFirstxCXj28" 0.1 1000000
+> aokchain-cli -named sendtoaddress address="KaokChainExampLeAddressFirstxCXj28" amount=0.1 conf_target=6 estimate_mode=ECONOMICAL
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendtoaddress", "params": ["KaokChainExampLeAddressFirstxCXj28", 0.1, 0, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### setlabel
@@ -2036,15 +2036,15 @@ Sets the label associated with the given address.
 **Arguments**
 
 ```text
-1. "address"         (string, required) The bitcoin address to be associated with a label.
+1. "address"         (string, required) The AokChain address to be associated with a label.
 2. "label"           (string, required) The label to assign to the address.
 ```
 
 **Examples**
 
 ```text
-> aokchain-cli setlabel "1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX" "tabby"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setlabel", "params": ["1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX", "tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> aokchain-cli setlabel "KaokChainExampLeAddressFirstxCXj28" "tabby"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setlabel", "params": ["KaokChainExampLeAddressFirstxCXj28", "tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### settxfee
@@ -2071,7 +2071,7 @@ true|false        (boolean) Returns true if successful
 
 ```text
 > aokchain-cli settxfee 0.00001
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "settxfee", "params": [0.00001] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "settxfee", "params": [0.00001] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### signmessage
@@ -2102,13 +2102,13 @@ Unlock the wallet for 30 seconds
 > aokchain-cli walletpassphrase "mypassphrase" 30
 
 Create the signature
-> aokchain-cli signmessage "1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX" "my message"
+> aokchain-cli signmessage "KaokChainExampLeAddressFirstxCXj28" "my message"
 
 Verify the signature
-> aokchain-cli verifymessage "1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX" "signature" "my message"
+> aokchain-cli verifymessage "KaokChainExampLeAddressFirstxCXj28" "signature" "my message"
 
 As json rpc
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signmessage", "params": ["1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX", "my message"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signmessage", "params": ["KaokChainExampLeAddressFirstxCXj28", "my message"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### unloadwallet
@@ -2129,7 +2129,7 @@ Unloads a wallet that was loaded with loadwallet, createwallet or a second -wall
 
 ```text
 > aokchain-cli unloadwallet "test.dat"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "unloadwallet", "params": ["test.dat"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "unloadwallet", "params": ["test.dat"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### walletlock
@@ -2147,13 +2147,13 @@ Set the passphrase for 2 minutes to perform a transaction
 > aokchain-cli walletpassphrase "my pass phrase" 120
 
 Perform a send (requires passphrase set)
-> aokchain-cli sendtoaddress "1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd" 1.0
+> aokchain-cli sendtoaddress "KaokChainExampLeAddressFirstxCXj28" 1.0
 
 Clear the passphrase since we are done before 2 minutes is up
 > aokchain-cli walletlock
 
 As json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "walletlock", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "walletlock", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### walletpassphrase
@@ -2162,7 +2162,7 @@ As json rpc call
 walletpassphrase "passphrase" timeout
 ```
 
-Stores the wallet decryption key in memory for 'timeout' seconds. This is needed prior to performing transactions related to private keys such as sending aokchains
+Stores the wallet decryption key in memory for 'timeout' seconds. This is needed prior to performing transactions related to private keys such as sending AOK
 
 **Arguments**
 
@@ -2187,7 +2187,7 @@ Lock the wallet again (before 60 seconds)
 > aokchain-cli walletlock
 
 As json rpc call
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "walletpassphrase", "params": ["my pass phrase", 60] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "walletpassphrase", "params": ["my pass phrase", 60] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```
 
 ### walletpassphrasechange
@@ -2209,5 +2209,5 @@ Changes the wallet passphrase from 'oldpassphrase' to 'newpassphrase'.
 
 ```text
 > aokchain-cli walletpassphrasechange "old one" "new one"
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "walletpassphrasechange", "params": ["old one", "new one"] }' -H 'content-type: text/plain;' http://127.0.0.1:8766/
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "walletpassphrasechange", "params": ["old one", "new one"] }' -H 'content-type: text/plain;' http://127.0.0.1:33440/
 ```

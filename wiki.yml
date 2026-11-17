@@ -31,7 +31,7 @@ branch: wiki
 noindex: true
 
 # Shown in place of "Edit this page" on pages that have generated_by.
-generated_from: AokChain Core 4.0.7
+generated_from: AokChain Core 4.0.8
 
 # The website's main menu and footer, repeated here so that the wiki carries
 # the same header and footer. An address that begins with / is a page of the

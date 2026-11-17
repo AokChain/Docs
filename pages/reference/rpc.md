@@ -5,7 +5,7 @@ order: 10
 generated_by: tools/rpc_reference.py
 ---
 
-Every command that AokChain Core 4.0.7 answers over JSON-RPC and `aokchain-cli`, by category. Each name links to the command's help text, the same text that `aokchain-cli help <command>` prints. How to send a call is on [[json-rpc]].
+Every command that AokChain Core 4.0.8 answers over JSON-RPC and `aokchain-cli`, by category. Each name links to the command's help text, the same text that `aokchain-cli help <command>` prints. How to send a call is on [[json-rpc]].
 
 ## Categories
 
@@ -134,7 +134,7 @@ Every command that AokChain Core 4.0.7 answers over JSON-RPC and `aokchain-cli`,
 - [[rpc-tokens#getcacheinfo|getcacheinfo]]
 - [[rpc-tokens#gettokendata|gettokendata]]: Returns tokens metadata if that token exists
 - [[rpc-tokens#getusernameaddress|getusernameaddress]]
-- [[rpc-tokens#issue|issue]]: Issue an token, subtoken or unique token.
+- [[rpc-tokens#issue|issue]]: Issue a token, a sub token or a unique token.
 - [[rpc-tokens#issueunique|issueunique]]: Issue unique token(s).
 - [[rpc-tokens#listaddressesbytoken|listaddressesbytoken]]: Returns a list of all address that own the given token (with balances)
 - [[rpc-tokens#listmylockedtokens|listmylockedtokens]]: Returns a list of all locked token that are owned by this wallet
@@ -143,7 +143,7 @@ Every command that AokChain Core 4.0.7 answers over JSON-RPC and `aokchain-cli`,
 - [[rpc-tokens#listtokens|listtokens]]: Returns a list of all tokens
 - [[rpc-tokens#listuniquetokenholders|listuniquetokenholders]]: Returns a list holders of unique
 - [[rpc-tokens#registerusername|registerusername]]
-- [[rpc-tokens#reissue|reissue]]: Reissues a quantity of an token to an owned address if you own the Owner Token
+- [[rpc-tokens#reissue|reissue]]: Reissues a quantity of a token to an owned address if you own the Owner Token
 - [[rpc-tokens#transfer|transfer]]: Transfers a quantity of an owned token to a given address
 - [[rpc-tokens#transferfromaddress|transferfromaddress]]: Transfer a quantity of an owned token in a specific address to a given address
 - [[rpc-tokens#transfermany|transfermany]]: Send multiple times.
@@ -167,20 +167,20 @@ Every command that AokChain Core 4.0.7 answers over JSON-RPC and `aokchain-cli`,
 - [[rpc-wallet#addmultisigaddress|addmultisigaddress]]: Add a nrequired-to-sign multisignature address to the wallet.
 - [[rpc-wallet#addwitnessaddress|addwitnessaddress]]: Add a witness address for a script (with pubkey or redeemscript known).
 - [[rpc-wallet#backupwallet|backupwallet]]: Safely copies current wallet file to destination, which can be a directory or a path with filename.
-- [[rpc-wallet#bumpfee|bumpfee]]: bumpfee has been deprecated on the AOK Wallet.
+- [[rpc-wallet#bumpfee|bumpfee]]: bumpfee is not available in AokChain Core.
 - [[rpc-wallet#createwallet|createwallet]]: Creates and loads a new wallet.
 - [[rpc-wallet#dumpprivkey|dumpprivkey]]: Reveals the private key corresponding to 'address'.
 - [[rpc-wallet#dumpwallet|dumpwallet]]: Dumps all wallet keys in a human-readable format to a server-side file.
 - [[rpc-wallet#encryptwallet|encryptwallet]]: Encrypts the wallet with 'passphrase'.
 - [[rpc-wallet#getaccount|getaccount]]: DEPRECATED. Returns the account associated with the given address.
-- [[rpc-wallet#getaccountaddress|getaccountaddress]]: DEPRECATED. Returns the current Bitcoin address for receiving payments to this account.
+- [[rpc-wallet#getaccountaddress|getaccountaddress]]: DEPRECATED. Returns the current AokChain address for receiving payments to this account.
 - [[rpc-wallet#getaddressesbyaccount|getaddressesbyaccount]]: DEPRECATED. Returns the list of addresses for the given account.
 - [[rpc-wallet#getaddressesbylabel|getaddressesbylabel]]: Returns the list of addresses assigned the specified label.
 - [[rpc-wallet#getaddressinfo|getaddressinfo]]: Returns what the wallet knows about an address.
 - [[rpc-wallet#getbalance|getbalance]]: If account is not specified, returns the server's total available balance.
 - [[rpc-wallet#getbalances|getbalances]]: Returns all balances of the wallet in AOK.
 - [[rpc-wallet#getnewaddress|getnewaddress]]: Returns a new AokChain address for receiving payments.
-- [[rpc-wallet#getofflinestakingaddress|getofflinestakingaddress]]: Returns a offline staking address based on two address inputs
+- [[rpc-wallet#getofflinestakingaddress|getofflinestakingaddress]]: Returns an offline staking address based on two address inputs
 - [[rpc-wallet#getrawchangeaddress|getrawchangeaddress]]: Returns a new AokChain address, for receiving change.
 - [[rpc-wallet#getreceivedbyaddress|getreceivedbyaddress]]: Returns the total amount received by the given address in transactions with at least minconf confirmations.
 - [[rpc-wallet#getreceivedbylabel|getreceivedbylabel]]: Returns the total amount received by addresses with &lt;label&gt; in transactions with at least \[minconf\] confirmations.
