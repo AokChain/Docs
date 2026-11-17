@@ -58,6 +58,7 @@ footer:
     links:
       - {label: Desktop wallet, href: /products/desktop-wallet/}
       - {label: Node, href: /products/node/}
+      - {label: Release notes, href: /download/releases/}
       - {label: AOK Wallet, href: /products/wallet/}
       - {label: Block explorer, href: /products/explorer/}
       - {label: AokChain API, href: /products/api/}
