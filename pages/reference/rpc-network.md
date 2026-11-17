@@ -5,7 +5,7 @@ order: 25
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the network category, as AokChain Core 4.0.8 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the network category, as AokChain Core 4.0.9 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > The addresses in the examples of these help texts are example addresses that belong to nobody.
@@ -303,7 +303,7 @@ Returns data about each connected network node as a json array of objects.
     "minping": n,              (numeric) minimum observed ping time (if any at all)
     "pingwait": n,             (numeric) ping wait (if non-zero)
     "version": v,              (numeric) The peer version, such as 7001
-    "subver": "/AokChain:4.0.8/",  (string) The string version
+    "subver": "/AokChain:4.0.9/",  (string) The string version
     "inbound": true|false,     (boolean) Inbound (true) or Outbound (false)
     "addnode": true|false,     (boolean) Whether connection was due to addnode/-connect or if it was an automatic/inbound connection
     "startingheight": n,       (numeric) The starting height (block) of the peer

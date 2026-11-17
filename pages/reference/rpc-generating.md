@@ -5,7 +5,7 @@ order: 23
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the generating category, as AokChain Core 4.0.8 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the generating category, as AokChain Core 4.0.9 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > The addresses in the examples of these help texts are example addresses that belong to nobody.
