@@ -95,6 +95,7 @@
   --frame: 1600px;
   --gutter: 16px;
   --header-h: 56px;
+  --herebar-h: 0px;            /* the line under the header that says where the reader is; 0 where there is none */
   --sidebar-w: 288px;
   --toc-w: 248px;
 }
@@ -143,10 +144,11 @@
 
 @media (min-width: 640px) { :root { --gutter: 24px; } }
 @media (min-width: 1024px) { :root { --gutter: 40px; --header-h: 64px; } }
+@media (max-width: 1023.98px) { .has-herebar { --herebar-h: 44px; } }
 
 /* Base */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 24px); }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + var(--herebar-h) + 24px); }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body {
   margin: 0;
@@ -196,6 +198,38 @@ main:focus { outline: none; }
 .brand:hover { color: #ffffff; }
 .brand-logo { width: auto; height: 32px; fill: currentColor; }
 .site-header :focus-visible { outline-color: var(--aok-mint); }
+/* Where you are. From 1,024px the page tree beside the text marks the page,
+   and from 1,280px "On this page" marks the heading in view. Below 1,024px
+   neither stays on the screen, so there, once the title of a page has
+   scrolled away, one line under the header keeps the breadcrumb and adds
+   the heading in view (docs.js). It lies over the page, so nothing moves
+   when it comes; without the script it stays hidden. */
+.herebar { display: none; }
+@media (max-width: 1023.98px) {
+  .herebar {
+    display: block; position: absolute; left: 0; right: 0; top: 100%; height: var(--herebar-h);
+    background: var(--color-surface); border-bottom: 1px solid var(--color-border);
+    color: var(--color-text); font-size: 14px; line-height: var(--herebar-h);
+    visibility: hidden; opacity: 0;
+  }
+  .herebar.is-on { visibility: visible; opacity: 1; }
+  .menu-open .herebar { visibility: hidden; opacity: 0; }
+  .search-open .search--header { z-index: 1; }
+  .herebar-inner { display: flex; align-items: center; gap: var(--space-2); height: 100%; padding-inline: var(--gutter); white-space: nowrap; }
+  .here-up { display: none; }
+  .herebar a { flex: none; min-width: 24px; color: var(--color-text-2); }
+  .herebar a:hover { color: var(--color-heading); }
+  .herebar .sep, .here-sec:not(:empty)::before { color: var(--color-border-strong); }
+  .herebar .here-page { flex: 0 1 auto; max-width: 60%; overflow: hidden; text-overflow: ellipsis; }
+  .here-sec { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-weight: 500; }
+  .here-sec:not(:empty)::before { content: "/"; content: "/" / ""; margin-right: var(--space-2); font-weight: 400; }
+  .herebar :focus-visible { outline-color: var(--color-focus); outline-offset: -2px; }
+}
+@media (min-width: 640px) and (max-width: 1023.98px) { .here-up { display: contents; } }
+@media (max-width: 1023.98px) and (prefers-reduced-motion: no-preference) {
+  .herebar { transform: translateY(-4px); transition: opacity var(--dur-med) var(--ease), transform var(--dur-med) var(--ease), visibility 0s linear var(--dur-med); }
+  .herebar.is-on { transform: none; transition-delay: 0s; }
+}
 /* The website's main menu; "Docs" is where the reader is */
 .header-nav { display: none; margin-left: var(--space-6); }
 .header-nav ul { display: flex; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
@@ -552,6 +586,11 @@ main:focus { outline: none; }
     scrollbar-width: thin; scrollbar-color: var(--color-border-strong) transparent;
   }
 }
+
+/* A heading that shows together with the title of its page: a link to it
+   leads to the top of the page, so that the title stays in view. docs.js
+   marks these headings. */
+.at-head { scroll-margin-top: 100vh; }
 
 /* The text of a page */
 .prose { margin-top: var(--space-8); color: var(--color-text-2); font-size: 17px; line-height: 1.75; overflow-wrap: break-word; }

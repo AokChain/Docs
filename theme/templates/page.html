@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% from "macros.html" import icon, toc_list %}
+{# Under the header once the title has scrolled away (docs.js), on screens
+   that show neither the page tree nor "On this page" beside the text. #}
+{% block herebar %}
+  <nav class="herebar" aria-label="Where you are">
+    <div class="herebar-inner">
+      <span class="here-up"><a href="{{ base }}">Docs</a><span class="sep" aria-hidden="true">/</span><a href="{{ section.url }}">{{ section.title }}</a><span class="sep" aria-hidden="true">/</span></span><a class="here-page" href="{{ page.url }}">{{ page.title }}</a><span class="here-sec"></span>
+    </div>
+  </nav>
+{% endblock %}
 {% block body %}
 <div class="layout{{ ' has-toc' if toc_size > 1 }}">
 {% include "sidebar.html" %}

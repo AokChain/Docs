@@ -64,6 +64,8 @@ The build stops with one message per problem when a page:
 - links to a page or a heading that does not exist, links relatively (`../x.md`), or has an image without alt text or from another site;
 - has an H1 in its body, an unknown code language, or HTML outside the short list.
 
+A reader always sees where they are: beside the text the page tree marks the page and "On this page" the heading in view; below 1,024px, once the title has scrolled away, a line under the header names the page and that heading. A link to a heading that shows together with the title leads to the top of the page and still sets the address.
+
 The wiki makes the rest: the sidebar, breadcrumbs, "On this page", previous and next within the section, "Linked from", "Last updated" (from git), edit and history links, section pages, All pages, Recent changes (from the git log of `pages/`), redirect pages for aliases, the 404 page and the search index.
 
 ## Build, check, deploy

@@ -531,29 +531,58 @@
   /* ------------------------------------------------------------ contents */
 
   var tocLinks = $$(".toc a, .toc-inline a");
-  if (tocLinks.length) {
+  var hereBar = $(".herebar");
+  var docTitle = $(".doc-title");
+  if (tocLinks.length || (hereBar && docTitle)) {
     var ids = [];
+    var names = {};
     tocLinks.forEach(function (a) {
       var id = decodeURIComponent(a.getAttribute("href").slice(1));
-      if (ids.indexOf(id) < 0) ids.push(id);
+      if (ids.indexOf(id) < 0) { ids.push(id); names[id] = a.textContent.replace(/\s+/g, " ").trim(); }
     });
     var heads = ids.map(function (id) { return d.getElementById(id); }).filter(Boolean);
+    var hereName = hereBar ? $(".here-sec", hereBar) : null;
     var current = null;
     var ticking = false;
+    var headOf = function (hash) {
+      var id = hash.slice(1);
+      try { id = decodeURIComponent(id); } catch (e) { return null; }
+      for (var i = 0; i < heads.length; i++) if (heads[i].id === id) return heads[i];
+      return null;
+    };
+    /* A heading that shows together with the title when the page is at its
+       top, with room for a few lines under it: a link to it leads to the top
+       of the page (.at-head in the stylesheet), so the title stays in view. */
+    var sort = function () {
+      var room = window.innerHeight - 120;
+      heads.forEach(function (h) {
+        h.classList.toggle("at-head", h.getBoundingClientRect().top + window.scrollY <= room);
+      });
+    };
     var update = function () {
       ticking = false;
-      var line = (header ? header.offsetHeight : 0) + 96;
+      var edge = header ? header.offsetHeight : 0;
+      /* the line under the header, once the title has scrolled away */
+      if (hereBar && docTitle) hereBar.classList.toggle("is-on", docTitle.getBoundingClientRect().bottom <= edge);
+      var line = edge + 96;
       var now = null;
       for (var i = 0; i < heads.length; i++) {
         if (heads[i].getBoundingClientRect().top - line <= 0) now = heads[i].id;
         else break;
       }
       var doc = d.documentElement;
-      if (heads.length && window.innerHeight + window.scrollY >= doc.scrollHeight - 4) {
-        now = heads[heads.length - 1].id;
+      var atEnd = window.innerHeight + window.scrollY >= doc.scrollHeight - 4;
+      if (heads.length && atEnd) now = heads[heads.length - 1].id;
+      /* at the top and at the end of the page the heading that the address
+         names counts while it is on the screen */
+      var named = headOf(window.location.hash);
+      if (named && (window.scrollY < 2 || atEnd)) {
+        var top = named.getBoundingClientRect().top;
+        if (top >= edge && top < window.innerHeight) now = named.id;
       }
       if (now === current) return;
       current = now;
+      if (hereName) hereName.textContent = now !== null ? names[now] : "";
       tocLinks.forEach(function (a) {
         var on = now !== null && a.getAttribute("href") === "#" + now;
         a.classList.toggle("is-active", on);
@@ -561,9 +590,42 @@
         else a.removeAttribute("aria-current");
       });
     };
-    window.addEventListener("scroll", function () {
+    var soon = function () {
       if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
-    }, { passive: true });
+    };
+    /* keyboard and screen reader users go on from the heading */
+    var toHead = function (h) {
+      if (!h.hasAttribute("tabindex")) h.setAttribute("tabindex", "-1");
+      h.focus({ preventScroll: true });
+    };
+    sort();
+    /* an address with a heading, opened from elsewhere: the page stands
+       where a link to that heading leads */
+    var arrival = window.performance && performance.getEntriesByType ? performance.getEntriesByType("navigation")[0] : null;
+    var wanted = headOf(window.location.hash);
+    if (wanted && wanted.classList.contains("at-head") && window.scrollY > 0 && (!arrival || arrival.type === "navigate")) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    window.addEventListener("scroll", soon, { passive: true });
+    window.addEventListener("resize", function () { sort(); soon(); });
+    window.addEventListener("load", function () { sort(); soon(); });
+    window.addEventListener("hashchange", function () {
+      var h = headOf(window.location.hash);
+      if (h) toHead(h);
+      soon();
+    });
+    if (hereBar) {
+      /* the page's own name in the line leads back to its top */
+      $(".here-page", hereBar).addEventListener("click", function (e) {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        if (window.location.hash) window.history.pushState(null, "", window.location.pathname + window.location.search);
+        window.scrollTo({ top: 0 });
+        var main = d.getElementById("w-main");
+        if (main) main.focus({ preventScroll: true });
+        soon();
+      });
+    }
     update();
   }
 

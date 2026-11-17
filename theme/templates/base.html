@@ -1,6 +1,6 @@
 {% from "macros.html" import icon, search_box with context %}
 <!doctype html>
-<html lang="en">
+<html lang="en"{% if self.herebar() | trim %} class="has-herebar"{% endif %}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,6 +53,7 @@
       <a class="hdr-btn hdr-menu nojs-only" href="#w-sidebar" aria-label="Menu">{{ icon("bars-3") }}</a>
     </div>
   </div>
+  {% block herebar %}{% endblock %}
 </header>
 
 {% block body %}{% endblock %}
