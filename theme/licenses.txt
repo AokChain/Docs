@@ -28,6 +28,5 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Brand marks of Telegram, X, Discord and GitHub: Simple Icons
-(https://simpleicons.org), CC0 1.0. The marks belong to their owners and are
-used only to link to their services.
+Brand mark of GitHub: Simple Icons (https://simpleicons.org), CC0 1.0. The
+mark belongs to its owner and is used only to link to its service.
