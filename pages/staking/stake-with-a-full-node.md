@@ -76,6 +76,22 @@ A node with `staking=1` stakes with every loaded wallet. From 4.0.7 on that incl
 aokchain-cli -rpcwallet=second walletpassphrase "<passphrase>" 0 true
 ```
 
+To stake with some of the wallets only, name them with `stakingwallet` in `aokchain.conf` (from 4.0.8), one line for every wallet that stakes:
+
+```ini
+staking=1
+stakingwallet=<name as listwallets shows it>
+```
+
+A wallet that is not named does not stake, whether it is opened at the start or later; `debug.log` then says `Wallet "<name>" does not stake: -stakingwallet does not name it`. A node that stakes with one wallet and opens others for a service names its staking wallet this way. Without the line every wallet stakes, as before.
+
+`listwallets` shows the wallet that a node opens by default as `""`. To name it, write nothing after the equals sign:
+
+```ini
+staking=1
+stakingwallet=
+```
+
 ## Keep the owner key elsewhere
 
 A staking server has to hold the keys of the coins it stakes. To keep the spending key off the server altogether, delegate the coins with [[offline-staking]].

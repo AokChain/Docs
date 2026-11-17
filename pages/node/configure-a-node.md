@@ -82,7 +82,7 @@ Open TCP port 33441 in the firewall so that other nodes can connect. See [[ports
 staking=1
 ```
 
-`staking` is not listed by `aokchaind -help`, but the node reads it: the wallet looks for stakes from the start. An encrypted wallet has to be unlocked for staking first; see [[stake-with-a-full-node]].
+With `staking=1` the node looks for stakes from the start, with every wallet it has open; `stakingwallet` limits that to the wallets it names. An encrypted wallet has to be unlocked for staking first; see [[stake-with-a-full-node]].
 
 ### An RPC server for an application on another computer
 

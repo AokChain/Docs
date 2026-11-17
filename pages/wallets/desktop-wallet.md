@@ -11,6 +11,15 @@ The desktop wallet is AokChain Core with a window (`aokchain-qt`). It keeps a fu
 
 Get the desktop wallet from [@@site_host@@/download](@@site@@/download/), which lists the systems it is available for. Official downloads and their SHA-256 checksums are listed on that page only. Compare the checksum of the file you downloaded with the one on the page before you install it.
 
+### On Linux
+
+The desktop wallet for Linux is an archive of its own, apart from the node's package. It holds `aokchain-qt` with Qt linked in, a menu entry, an icon and a `README.txt`.
+
+1. Unpack the archive anywhere and run `./aokchain-qt`.
+2. For an entry in the applications menu, copy `aokchain-qt` to `~/.local/bin`, `aokchain-qt.desktop` to `~/.local/share/applications` and `aokchain128.png` to `~/.local/share/icons`.
+
+The program is made for the desktop of Ubuntu 22.04 or 24.04 (x86_64, glibc 2.35 or later) and uses its X and font libraries; in a Wayland session it runs through XWayland. If it stops with `error while loading shared libraries`, the message names the missing library, and `README.txt` lists the packages to install. The data folder is `~/.aokchain`, which `aokchaind` uses too: only one of the two can run on it at a time.
+
 ## First start
 
 The first start goes through the steps **Start**, **Wallet passphrase** and **Backup**, with the download of the chain state in between.

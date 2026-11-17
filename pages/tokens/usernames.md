@@ -34,7 +34,7 @@ A name that breaks the rules is refused with `Invalid username: <name>` and the 
 
 Type the username where an address is expected:
 
-- in the **Recipient address** field of the **Send** page, for AOK and for tokens; the line under the field says "A user name: it is resolved to its address when sending";
+- in the **Recipient address** field of the **Send** page, for AOK and for tokens; the line under the field says "A username: it is resolved to its address when sending";
 - in `sendtoaddress`, `sendmany`, `transfer` and `transfermany` on a node.
 
 Check the username before you send: `@ALICE` and `@ALICE_` are different names that can belong to different people.

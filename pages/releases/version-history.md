@@ -1,6 +1,6 @@
 ---
 title: Version history
-description: "The changes of every AokChain Core version from 4.0.0 to 4.0.7, and the 3.0.x line before them."
+description: "The changes of every AokChain Core version from 4.0.0 to 4.0.8, and the 3.0.x line before them."
 order: 20
 ---
 
@@ -8,6 +8,7 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 
 | Version | Date | For whom |
 |---|---|---|
+| 4.0.8 | 2026-11-17 | Everyone on 4.0: nodes with an address index, nodes that open several wallets, desktop wallet users on Linux |
 | 4.0.7 | 2026-11-17 | Desktop wallet users; nodes that load wallets while they run |
 | 4.0.6 | 2026-11-16 | Everyone on 4.0: programs that call the wallet and token commands, operators who change indexes, desktop wallet users |
 | 4.0.5 | 2026-11-14 | Nodes with an address index (explorers, indexers) |
@@ -17,6 +18,19 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 | 4.0.1 | 2026-11-14 | Everyone on 4.0.0 |
 | 4.0.0 | 2026-11-13 | Everyone on 3.0.x |
 | 3.0.5 | 2022-09-24 | The last 3.0.x version |
+
+## 4.0.8
+
+A maintenance release. The rules do not change: 4.0.8 accepts the same blocks as 4.0.0 to 4.0.7, and the chain state is not touched. Upgrade every node.
+
+- Token queries: the commands that read token data are coordinated with block processing, and listing tokens is a little faster.
+- Reorganizations and re-indexing: disconnecting blocks and reading blocks back from disk (`-reindex`, `-reindex-chainstate`) are exact for every kind of token transaction: issues, reissues, transfers, sub tokens, unique tokens, usernames and owner tokens.
+- Address index: token outputs other than transfers are stored without a lock time. A node that runs with `-addressindex` should be started once with `-reindex` after the upgrade, which corrects the records of earlier blocks; new blocks are right without it, and `getaddressutxos` was not affected. Other nodes need nothing ([[upgrade-to-4-0#explorers-and-indexers|Explorers and indexers]]).
+- Staking wallets: `-stakingwallet=<name>` names the wallets that `-staking` stakes with. It may be given several times, and without it every wallet stakes, as before. A node that stakes with one wallet and opens others for a service names its staking wallet; the others then do not stake, whether they are opened at the start or later ([[stake-with-a-full-node#several-wallets|Several wallets]]).
+- Desktop wallet for Linux: the Linux release has the desktop wallet again, as 3.0.5 had: `aokchain-qt` in an archive of its own, with Qt linked in. It uses the X and font libraries that an Ubuntu 22.04 or 24.04 desktop installs, and types other scripts through IBus ([[desktop-wallet#on-linux|On Linux]]).
+- Desktop wallet: the **Staking** switch shows "on" only once staking has started, not while the passphrase is being asked for. The steps of the multisig wizard have a row of their own, so its title fits a window of 1280 px. The units are named AOK, Milli-AOK and Micro-AOK, "username" is one word everywhere, and the passphrase hint names no keyboard key.
+- Help texts: every example uses AokChain's ports and example addresses that belong to nobody, and amounts are in AOK. A token name that is too short or reserved is refused with that reason; the error codes are unchanged. `-staking` and `-advancedui` are in the help ([[configuration-options]]).
+- Version text: the release programs report the plain version, `v4.0.8`. A build from a source archive names its own commit.
 
 ## 4.0.7
 

@@ -81,7 +81,7 @@ The answer is then an object `{"utxos": [...], "next": "..."}`. Pass `next` back
 Amounts in these answers are in satoshis (1 AOK = 100,000,000).
 
 > [!IMPORTANT]
-> A node that kept an address index under 3.0.x or under 4.0 before 4.0.5 should rebuild it once with 4.0.5 or later (`-reindex`), so that every unspent output is in it.
+> A node with an address index should be started once with `-reindex` after the upgrade to 4.0.8. That corrects the records of earlier blocks: token outputs other than transfers are stored without a lock time, and an index that was kept under 3.0.x or under 4.0 before 4.0.5 has every unspent output again. New blocks are right without it.
 
 ## Pruning
 

@@ -21,6 +21,7 @@ On a node, check each of these:
 2. The wallet is unlocked. After every restart, run `walletpassphrase "<passphrase>" 0 true` again.
 3. `getconnectioncount` shows at least 2, and `getblockchaininfo` shows a recent block. When staking starts, the node waits for two peers and a block of the last ten minutes.
 4. `weight` in `getstakinginfo` is more than 0. If it is 0, the coins are not mature, or they are tokens, multisig coins or coins you locked with `lockunspent`.
+5. If `aokchain.conf` has `stakingwallet`, it names this wallet. A wallet that is not named does not stake; see [[stake-with-a-full-node#several-wallets|Several wallets]].
 
 For more detail, start the node with `-debug=coinstake`: it then writes each stake attempt to `debug.log`.
 

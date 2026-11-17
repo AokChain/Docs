@@ -14,7 +14,7 @@ AokChain Core 4.0 is a new node and desktop wallet for the same chain. It needs 
 | Activation height | None. 4.0 and 3.0.x nodes follow the same chain. |
 | Protocol | Version 70021; 3.0.x (70020) and 4.0 nodes connect to each other. |
 | Wallet file | Unchanged (Berkeley DB 4.8): 3.0.x wallets open in 4.0, and 3.0.x opens them again afterwards. |
-| Data directory | Used as it is, with its indexes; no reindex for the upgrade. |
+| Data directory | Used as it is, with its indexes; no reindex for the upgrade, except once for a node with an address index ([[upgrade-to-4-0#explorers-and-indexers|Explorers and indexers]]). |
 | RPC | Every 3.0.x command is still there, with the same arguments. |
 
 ## Security and validation
@@ -59,6 +59,7 @@ The desktop wallet was reorganized from the layout up ([[desktop-wallet]]):
 - a built-in explorer for blocks, transactions and addresses on your own node;
 - back and forward buttons, and a status light on every page (from 4.0.3);
 - several wallets in one window, chosen at the top of the side bar (from 4.0.7);
+- a desktop wallet for Linux again, in an archive of its own (from 4.0.8);
 - the language at the top of the settings page, with the more than 80 translations the program ships;
 - the fast sync, with its addresses and a folder choice under Network settings.
 
@@ -66,7 +67,7 @@ The desktop wallet was reorganized from the layout up ([[desktop-wallet]]):
 
 New RPC commands: `fetchblocks`, `getaddressinfo`, `getbalances`, `getblockstats`, `getbootstrapinfo`, `getindexinfo`, `getnodeaddresses`, `getrpcinfo`, `getsnapshotinfo`, `getstatehashes`, `importmnemonic`, `mnemonicfindaddress`, `mnemonictokeys`, `purgeorphanstakes`, `repaircoins`, `restorewallet`, `scantxoutset`, `signrawtransactionwithkey`, `signrawtransactionwithwallet`, `skipbootstrap`, `testmempoolaccept`, `unloadwallet`. `sendrawtransaction` takes a fee rate limit. See [[rpc]].
 
-New options: `rpcwhitelist` and `rpcwhitelistdefault` (limit an RPC user to some commands, [[json-rpc]]), `daemonwait`, `startupnotify`, `shutdownnotify`, `logratelimit`, `stakecombinethreshold`, `spendofflinestaking`, and the debugging option `maxblocksperstake`. The default `dbcache` is 1024 MiB on computers with 4 GB of memory or more. See [[configuration-options]].
+New options: `rpcwhitelist` and `rpcwhitelistdefault` (limit an RPC user to some commands, [[json-rpc]]), `daemonwait`, `startupnotify`, `shutdownnotify`, `logratelimit`, `stakecombinethreshold`, `stakingwallet` (from 4.0.8), `spendofflinestaking`, and the debugging option `maxblocksperstake`. The default `dbcache` is 1024 MiB on computers with 4 GB of memory or more. See [[configuration-options]].
 
 Changed answers: since 4.0.4 the address index calls take `{"addresses": [...]}` and `getaddressutxos` returns pages; `mediantime` of `getblock` and `getblockheader` is the median time past. `getblocktemplate` serves proof-of-work templates only. Some yes-or-no fields are still printed as `1` and `0`, as in 3.0.x.
 
@@ -78,4 +79,4 @@ Changed answers: since 4.0.4 the address index calls take `{"addresses": [...]}`
 
 ## Under the hood
 
-The code that descends from Bitcoin Core and Ravencoin was brought up to current toolchains: C++17 (GCC 13), Boost 1.83, OpenSSL 3.0.15, libevent 2.1.12, ZeroMQ 4.3.5, miniupnpc 2.2.7, Berkeley DB 4.8.30, and Qt 5.15.10 for the Windows wallet. Several commands and options were taken over from later Bitcoin Core versions.
+The code that descends from Bitcoin Core and Ravencoin was brought up to current toolchains: C++17 (GCC 13), Boost 1.83, OpenSSL 3.0.15, libevent 2.1.12, ZeroMQ 4.3.5, miniupnpc 2.2.7, Berkeley DB 4.8.30, and Qt 5.15.10 for the desktop wallet. Several commands and options were taken over from later Bitcoin Core versions.

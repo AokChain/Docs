@@ -31,7 +31,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
    ```bash
    sudo mv /usr/local/bin/aokchaind    /usr/local/bin/aokchaind-3.0
    sudo mv /usr/local/bin/aokchain-cli /usr/local/bin/aokchain-cli-3.0
-   sudo install -m 0755 aokchain-4.0.7-linux-x86_64/aokchain* /usr/local/bin/
+   sudo install -m 0755 aokchain-4.0.8-linux-x86_64/aokchain* /usr/local/bin/
    ```
 
    Get and check the 4.0 package as [[install-a-node]] describes.
@@ -41,7 +41,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
 4. **Check it**, a minute later:
 
    ```bash
-   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.7/"
+   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.8/"
    aokchain-cli getblockcount                          # rises to the height of the other nodes
    aokchain-cli getwalletinfo | grep -E '"balance"|immature|txcount'
    ```
@@ -70,6 +70,7 @@ aokchaind -daemon
   The coins keep their age; staking goes on at once.
 - **Larger staking coins.** A stake now gathers the small coins of its address up to twice `stakecombinethreshold` (default 1,000 AOK) and splits into two coins above that. Over the following days the staking coins grow to between 1,000 and 2,000 AOK and the wallet holds far fewer of them. Nothing has to be done.
 - **Encrypt the wallet** and unlock it for staking only, so that the server can stake but not spend. How, and what to do after each restart, is on [[stake-with-a-full-node]] and [[encrypt-your-wallet]].
+- **Several wallets.** With `staking=1` every wallet that the node has open stakes, and since 4.0.7 that includes a wallet that is opened while the node runs. A node that stakes with one wallet and opens others for a service names its staking wallet with `stakingwallet` in `aokchain.conf` before the first start of the new version, so that the other wallets do not begin to stake; see [[stake-with-a-full-node#several-wallets|Several wallets]].
 - `getstakinginfo` now reports `staking` and `expectedtime` correctly, and the stakes, lost stakes and rewards of the last 24 hours (`stakes_24h`, `orphaned_24h`, `reward_24h`).
 
 ## Exchange nodes
@@ -82,7 +83,7 @@ aokchaind -daemon
 ## Explorers and indexers
 
 - A node with `addressindex`, `spentindex` and `txindex` starts on its existing data.
-- **Rebuild the address index once.** If the node kept an address index under 3.0.x or under 4.0 before 4.0.5, start 4.0.5 or later once with `-reindex`, so that the index again has every unspent output. Rebuilding takes about as long as a full sync; you can rebuild a copy of the data directory on another machine and swap it in.
+- **Rebuild the address index once.** After the upgrade to 4.0.8, start a node that runs with `addressindex=1` once with `-reindex`, also when its index was rebuilt under an earlier 4.0 version. The rebuild corrects the records of earlier blocks: token outputs other than transfers are stored without a lock time, and an index that was kept under 3.0.x or under 4.0 before 4.0.5 has every unspent output again. New blocks are right without it. Rebuilding takes about as long as a full sync; you can rebuild a copy of the data directory on another machine and swap it in.
 - 4.0.4 changed two answers: the address index calls take `{"addresses": [...]}` as their help says, and `getaddressutxos` can page with `limit` and `after`; `mediantime` of `getblock` and `getblockheader` is now the median time past instead of the block time. See [[version-history]].
 - A cron line that restarts the node within a minute of every stop gets in the way of an upgrade; use a systemd unit instead ([[start-and-stop]]).
 
