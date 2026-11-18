@@ -5,7 +5,7 @@ order: 11
 generated_by: tools/options_reference.py
 ---
 
-The options of AokChain Core 4.0.9, as `aokchaind -help` prints them. Give an option on the command line as `-name=value`, or write it as a line `name=value` in `aokchain.conf` (where the file lives is on [[configure-a-node]]). A setting on the command line wins over the same setting in the file. A switch such as `-txindex` is turned on with `1` and off with `0`, and `-nofoo` is the same as `-foo=0`.
+The options of AokChain Core 4.0.10, as `aokchaind -help` prints them. Give an option on the command line as `-name=value`, or write it as a line `name=value` in `aokchain.conf` (where the file lives is on [[configure-a-node]]). A setting on the command line wins over the same setting in the file. A switch such as `-txindex` is turned on with `1` and off with `0`, and `-nofoo` is the same as `-foo=0`.
 
 The desktop wallet, `aokchain-qt`, takes the same options except `-daemon` and `-daemonwait`, and the few of its own listed under [GUI options](#gui-options).
 
@@ -56,10 +56,11 @@ The desktop wallet, `aokchain-qt`, takes the same options except `-daemon` and `
 | `-mempoolexpiry=<n>` | Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: 336) |
 | `-persistmempool` | Whether to save the mempool on shutdown and load on restart (default: 1) |
 | `-blockreconstructionextratxn=<n>` | Extra transactions to keep in memory for compact block reconstructions (default: 100) |
-| `-par=<n>` | Set the number of script verification threads (-8 to 16, 0 = auto, &lt;0 = leave that many cores free, default: 0) |
+| `-par=<n>` | Set the number of script verification threads (-24 to 16, 0 = auto, &lt;0 = leave that many cores free, default: 0) |
 | `-pid=<file>` | Specify pid file (default: aokchaind.pid) |
 | `-prune=<n>` | Reduce storage requirements by enabling pruning (deleting) of old blocks. This allows the pruneblockchain RPC to be called to delete specific blocks, and enables automatic pruning of old blocks if a target size in MiB is provided. This mode is incompatible with -txindex and -rescan. Warning: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, &gt;550 = automatically prune block files to stay under the specified target size in MiB) |
 | `-reindex-chainstate` | Rebuild chain state from the currently indexed blocks |
+| `-autorebuild` | Rebuild the chain state from the indexed blocks, or index the block files again, without being asked, when a start finds the databases in a state that it cannot go on from or a block that this node had validated before does not connect. A node that started from a snapshot and does not have the blocks before it starts over from the snapshot instead; a pruned node does nothing by itself and asks for -reindex (default: 1) |
 | `-reindex` | Rebuild chain state and block index from the blk\*.dat files on disk |
 | `-sysperms` | Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality) |
 | `-txindex` | Maintain a full transaction index, used by the getrawtransaction rpc call (default: 1) |

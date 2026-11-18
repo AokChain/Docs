@@ -5,7 +5,7 @@ order: 24
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the mining category, as AokChain Core 4.0.9 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the mining category, as AokChain Core 4.0.10 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > The addresses in the examples of these help texts are example addresses that belong to nobody.
@@ -190,6 +190,8 @@ Returns an object containing staking-related information.
   "stakes_24h": n,           (numeric) stakes of this wallet in the chain in the last 24 hours
   "orphaned_24h": n,         (numeric) stakes of the last 24 hours that lost against another block; they earn nothing
   "reward_24h": x.xxx,       (numeric) what the stakes of the last 24 hours brought, in AOK
+  "coins_missing": n,        (numeric) coins that the wallet would stake but that the chain state of this node does not hold;
+                             not 0 means that wallet and chain state disagree (debug.log names the coins)
   ...
 }
 ```

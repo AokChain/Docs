@@ -5,7 +5,7 @@ order: 29
 generated_by: tools/rpc_reference.py
 ---
 
-The help text of every command in the wallet category, as AokChain Core 4.0.9 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
+The help text of every command in the wallet category, as AokChain Core 4.0.10 prints it with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > The addresses in the examples of these help texts are example addresses that belong to nobody.

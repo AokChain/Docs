@@ -5,7 +5,7 @@ order: 30
 generated_by: tools/rpc_reference.py
 ---
 
-`aokchain-cli help` does not list these commands. They are meant for testing and debugging; some of them change what the node considers valid until they are undone. This is the help text that AokChain Core 4.0.9 prints for each with `aokchain-cli help <command>`. All categories are on [[rpc]].
+`aokchain-cli help` does not list these commands. They are meant for testing and debugging; some of them change what the node considers valid until they are undone. This is the help text that AokChain Core 4.0.10 prints for each with `aokchain-cli help <command>`. All categories are on [[rpc]].
 
 > [!NOTE]
 > The addresses in the examples of these help texts are example addresses that belong to nobody.

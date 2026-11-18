@@ -5,7 +5,7 @@ order: 10
 generated_by: tools/rpc_reference.py
 ---
 
-Every command that AokChain Core 4.0.9 answers over JSON-RPC and `aokchain-cli`, by category. Each name links to the command's help text, the same text that `aokchain-cli help <command>` prints. How to send a call is on [[json-rpc]].
+Every command that AokChain Core 4.0.10 answers over JSON-RPC and `aokchain-cli`, by category. Each name links to the command's help text, the same text that `aokchain-cli help <command>` prints. How to send a call is on [[json-rpc]].
 
 ## Categories
 
