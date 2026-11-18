@@ -37,21 +37,21 @@ The packages that are out are listed at [@@site_host@@/download](@@site@@/downlo
 2. Compute its SHA-256 and compare it with the one printed next to the link on the download page:
 
    ```bash
-   sha256sum aokchain-4.0.9-linux-x86_64.tar.gz
+   sha256sum aokchain-4.0.10-linux-x86_64.tar.gz
    ```
 
    If the two differ, do not use the file. With the checksum file `SHA256SUMS.txt` of the release in the same folder, `sha256sum -c SHA256SUMS.txt --ignore-missing` compares them for you; the line of your archive must end in `OK`.
 3. Unpack it and put the programs where the system finds them. On Linux:
 
    ```bash
-   tar xzf aokchain-4.0.9-linux-x86_64.tar.gz
-   sudo install -m 0755 aokchain-4.0.9-linux-x86_64/aokchain* /usr/local/bin/
+   tar xzf aokchain-4.0.10-linux-x86_64.tar.gz
+   sudo install -m 0755 aokchain-4.0.10-linux-x86_64/aokchain* /usr/local/bin/
    aokchaind -version
    ```
 
-   The first line says `AokChain Core Daemon version v4.0.9`.
+   The first line says `AokChain Core Daemon version v4.0.10`.
 
-The Linux package holds `aokchaind`, `aokchain-cli`, `aokchain-tx` and `aokchain-wallet`; the libraries they need are built in. The desktop wallet for Linux, `aokchain-qt`, is an archive of its own; see [[desktop-wallet#on-linux|On Linux]]. On Windows, unpack the archive into a folder of your choice. The Windows programs are not code-signed, so Windows asks for a confirmation the first time it starts them.
+The Linux package holds `aokchaind`, `aokchain-cli`, `aokchain-tx` and `aokchain-wallet`; the libraries they need are built in. The desktop wallet for Linux, `aokchain-qt`, is an archive of its own; see [[desktop-wallet#on-linux|On Linux]]. On Windows, run the setup program, which installs the desktop wallet and the node programs (see [[desktop-wallet#on-windows|On Windows]]), or unpack the archive of the node programs into a folder of your choice. The Windows programs and the setup program are not code-signed, so Windows asks for a confirmation the first time it starts them.
 
 > [!WARNING]
 > Install only programs whose checksum matches the one published on @@site_host@@. A wallet program from anywhere else can steal the keys of every wallet it opens.

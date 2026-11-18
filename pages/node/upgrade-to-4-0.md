@@ -31,7 +31,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
    ```bash
    sudo mv /usr/local/bin/aokchaind    /usr/local/bin/aokchaind-3.0
    sudo mv /usr/local/bin/aokchain-cli /usr/local/bin/aokchain-cli-3.0
-   sudo install -m 0755 aokchain-4.0.9-linux-x86_64/aokchain* /usr/local/bin/
+   sudo install -m 0755 aokchain-4.0.10-linux-x86_64/aokchain* /usr/local/bin/
    ```
 
    Get and check the 4.0 package as [[install-a-node]] describes.
@@ -41,7 +41,7 @@ AokChain Core 4.0 runs on the same chain as 3.0.x. There is no hard fork and no 
 4. **Check it**, a minute later:
 
    ```bash
-   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.9/"
+   aokchain-cli getnetworkinfo | grep subversion       # "/AokChain:4.0.10/"
    aokchain-cli getblockcount                          # rises to the height of the other nodes
    aokchain-cli getwalletinfo | grep -E '"balance"|immature|txcount'
    ```
@@ -57,6 +57,8 @@ sudo mv /usr/local/bin/aokchaind-3.0    /usr/local/bin/aokchaind
 sudo mv /usr/local/bin/aokchain-cli-3.0 /usr/local/bin/aokchain-cli
 aokchaind -daemon
 ```
+
+From 4.0.10 on, stop the node normally before an earlier version uses its data directory again, as these commands do. What to do when that was not possible is under [Between 4.0 versions](#between-40-versions).
 
 ## Staking nodes
 
@@ -94,3 +96,17 @@ aokchaind -daemon
 ```bash
 aokchain-cli getpeerinfo | grep '"subver"' | sort | uniq -c
 ```
+
+## Between 4.0 versions
+
+A 4.0 node is upgraded to a later 4.0 version by the same steps: stop it normally, replace the programs, start it. Nothing changes in `aokchain.conf`, and nothing changes for wallets. What 4.0.10 adds for the operator:
+
+- **The first start after an earlier version.** A node that was stopped normally before the upgrade does not rebuild. A node that was killed or crashed under the earlier version rebuilds its chain state once at its first start under 4.0.10. That takes some tens of minutes on the main network; the node does not stake meanwhile, and the wallet is not touched.
+- **Where you have to ask for that rebuild.** The node knows such a stop by the pid file that the earlier version left in the data directory. It cannot see it on Windows, which has no pid file, when the pid file is kept outside the data directory (`-pid`), and when a service manager removes it (`PIDFile=` in a systemd unit, as on [[start-and-stop]]). If the earlier version was not stopped normally in one of these cases, start 4.0.10 once with `-reindex-chainstate`.
+- **A start after a stop without a shutdown.** Start the node as usual. It brings its databases in step and, when it cannot go on from them, rebuilds them from the block files by itself. What the log says then is on [[start-and-stop#after-a-stop-without-a-shutdown|Start and stop]].
+- **`autorebuild=0`** in `aokchain.conf` keeps the decision about a rebuild with you. The node then stops with a message that names the option to use ([[configuration-options]]).
+- **Keep `Restart=on-failure` in the service unit.** When a block that the node had validated before does not connect any more, the node says "The databases of this node are damaged. They are built again from the block files at the next start: start the program again, no option is needed." and ends with exit code 1. Started again, it rebuilds.
+- **`coins_missing` in `getstakinginfo`.** Above 0, the chain state of the node does not hold coins that the wallet would stake. The wallet goes on staking with its other coins, and the log names the coins. Rebuild the chain state at a convenient time with `-reindex-chainstate`; the wallet is not touched by it.
+- **Going back to 4.0.9.** Stop the node normally, put the old programs back and start it. If the node was not stopped normally, start 4.0.10 once more, stop it normally, and only then put the old programs back; when that is not possible, rebuild the chain state after going back.
+
+The other changes of each version are on [[version-history]].

@@ -1,6 +1,6 @@
 ---
 title: Version history
-description: "The changes of every AokChain Core version from 4.0.0 to 4.0.9, and the 3.0.x line before them."
+description: "The changes of every AokChain Core version from 4.0.0 to 4.0.10, and the 3.0.x line before them."
 order: 20
 ---
 
@@ -8,6 +8,7 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 
 | Version | Date | For whom |
 |---|---|---|
+| 4.0.10 | 2026-11-19 | Everyone on 4.0: nodes that stake, nodes with an address index, and any node that may be stopped without a shutdown |
 | 4.0.9 | 2026-11-17 | Those who build for macOS; a node that runs 4.0.8 does not need it |
 | 4.0.8 | 2026-11-17 | Everyone on 4.0: nodes with an address index, nodes that open several wallets, desktop wallet users on Linux |
 | 4.0.7 | 2026-11-17 | Desktop wallet users; nodes that load wallets while they run |
@@ -19,6 +20,23 @@ What changed in each version of AokChain Core. Every 4.0 version accepts the sam
 | 4.0.1 | 2026-11-14 | Everyone on 4.0.0 |
 | 4.0.0 | 2026-11-13 | Everyone on 3.0.x |
 | 3.0.5 | 2022-09-24 | The last 3.0.x version |
+
+## 4.0.10
+
+A maintenance release for nodes that run for a long time. The rules do not change: 4.0.10 accepts the same blocks as 4.0.0 to 4.0.9, and nothing changes for wallets. Upgrade every node; a plain restart is enough.
+
+- Start after a stop without a normal shutdown: after a kill, a crash, a power failure or a forced stop of the machine, a plain restart is enough. The start brings every database to the block of the chain state ([[start-and-stop#after-a-stop-without-a-shutdown|After a stop without a shutdown]]).
+- The node checks its databases and rebuilds by itself: at every start it checks that its databases belong to one block. When it cannot go on from them, the same start builds the chain state, the token database and the governance database again from the block files, as `-reindex-chainstate` does, and the log says so. `-autorebuild=0` turns this off; the node then stops with the message that names the option to use ([[configuration-options]]).
+- A node that started from a chain state snapshot starts over from the snapshot where other nodes rebuild, and removes nothing before the new snapshot is fetched, checked and unpacked. A pruned node does not rebuild by itself: it ends with a message that names `-reindex`.
+- Governance commands of a block that leaves the chain: the node keeps what the commands of each block replaced, and puts exactly that back when the block is disconnected. New in the data directory: `governanceundo/`, `governanceundo.since` and, while the node runs, `pid.note`.
+- First start after an earlier version: a node that was stopped normally before the upgrade does not rebuild. One that was killed or crashed under an earlier version rebuilds once at its first start ([[upgrade-to-4-0#between-40-versions|Between 4.0 versions]]).
+- Token database: it is written in one step, together with the block that it stands for. A stop during a rebuild ends the node normally, and the rebuild continues after a plain restart.
+- Memory: while many blocks are connected in a row (a rebuild of the chain state, `-reindex`, the import of block archives, a long catch-up), the node waits for its internal notifications to be delivered. A rebuild of the chain state needs well under half the memory it needed before.
+- Staking: the last check of a found stake runs under the same locks as the search for it. A wallet leaves a coin out of its stakes when the chain state of the node does not hold it, and goes on staking with its other coins; `getstakinginfo` counts such coins in the new field `coins_missing`.
+- Address index: with `-addressindex` the address index follows the chain state after any stop, and `-reindex-chainstate` also rebuilds the address, spent and time indexes.
+- Going back: after a normal stop, 4.0.9 can use the data directory again.
+- Desktop wallet: a setup program for Windows ([[desktop-wallet#on-windows|On Windows]]).
+- The release programs report `v4.0.10`.
 
 ## 4.0.9
 

@@ -20,6 +20,15 @@ The desktop wallet for Linux is an archive of its own, apart from the node's pac
 
 The program is made for the desktop of Ubuntu 22.04 or 24.04 (x86_64, glibc 2.35 or later) and uses its X and font libraries; in a Wayland session it runs through XWayland. If it stops with `error while loading shared libraries`, the message names the missing library, and `README.txt` lists the packages to install. The data folder is `~/.aokchain`, which `aokchaind` uses too: only one of the two can run on it at a time.
 
+### On Windows
+
+For Windows 64-bit there are two downloads. Both hold the same desktop wallet.
+
+- **The setup program**, from 4.0.10 on: the file whose name ends in `-win64-setup.exe`. It installs the desktop wallet and the node programs, and adds entries to the Start menu and an uninstaller. It leaves the data folder with the wallet where it is.
+- **The archive**: unpack it into a folder of your choice and run `aokchain-qt.exe`. Nothing is installed.
+
+Neither is code-signed, so Windows asks for a confirmation before it runs them. Confirm only when the checksum of the file matches the one on the download page.
+
 ## First start
 
 The first start goes through the steps **Start**, **Wallet passphrase** and **Backup**, with the download of the chain state in between.
