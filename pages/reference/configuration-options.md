@@ -56,7 +56,7 @@ The desktop wallet, `aokchain-qt`, takes the same options except `-daemon` and `
 | `-mempoolexpiry=<n>` | Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: 336) |
 | `-persistmempool` | Whether to save the mempool on shutdown and load on restart (default: 1) |
 | `-blockreconstructionextratxn=<n>` | Extra transactions to keep in memory for compact block reconstructions (default: 100) |
-| `-par=<n>` | Set the number of script verification threads (-24 to 16, 0 = auto, &lt;0 = leave that many cores free, default: 0) |
+| `-par=<n>` | Set the number of script verification threads (-8 to 16, 0 = auto, &lt;0 = leave that many cores free, default: 0) |
 | `-pid=<file>` | Specify pid file (default: aokchaind.pid) |
 | `-prune=<n>` | Reduce storage requirements by enabling pruning (deleting) of old blocks. This allows the pruneblockchain RPC to be called to delete specific blocks, and enables automatic pruning of old blocks if a target size in MiB is provided. This mode is incompatible with -txindex and -rescan. Warning: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, &gt;550 = automatically prune block files to stay under the specified target size in MiB) |
 | `-reindex-chainstate` | Rebuild chain state from the currently indexed blocks |
