@@ -30,6 +30,14 @@ branch: wiki
 # wiki is served at the root of its own host).
 noindex: true
 
+# The launch: tools/build.py --launch takes these in place of the values
+# above. Under /doc/ the wiki's own address follows from the site's.
+launch:
+  site: https://aok.network
+  explorer: https://aokscan.com
+  api: https://api.aok.network/v3
+  noindex: false
+
 # Shown in place of "Edit this page" on pages that have generated_by.
 generated_from: AokChain Core 4.0.10
 

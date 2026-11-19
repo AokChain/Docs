@@ -6,6 +6,7 @@ __pycache__/
 
 # Build output (tools/build.py)
 /build/
+/build-launch/
 
 # Deploy target, local only (see README)
 /.deploy.env

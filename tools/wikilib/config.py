@@ -62,9 +62,17 @@ def _read_yaml(path):
         raise BuildError([f"{path.name}: not valid YAML: {e}"]) from None
 
 
-def load(root=ROOT, base=None):
+def load(root=ROOT, base=None, launch=False):
+    """launch: the values of the `launch` mapping of wiki.yml take the place of
+    the ones of the test period (the addresses, noindex)."""
     errors = []
     wiki = _read_yaml(root / "wiki.yml") or {}
+    launch_values = wiki.pop("launch", None) or {}
+    if launch:
+        if not isinstance(launch_values, dict) or not launch_values:
+            errors.append("wiki.yml: --launch needs a launch mapping")
+        else:
+            wiki.update(launch_values)
     raw_sections = _read_yaml(root / "sections.yml") or []
 
     base = base or wiki.get("base") or "/"

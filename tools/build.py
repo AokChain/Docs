@@ -27,9 +27,11 @@ def main(argv=None):
     ap.add_argument("--pages", action="append", type=Path,
                     help="pages directory (repeatable, default ./pages)")
     ap.add_argument("--out", type=Path, default=config.ROOT / "build", help="output directory (default build/)")
+    ap.add_argument("--launch", action="store_true",
+                    help="the addresses of the launch (the launch mapping of wiki.yml) in place of the test ones")
     args = ap.parse_args(argv)
     try:
-        cfg = config.load(base=args.base)
+        cfg = config.load(base=args.base, launch=args.launch)
         site = Site(cfg, args.pages or [Path("pages")], args.out).build()
     except BuildError as e:
         print(f"build failed: {len(e.messages)} problem{'s' if len(e.messages) != 1 else ''}", file=sys.stderr)

@@ -76,6 +76,7 @@ python3 -m venv .venv            # once; or bootstrap pip into the venv if ensur
 
 .venv/bin/python tools/build.py                  # base /doc/, pages from ./pages
 .venv/bin/python tools/build.py --base /         # for docs.aok.network
+.venv/bin/python tools/build.py --launch --out build-launch   # the addresses of the launch (`launch` in wiki.yml)
 .venv/bin/python tools/build.py --pages tests/fixtures/pages     # the fixture pages
 .venv/bin/python tools/build.py --pages ../a/pages --pages ../b/pages   # several page folders together
 
@@ -90,7 +91,7 @@ tools/deploy.sh
 
 `tools/check.py` fails on console errors, Content Security Policy violations, failed requests, requests to other sites, horizontal scrolling, text contrast below WCAG AA, missing fonts, links or anchors that do not answer, alias pages that do not forward, and a 404 page or headers that are not right. `--shots DIR` saves a screenshot of every page, width and theme.
 
-`tools/deploy.sh` reads the target from `.deploy.env`, which is not in git: `AOK_DEPLOY_HOST`, `AOK_DEPLOY_DIR`, `AOK_DEPLOY_KEY` (optional) and `AOK_DEPLOY_BASE` (default `/doc/`). It refuses a build made for another base.
+`tools/deploy.sh` reads the target from `.deploy.env`, which is not in git: `AOK_DEPLOY_HOST`, `AOK_DEPLOY_DIR`, `AOK_DEPLOY_KEY` (optional) and `AOK_DEPLOY_BASE` (default `/doc/`). It refuses a build made for another base, and a build for another website address than the one the server's folder names in `.site` (left there when the wiki of the launch is deployed with the website's launch build).
 
 ## The reference pages of a release
 
